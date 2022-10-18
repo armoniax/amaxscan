@@ -1,0 +1,40 @@
+html {}
+body {
+  color: #000;line-height: 1;
+  font-family: 'PingFang';
+  font-size: 16px;
+}
+// html,body {overflow: hidden;}
+.block {display: block;}
+.none {display:none}
+.clear {clear: both;}
+
+.fl {float: left;}
+.fr {float: right;}
+.tl {text-align: left;}
+.tr {text-align: right;}
+.tc {text-align: center;}
+
+.cf {
+  zoom:1;
+  &:before,&:after {content:"";display:table;}
+  &:after {clear:both;}
+}
+// 滚动条
+::-webkit-scrollbar {width: 8px;height: 10px;display: none;}
+::-webkit-scrollbar-thumb {background: #333;}
+::-webkit-scrollbar-track-piece{background: #000;}
+
+.body-blur{
+  filter: blur(5px);
+}
+
+.no-focus-visible{
+  outline: none !important;
+  &:focus-visible{
+    outline: none !important;
+  }
+  &:focus:not(:focus-visible) {
+    outline: none !important;
+  }
+}
