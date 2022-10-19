@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react'
+import React, {memo} from 'react'
 import Icon from "@/components/Icon";
 import header_logo from "@/assets/images/web/header_logo.png";
 import {Link, NavLink} from 'react-router-dom';
@@ -12,10 +12,6 @@ interface IWebHeaderProps {
 
 const WebHeader: React.FunctionComponent<IWebHeaderProps> = (props) => {
     const {i18n, t} = useTranslation()
-    useEffect(() => {
-        console.log(languages, i18n.language)
-        console.log(languages.find(i => i.value === i18n.language).label)
-    }, [i18n.language])
     const navList: any[] = [
         {
             path: '/',
@@ -62,7 +58,7 @@ const WebHeader: React.FunctionComponent<IWebHeaderProps> = (props) => {
                     }
                 </div>
                 <div className='select-box flex-row-center-center web-header-nav-dropdown m-l-26'>
-                    <p>{languages.find(i => i.value === i18n.language).label}</p>
+                    <p>{languages && languages.find(i => i.value === i18n.language)?.label}</p>
                     <div className='arrow-down'></div>
                     <div className="web-header-nav-dropdown-menu">
                         <ul className="c-fff p-10-0">
