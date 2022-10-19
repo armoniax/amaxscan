@@ -32,7 +32,6 @@ const BaseInfoSlice = createSlice({
         }
     },
 });
-
 export const getUserInfo =
     (): AppThunk =>
     async dispatch => {
@@ -64,3 +63,4 @@ export const getUserInfo =
     };
 
 export default BaseInfoSlice.reducer;
+

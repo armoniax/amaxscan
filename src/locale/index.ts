@@ -14,7 +14,7 @@ const langs = langsFiles.keys().reduce((langs: {[index: string]: any}, path) => 
   langItems.push({ value: code, label: name, sort: sort, icon: icon })
   return langs
 }, {})
-const lange = StorageHelper.getItem('lange') ?? 'en';
+const lange = StorageHelper.getItem('lange') ?? 'en_US';
 export const languages = langItems.sort((a, b) => a.sort - b.sort)
 i18n.use(LanguageDetector).use(initReactI18next) // init i18next
   .init({

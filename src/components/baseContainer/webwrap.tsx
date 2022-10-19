@@ -12,6 +12,7 @@ const webWrap = (props: any) => {
             {
                 isMobile
                     ? <div className="mp-home">
+                        <div className='top-bg'></div>
                         <MpHeader pagename={props.pagename}/>
                         <div className="mp-body">{props.children}</div>
                         <MpFooter/>

@@ -1,0 +1,25 @@
+.home-container {
+  .input-external {
+    width: 100%;
+    background: #FFFFFF;
+    box-shadow: 0 0 0.12rem 0 rgba(212, 212, 212, 0.4);
+    border-radius: 0.08rem;
+    border: 0.02rem solid;
+    border-image: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)) 1 1;
+    padding: 0.16rem 0.28rem;
+
+    input {
+      flex: 1;
+      width: 100px;
+      padding-right: 0.04rem;
+      border: none;
+      color: #313131;
+      background: none;
+      font-size: 0.24rem;
+      &::-webkit-input-placeholder {
+        color: #909399;
+        font-size: 0.24rem;
+      }
+    }
+  }
+}
