@@ -1,8 +1,10 @@
 .web-home {
-  background: #F6F7FA;
+  background: url(../../assets/images/web/background.png) no-repeat top;
+  background-size: 1702px 508px;
+  background-color: #F6F7FA;
   min-height: 100vh;
   min-width: 1200px;
-  background-size: 100% 100%;
+  // background-size: 100% 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -16,7 +18,9 @@
     font-size: 18px;
     font-weight: 400;
     padding: 38px 42px;
-
+    &.showback{
+      background-color: #F6F7FA;
+    }
     .nav {
       .nav-item {
         margin-left: 20px;
@@ -81,12 +85,12 @@
   .web-body {
     padding-top: 120px;
     flex: 1;
-    width: 80%;
+    width: 1368px;
     margin: 0 auto;
   }
 
   .web-footer {
-    width: 80%;
+    width: 1368px;
     margin: 20px auto 20px;
 
     .txt {

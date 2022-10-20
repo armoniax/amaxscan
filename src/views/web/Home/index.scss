@@ -1,0 +1,450 @@
+// 搜索栏
+.m-search-bar {
+  width: 100%;
+  height: 70px;
+  margin-top: 40px;
+  margin-bottom: 86px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+
+  input {
+    outline: none;
+    border: none;
+    width: 100%;
+    color: #909399;
+    font-size: 16px;
+    font-family: "PingFang";
+
+    &::placeholder {
+      color: #909399;
+    }
+  }
+}
+
+
+// 概览
+.m-situation-blocks {
+  display: flex;
+  justify-content: space-between;
+
+  .bars-4 {
+    width: 65%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .bar-item {
+      width: 420px;
+      height: 170px;
+      margin-right: 24px;
+      margin-bottom: 24px;
+      padding: 20px 24px;
+
+      &.no-mb {
+        margin-bottom: 0;
+      }
+
+      &-title {
+        font-size: 16px;
+        color: #606266;
+
+        .number {
+          color: #313131;
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        .title-wrapper {
+          display: flex;
+          align-items: center;
+        }
+
+        .title-icon {
+          height: 58px;
+          margin-right: 8px;
+        }
+
+        .fresh-sign {
+          width: 88px;
+        }
+      }
+
+      &-content {
+        &.fresh {
+          margin-top: 44px;
+          font-weight: bold;
+          font-size: 20px;
+          color: #313131;
+        }
+
+        .point {
+          margin-top: 20px;
+          color: #313131;
+          font-size: 20px;
+          font-weight: bold;
+          line-height: 1.4;
+
+          .point-title {
+            font-size: 14px;
+            color: #909399;
+            margin-bottom: 10px;
+            font-weight: lighter;
+          }
+        }
+
+        .content {
+          display: flex;
+          flex-direction: column;
+          width: 40%;
+          margin-top: 20px;
+
+          .wrapper {
+            display: flex;
+            justify-content: space-between;
+            color: #909399;
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+
+            p {
+              display: block;
+              color: #50bf8c;
+              font-size: 16px;
+            }
+
+            .text-red {
+              color: #fa454b;
+            }
+          }
+        }
+
+        .content-wrapper {
+          margin-top: 8px;
+
+          .left {
+            font-size: 14px;
+            color: #909399;
+          }
+
+          .right {
+            font-size: 18px;
+            color: #303333;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  .bars-1 {
+    width: 480px;
+    padding: 22px;
+
+    .bars-header {
+      align-items: stretch;
+
+      .header-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #909399;
+        font-size: 12px;
+
+        img {
+          width: 234px;
+        }
+      }
+
+      .header-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        font-size: 14px;
+        color: #303333;
+        // .trend{
+        //   padding-left: 6px;
+        //   color: #50BF8C;
+        //   font-size: 14px;
+        //   border-radius: 6px;
+        //   background-color: #F3FFF9;
+
+        // }
+        // .unit{
+        //   font-size: 10px;
+        // }
+      }
+    }
+
+    .banner {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .amax-list {
+      margin-top: 38px;
+
+      &-item {
+        height: 44px;
+        font-size: 12px;
+        margin-bottom: 18px;
+
+        .title {
+          width: 92px;
+        }
+
+        .number-font {
+          font-size: 14px;
+        }
+
+        .progress {
+          height: 10px;
+          background: #4BC98F;
+          border-radius: 7px;
+
+          &-60 {
+            width: 60%;
+          }
+
+          &-40 {
+            width: 40%;
+          }
+
+          &-30 {
+            width: 30%;
+          }
+        }
+
+
+      }
+    }
+
+    .bottom-text {
+      margin-top: 24px;
+      font-size: 12px;
+
+      .number {
+        font-size: 14px;
+        font-weight: bold;
+        color: #303332;
+      }
+    }
+  }
+}
+
+
+//最新区块
+.latest-block {
+  margin-top: 38px;
+  padding: 24px 30px;
+
+  &-list {
+    &-item {
+      height: 80px;
+      border-top: 1px solid #EAEEEC;
+
+      .item-title {
+        color: #2C2D2F;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .item-time {
+        color: #909399;
+        font-size: 16px;
+      }
+
+      .item-type {
+        padding: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 22px;
+        background: rgb(234, 236, 235, 0.4);
+        border-radius: 4px;
+        color: #666c6c;
+        font-size: 16px;
+      }
+
+      .item-transaction {
+        color: #303333;
+        font-size: 16px;
+
+        .text-red {
+          color: #1BA03A;
+        }
+      }
+    }
+  }
+}
+
+
+//最新交易
+.latest-transaction {
+  margin-top: 40px;
+  display: flex;
+
+  .table-bar {
+    padding: 24px 30px 8px 30px;
+
+    &-title {
+      font-size: 24px;
+      color: #303332;
+      font-weight: bold;
+      padding-bottom: 16px;
+    }
+
+    .transaction-table {
+      color: #303332;
+      font-size: 16px;
+      text-align: right;
+
+      .table-header {
+        font-size: 20px;
+        font-weight: bold;
+        border-top: 1px solid #eaeeec;
+
+        td {
+          height: 64px;
+          line-height: 64px;
+
+          &:first-child {
+            text-align: left;
+          }
+        }
+      }
+
+      tr {
+        border-top: 1px solid #eaeeec;
+      }
+
+      td {
+        height: 50px;
+        line-height: 50px;
+        min-width: 162px;
+
+        p {
+          max-width: 210px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+
+  .chart-bar {
+    box-shadow: -6px 1px 12px 0px rgba(214, 215, 221, 0.3);
+  }
+}
+
+
+
+//市场动态
+.market-dynamic {
+  margin-top: 40px;
+
+  .m-tabs {
+    height: 60px;
+    margin-left: -24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    .tab {
+      padding: 0 22px;
+      position: relative;
+      font-size: 16px;
+      height: 100%;
+      line-height: 60px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: inline-block;
+        width: 0;
+        height: 7px;
+        background: #4BC98F;
+        border-radius: 4px;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 0.4s;
+      }
+      &.z-cur {
+        font-weight: bold;
+        font-size: 18px;
+        &::after {
+          width: 40%;
+        }
+      }
+    }
+  }
+}
+
+
+//最新节点
+
+.producer-list {
+  margin-top: 40px;
+
+  .section-box-header {
+    border-bottom: 1px solid #eaeeec;
+  }
+
+  &-table {
+    width: 100%;
+
+    tr {
+      border-bottom: 1px solid #EAEEEC;
+    }
+
+    td {
+      height: 80px;
+      line-height: 80px;
+      color: #000000;
+      font-size: 18px;
+
+      img {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .tag {
+        width: 100px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        display: inline-block;
+        vertical-align: middle;
+        background: #4BC98F;
+        box-shadow: 3px 4px 22px 0px rgba(182, 182, 182, 0.19);
+        border-radius: 4px;
+        font-size: 18px;
+        color: #fff;
+      }
+
+      .text-gray {
+        color: #7F7F7F;
+      }
+
+      .text-orange {
+        color: #F55445;
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+
+    &-header {
+      color: #303332;
+      font-weight: bold;
+      font-size: 18px;
+
+      td {
+        height: 60px;
+        line-height: 60px;
+      }
+    }
+  }
+}

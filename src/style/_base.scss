@@ -38,3 +38,52 @@ body {
     outline: none !important;
   }
 }
+
+
+// 统一阴影
+.s-shadow{
+  background: #ffffff;
+  box-shadow: 2px 4px 16px 0px rgba(225, 225, 225, 0.62);
+  border-radius: 16px;
+  transition: all 0.4s;
+  &.animate{
+    &:hover{
+      transform: translateY(-2%);
+      box-shadow: 2px 20px 16px 0px rgba(225, 225, 225, 0.62);
+    }
+  }
+}
+
+// 统一盒子布局
+.section-box{
+  padding:20px 24px;
+  @extend .s-shadow;
+  &-header {
+    color: #909399;
+    font-size: 16px;
+    padding-bottom: 16px;
+    .title {
+      font-size: 24px;
+      color: #303332;
+      font-weight: bold;
+    }
+  }
+}
+
+.arrow-icon{
+  transform: rotate(-90deg);
+  background: url(../assets/images/web/pulldown_icon.png) no-repeat center;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+
+// 字体样式
+.number-font{
+  font-family: 'D-DINExp';
+}
+
+.number-font-bold{
+  font-family: 'D-DINExp-Bold';
+}

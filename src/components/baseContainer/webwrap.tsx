@@ -1,4 +1,4 @@
-import React, {createElement} from 'react'
+import React, {createElement, useEffect} from 'react'
 import WebHeader from './header/web-header'
 import MpHeader from './header/mp-header'
 import './index.scss'
