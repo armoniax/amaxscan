@@ -10,11 +10,6 @@ const App: FC = () => {
       const scrollT = document.documentElement.scrollTop || document.body.scrollTop;
       scrollT > 120 ? document.getElementsByClassName('web-header')[0].classList.add('showback') : document.getElementsByClassName('web-header')[0].classList.remove('showback')
     })
-    return () => {
-      window.removeEventListener('scroll', ()=>{
-        console.log(1222);
-      })
-    }
   }, [])
     return (
         <Suspense fallback={<Loading/>}>

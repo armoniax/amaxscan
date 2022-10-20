@@ -1,11 +1,7 @@
 import { FC, memo, ReactElement } from "react";
-import { useTranslation } from "react-i18next";
 import "../index.scss";
 
 const LatestTransaction: FC = (): ReactElement => {
-  const { t } = useTranslation();
-  console.log(212);
-
   return (
     <div className="latest-transaction s-shadow">
       <div className="table-bar">
@@ -39,7 +35,28 @@ const LatestTransaction: FC = (): ReactElement => {
           </tbody>
         </table>
       </div>
-      <div className="chart-bar"></div>
+      <div className="chart-bar ">
+        <a href="/" className="chart-bar-header flex-row-end-center c-909399">更多交易 <i className="arrow-icon"></i> </a>
+        <div className="chart-bar-main">
+          <div className="title">Actions</div>
+          <div className="progress-list">
+            <div className="progress-list-item l-10"></div>
+            <div className="progress-list-item l-80"></div>
+            <div className="progress-list-item l-70"></div>
+            <div className="progress-list-item l-70"></div>
+            <div className="progress-list-item l-30"></div>
+          </div>
+          <div className="coordinates">
+            <span>0</span>
+            <span>2</span>
+            <span>4</span>
+            <span>6</span>
+            <span>8</span>
+            <span>10</span>
+            <span>12</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
