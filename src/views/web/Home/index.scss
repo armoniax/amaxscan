@@ -1,9 +1,11 @@
+@import '../../../style/_mixin.scss';
+
 // 搜索栏
 .m-search-bar {
   width: 100%;
   height: 70px;
   margin-top: 40px;
-  margin-bottom: 86px;
+  margin-bottom: 60px;
   padding: 20px;
   display: flex;
   align-items: center;
@@ -332,16 +334,92 @@
     }
   }
 
+
+
   .chart-bar {
-    box-shadow: -6px 1px 12px 0px rgba(214, 215, 221, 0.3);
+    flex: 1;
+    box-shadow: -6px 1px 12px 0px #d6d7dd4d;
+    padding: 24px 24px 0 16px;
+
+    &-header {
+      font-size: 16px;
+      padding-bottom: 16px;
+    }
+
+    &-main {
+      .title {
+        height: 66px;
+        line-height: 66px;
+        font-size: 20px;
+        color: #303332;
+        font-weight: bold;
+      }
+
+      .progress-list {
+        &-item {
+          &.l-10{
+            @include progress(10%)
+          }
+          &.l-20{
+            @include progress(20%)
+          }
+          &.l-30{
+            @include progress(30%)
+          }
+          &.l-40{
+            @include progress(40%)
+          }
+          &.l-60{
+            @include progress(60%)
+          }
+          &.l-80{
+            @include progress(80%)
+          }
+          &.l-70{
+            @include progress(70%)
+          }
+        }
+      }
+      .coordinates{
+        display: flex;
+        justify-content: space-between;
+        color: #909399;
+        font-size: 14px;
+        margin-top: -10px;
+      }
+    }
   }
 }
 
-
+// APOS区块
+.apos-block{
+  margin-top: 48px;
+  .header-right{
+    color: #303333;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    .question-icon{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid #909399;
+      cursor: pointer;
+    }
+  }
+}
 
 //市场动态
 .market-dynamic {
   margin-top: 40px;
+
+  .section-box-header {
+    border-bottom: 1px solid #EAEEEC;
+  }
 
   .m-tabs {
     height: 60px;
@@ -350,12 +428,14 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+
     .tab {
       padding: 0 22px;
       position: relative;
       font-size: 16px;
       height: 100%;
       line-height: 60px;
+      cursor: pointer;
 
       &::after {
         content: "";
@@ -370,11 +450,66 @@
         transform: translateX(-50%);
         transition: all 0.4s;
       }
+
       &.z-cur {
         font-weight: bold;
         font-size: 18px;
+
         &::after {
           width: 40%;
+        }
+      }
+    }
+  }
+
+  .chart-list {
+    margin-top: 30px;
+    &-item {
+      .desc {
+        font-size: 14px;
+        color: #000000;
+
+        .number-font {
+          font-size: 22px;
+          color: #303332;
+          font-weight: bold;
+          margin-top: 10px;
+        }
+      }
+
+      .chart {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        margin-left: 26px;
+
+        img {
+          margin-left: 4px;
+        }
+
+        .rise-icon-red {
+          @include rise-icon(#FA454B)
+        }
+
+        .rise-icon-yellow {
+          @include rise-icon(#F5B84A)
+        }
+
+        .rise-icon-blue {
+          @include rise-icon(#5E86FA)
+        }
+
+        &.s-red {
+          color: #FA454B;
+        }
+
+        &.s-yellow {
+          color: #F5B84A;
+        }
+
+        &.s-blue {
+          color: #5E86FA;
         }
       }
     }

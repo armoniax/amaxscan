@@ -1,9 +1,7 @@
 import { FC, memo, ReactElement } from "react";
-import { useTranslation } from "react-i18next";
 import "../index.scss";
 
 const LatestBlock: FC = (): ReactElement => {
-  const { t } = useTranslation();
   return (
     <div className="latest-block section-box">
       <div className="section-box-header flex-row-between-center">

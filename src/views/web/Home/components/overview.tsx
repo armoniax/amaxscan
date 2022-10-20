@@ -20,7 +20,7 @@ const OverView: FC = (): ReactElement => {
           <div className="bar-item-title flex-row-between-center">
             <div className="title-wrapper">
               <img className="title-icon" src={curBlockPng} alt="" />
-              当前区块
+              {t('home.currentBlock')}
             </div>
             <div className="number number-font">3764565</div>
           </div>
@@ -84,7 +84,7 @@ const OverView: FC = (): ReactElement => {
           <div className="bar-item-title">
             <div className="title-wrapper">
               <img className="title-icon" src={statusPng} alt="" />
-              实时状况
+              {t('home.realTimeStatus')}
             </div>
           </div>
           <div className="bar-item-content">

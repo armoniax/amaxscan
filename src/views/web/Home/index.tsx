@@ -6,6 +6,7 @@ import Overview from './components/overview'
 import LatestBlock from './components/latest-block'
 import LatestTransaction from './components/latest-transaction'
 import ProductionNodes from './components/production-nodes'
+// import APOSBlock from './components/apos-block'
 import MarketDynamic from './components/market-dynamic'
 
 
@@ -19,6 +20,7 @@ const Home: FC = (): ReactElement => {
         <Overview/>
         <LatestBlock />
         <LatestTransaction/>
+        {/* <APOSBlock/> */}
         <MarketDynamic/>
         <ProductionNodes />
       </div>
