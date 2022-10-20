@@ -4,11 +4,11 @@
 
 const info = {
   // 语言名称
-  name: '한국어',
+  name: '日本語',
   // 语言代码
-  code: 'ko',
+  code: 'ja',
   // 语言排序
-  sort: 3
+  sort: 4
   // 图标
 }
 

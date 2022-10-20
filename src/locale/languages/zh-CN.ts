@@ -5,7 +5,7 @@ const info = {
   // 语言名称
   name: '简体中文',
   // 语言代码
-  code: 'zh_CN',
+  code: 'zh-CN',
   // 语言排序
   sort: 2
 }
