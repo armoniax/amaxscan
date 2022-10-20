@@ -6,11 +6,11 @@ const common = {
         "Confirm": "추인하다",
         header: {
             nav: {
-                home: '집',
-                blocks: '블록',
-                nodes: '노드',
-                transactions: '업무',
-                tokens: '토큰'
+                home: '表紙',
+                blocks: 'ブロック',
+                nodes: '生産ノード',
+                transactions: 'トレード',
+                tokens: 'トークン'
             },
         }
     }

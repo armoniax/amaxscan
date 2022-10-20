@@ -19,6 +19,7 @@ const webWrap = (props: any) => {
                     </div>
                     : <div className="web-home">
                         <WebHeader pagename={props.pagename}/>
+                        <div className='top-bg'></div>
                         <div className="web-body">
                             {props.children}
                         </div>

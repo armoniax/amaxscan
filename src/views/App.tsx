@@ -5,17 +5,19 @@ import routerConfig from "@/config/route";
 
 const NotFound404 = lazy(async () => await import('./NotFound404'))
 const App: FC = () => {
-  useEffect(() => {
-    window.addEventListener('scroll', ()=>{
-      const scrollT = document.documentElement.scrollTop || document.body.scrollTop;
-      scrollT > 120 ? document.getElementsByClassName('web-header')[0].classList.add('showback') : document.getElementsByClassName('web-header')[0].classList.remove('showback')
-    })
-    return () => {
-      window.removeEventListener('scroll', ()=>{
-        console.log(1222);
-      })
-    }
-  }, [])
+    const { isMobile } = (window as any)._global || {}
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            const scrollT = document.documentElement.scrollTop || document.body.scrollTop;
+            scrollT > 120 ? document.getElementsByClassName(isMobile?'mp-header':'web-header')[0].classList.add('showback') : document.getElementsByClassName(isMobile?'mp-header':'web-header')[0].classList.remove('showback')
+
+        })
+        return () => {
+            window.removeEventListener('scroll', () => {
+                console.log(1222);
+            })
+        }
+    }, [])
     return (
         <Suspense fallback={<Loading/>}>
             <BrowserRouter>
