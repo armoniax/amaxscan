@@ -39,6 +39,7 @@
     "react-transition-group": "^4.4.2",
     "redux": "^4.0.5",
     "react-slick": "^0.28.1",
+    "react-outclick": "^0.0.4",
     "redux-react-hook": "^4.0.3",
     "sass": "^1.51.0",
     "style-resources-loader": "^1.4.1",

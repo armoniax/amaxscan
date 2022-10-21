@@ -37,6 +37,9 @@
       height: 0.02rem;
       background: #EAEEEC;
     }
+    .card-line:last-child{
+      display: none;
+    }
   }
 
   .block-card {

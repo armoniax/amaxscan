@@ -1,6 +1,5 @@
-import React, {FC, memo, ReactElement, useCallback, useState} from 'react'
+import React, {FC, memo, ReactElement, useCallback, useEffect, useState} from 'react'
 import Baseweb from '@/components/baseContainer/webwrap'
-import {useTranslation} from 'react-i18next'
 import Icon from "@/components/Icon";
 import icon_search from "@/assets/images/mp/icon_search.png";
 import cur_block from "@/assets/images/web/cur_block.png";
@@ -16,14 +15,25 @@ import amax_banner from "@/assets/images/web/amax_banner.png";
 import curve_banner from "@/assets/images/mp/curve_banner.png";
 import icon_arrow_right from "@/assets/images/mp/icon_arrow_right.png";
 import node_icon from "@/assets/images/web/node_icon.png";
-
+import ServerApi from '@/api'
 import './index.scss'
 
 const Home: FC = (): ReactElement => {
-    const {t} = useTranslation()
     const [cur, setCur] = useState(0)
     const tabList = ['CNYD', 'APL']
     const [inputVal, setInputVal] = useState<string>('')
+    const [lastBlockList, setLastBlockList] = useState<any[]>([])
+    const {
+        getLastBlocksData
+    } = ServerApi
+
+    useEffect(() => {
+        const initData = async () => {
+            const responseData = await getLastBlocksData()
+            setLastBlockList(responseData)
+        }
+        void initData()
+    }, [getLastBlocksData])
     const inputChange = useCallback(
         (e) => {
             const value = e?.target?.value ?? ''
@@ -146,7 +156,7 @@ const Home: FC = (): ReactElement => {
                     {
                         tabList.map((item, i) => {
                             return (
-                                <div className={`tab ${cur === i ? 'z-cur' : ""}`} onClick={() => {
+                                <div key={item} className={`tab ${cur === i ? 'z-cur' : ""}`} onClick={() => {
                                     setCur(i)
                                 }}>{item}</div>
                             )
@@ -212,35 +222,19 @@ const Home: FC = (): ReactElement => {
                 </div>
                 <div className='card-line m-t-12'></div>
 
-                <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
-                    <p>fd838b517b17dsadfsa3</p>
-                    <p>240706426</p>
-                </div>
-                <div className='card-line'></div>
-                <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
-                    <p>fd838b517b17dsadfsa3</p>
-                    <p>240706426</p>
-                </div>
-                <div className='card-line'></div>
-                <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
-                    <p>fd838b517b17dsadfsa3</p>
-                    <p>240706426</p>
-                </div>
-                <div className='card-line'></div>
-                <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
-                    <p>fd838b517b17dsadfsa3</p>
-                    <p>240706426</p>
-                </div>
-                <div className='card-line'></div>
-                <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
-                    <p>fd838b517b17dsadfsa3</p>
-                    <p>240706426</p>
-                </div>
-                <div className='card-line'></div>
-                <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
-                    <p>fd838b517b17dsadfsa3</p>
-                    <p>240706426</p>
-                </div>
+                {
+                    lastBlockList.map((item: any) => {
+                        return (
+                            <>
+                                <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
+                                    <p>{`${item.id.substring(0, 6)}...${item.id.substring(item.id.length - 6)}`}</p>
+                                    <p>{item.block_num}</p>
+                                </div>
+                                <div className='card-line'></div>
+                            </>
+                        )
+                    })
+                }
             </div>
 
             <div className='flex-row-between-center m-t-16 m-b-8'>
@@ -263,7 +257,7 @@ const Home: FC = (): ReactElement => {
                 <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
                     <p className='w-20'>1</p>
                     <div className='w-20 t-center'>
-                        <Icon  src={node_icon} height="0.9rem"></Icon>
+                        <Icon src={node_icon} height="0.9rem"></Icon>
                     </div>
 
                     <p className='w-30 t-right'>newdex.bp</p>
@@ -273,7 +267,7 @@ const Home: FC = (): ReactElement => {
                 <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
                     <p className='w-20'>2</p>
                     <div className='w-20 t-center'>
-                        <Icon  src={node_icon} height="0.9rem"></Icon>
+                        <Icon src={node_icon} height="0.9rem"></Icon>
                     </div>
 
                     <p className='w-30 t-right'>newdex.bp</p>
@@ -283,7 +277,7 @@ const Home: FC = (): ReactElement => {
                 <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
                     <p className='w-20'>3</p>
                     <div className='w-20 t-center'>
-                        <Icon  src={node_icon} height="0.9rem"></Icon>
+                        <Icon src={node_icon} height="0.9rem"></Icon>
                     </div>
 
                     <p className='w-30 t-right'>newdex.bp</p>
@@ -293,7 +287,7 @@ const Home: FC = (): ReactElement => {
                 <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
                     <p className='w-20'>4</p>
                     <div className='w-20 t-center'>
-                        <Icon  src={node_icon} height="0.9rem"></Icon>
+                        <Icon src={node_icon} height="0.9rem"></Icon>
                     </div>
 
                     <p className='w-30 t-right'>newdex.bp</p>
@@ -303,7 +297,7 @@ const Home: FC = (): ReactElement => {
                 <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
                     <p className='w-20'>5</p>
                     <div className='w-20 t-center'>
-                        <Icon  src={node_icon} height="0.9rem"></Icon>
+                        <Icon src={node_icon} height="0.9rem"></Icon>
                     </div>
 
                     <p className='w-30 t-right'>newdex.bp</p>

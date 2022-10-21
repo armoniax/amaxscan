@@ -19,7 +19,7 @@ class AxiosRequest {
     this.axios.interceptors.response.use(
       (res) => {
         // 处理逻辑
-        if (res.data.code !== 200 && res.data.code !== '200') {
+        if (res.status !== 200) {
           return Promise.reject(res.data)
         }
         // 非200
