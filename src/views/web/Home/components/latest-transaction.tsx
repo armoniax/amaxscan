@@ -35,7 +35,7 @@ const LatestTransaction: FC = (): ReactElement => {
           </tbody>
         </table>
       </div>
-      <div className="chart-bar ">
+      <div className="chart-bar">
         <a href="/" className="chart-bar-header flex-row-end-center c-909399">更多交易 <i className="arrow-icon"></i> </a>
         <div className="chart-bar-main">
           <div className="title">Actions</div>

@@ -2,13 +2,18 @@ import {nameToNumeric} from '@/utils'
 import {getClient, getContract} from '@/utils/client'
 import axiosRequest from '@/api/axiosRequest'
 
-const {post} = axiosRequest
+const {post,get} = axiosRequest
 
 class ServerApi {
     private readonly baseConfig = {
-        amaxNodeApi: `${process.env.REACT_APP_URL}/v1/chain/get_table_rows`
+        amaxNodeApi: `${process.env.REACT_APP_URL}/v1/chain/get_table_rows`,
+        amaxScanApi:`${process.env.REACT_APP_AMAX_SCAN}/api/v1/get_last_blocks/6`,
     }
 
+    getLastBlocksData = async ()=>{
+        const data = await get(this.baseConfig.amaxScanApi, {})
+        return data
+    }
     getTableRowsByVendorinfo = async () => {
         const data = await post(this.baseConfig.amaxNodeApi, {
             code: process.env.REACT_APP_CONTARCT_NAME,

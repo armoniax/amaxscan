@@ -4,6 +4,20 @@ body {
   font-family: 'PingFang';
   font-size: 16px;
 }
+:root {
+  --bg-color-0: #fff;
+  --bg-color-1: #fff;
+  --text-color: #333;
+  --grey-1: #1c1f23;
+}
+
+:root .dark {
+  --bg-color-0: #16161a;
+  --bg-color-1: #35363c;
+  --text-color: #fff;
+  --grey-1: #f9f9f9;
+}
+
 // html,body {overflow: hidden;}
 .block {display: block;}
 .none {display:none}
