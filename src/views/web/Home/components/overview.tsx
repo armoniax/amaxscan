@@ -60,7 +60,7 @@ const OverView: FC = (): ReactElement => {
               <p>Armonia1</p>
             </div>
             <div>
-              <img src={forward}></img>
+              <img src={forward} alt=""></img>
             </div>
             <div className="point right">
               <p className="point-title t-right">下一个生产节点</p>

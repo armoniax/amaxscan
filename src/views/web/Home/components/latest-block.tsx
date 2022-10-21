@@ -6,7 +6,7 @@ const LatestBlock: FC = (): ReactElement => {
     <div className="latest-block section-box">
       <div className="section-box-header flex-row-between-center">
         <p className="title">最新区块</p>
-        <a className="flex-row-start-center">更多区块 <i className="arrow-icon"></i></a>
+        <div className="flex-row-start-center">更多区块 <i className="arrow-icon"></i></div>
       </div>
       <div className="latest-block-list">
         {

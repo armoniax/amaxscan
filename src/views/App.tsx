@@ -17,7 +17,7 @@ const App: FC = () => {
                 console.log(1222);
             })
         }
-    }, [])
+    }, [isMobile])
     return (
         <Suspense fallback={<Loading/>}>
             <BrowserRouter>
