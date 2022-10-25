@@ -332,6 +332,7 @@
         }
       }
     }
+
   }
 
 
@@ -582,4 +583,9 @@
       }
     }
   }
+  .page-bottom{
+    display: flex;
+    justify-content: flex-end;
+  }
 }
+

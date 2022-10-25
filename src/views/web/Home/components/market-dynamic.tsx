@@ -22,6 +22,7 @@ const MarketDynamic: FC = (): ReactElement => {
               onClick={() => {
                 setCur(i);
               }}
+              key={i}
             >
               {item}
             </div>
