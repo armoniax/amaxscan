@@ -18,13 +18,13 @@ const WebHeader: React.FunctionComponent<IWebHeaderProps> = (props) => {
             title: 'home'
         },
         {
-            path: '/blocks',
-            title: 'blocks'
-        },
-        {
             path: '/nodes',
             title: 'nodes'
         },
+        {
+          path: '/blocks',
+          title: 'blocks'
+      },
         {
             path: '/transactions',
             title: 'transactions'

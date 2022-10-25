@@ -77,7 +77,7 @@ const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOpti
     if (currentPage - 1 === 0) {
       return false
     }
-    console.log('往前');
+    // console.log('往前');
     changePage(currentPage - 1)
   }
 
@@ -85,7 +85,7 @@ const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOpti
     if (currentPage === totalPage) {
       return false
     }
-    console.log('往后');
+    // console.log('往后');
     changePage(currentPage + 1)
   }
 
@@ -97,7 +97,6 @@ const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOpti
         return
       }
       setStartPage(currentPage - 3)
-      console.log(startPage,'点完之后的starPage');
     }
 
     if (currentPage < 7) {
@@ -111,7 +110,7 @@ const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOpti
 
   }
 
-  let pageList = createPage()
+  const pageList = createPage()
 
   const changeSize = (size) => {
     setCurrentSize(size)
