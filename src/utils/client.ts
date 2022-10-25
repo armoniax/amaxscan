@@ -21,6 +21,10 @@ const options = {
 }
 
 export async function getClient () {
+  const isAPLink = window.navigator.userAgent
+      .toLowerCase()
+      .includes('aplink');
+  console.log('aaaaaaaaaaaaaaa',isAPLink)
   // if (_getClient) return _getClient;
   const scatter = getScatter()
   if (scatter) {

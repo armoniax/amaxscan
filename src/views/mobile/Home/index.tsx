@@ -225,13 +225,13 @@ const Home: FC = (): ReactElement => {
                 {
                     lastBlockList.map((item: any) => {
                         return (
-                            <>
+                            <div key={item.id} >
                                 <div className='flex-row-between-center fs-14 c-303332 m-t-20 m-b-20'>
                                     <p>{`${item.id.substring(0, 6)}...${item.id.substring(item.id.length - 6)}`}</p>
                                     <p>{item.block_num}</p>
                                 </div>
                                 <div className='card-line'></div>
-                            </>
+                            </div>
                         )
                     })
                 }
