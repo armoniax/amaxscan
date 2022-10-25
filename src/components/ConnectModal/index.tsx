@@ -29,7 +29,7 @@ const userList = [
   }
 ]
 const ConnectModal: React.FunctionComponent<IConnectModalProps> = (props) => {
-  const { className, visible, login, onDismiss } = props
+  const { className, visible, onDismiss } = props
   const { isMobile } = (window as any)._global || {}
   const confirmLogin = useCallback(
     (title) => {
@@ -38,7 +38,7 @@ const ConnectModal: React.FunctionComponent<IConnectModalProps> = (props) => {
         onDismiss()
       }
     },
-    [onDismiss, login]
+    [onDismiss]
   )
 
   const dialogWidth = isMobile ? '6.7rem' : '420px'
