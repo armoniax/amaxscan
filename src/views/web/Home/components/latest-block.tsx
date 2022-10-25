@@ -10,7 +10,7 @@ const LatestBlock: FC = (): ReactElement => {
       </div>
       <div className="latest-block-list">
         {
-          [1,2,3,4].map((item,i) => {
+          [1,2,3,4,5].map((item,i) => {
             return (
               <ul className="latest-block-list-item flex-row-between-center" key={i}>
                 <li className="item-title">#3762039</li>

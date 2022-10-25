@@ -12,11 +12,11 @@ const WebFooter: React.FunctionComponent<IWebFooterProps> = (props) => {
       <footer className="web-footer flex-row-between-center">
           <div>
               <Link to="/">
-                  <Icon src={header_logo} height="42px"></Icon>
+                  <Icon src={header_logo} height="32px"></Icon>
               </Link>
               <p className='txt'>AMAX区块链浏览器</p>
           </div>
-            <div className='flex-row-center-end c-9AA29E fs-18'>
+            <div className='flex-row-center-end fs-16 '>
                 <a href='https://www.test.com' target='_blank'
                    rel='noreferrer'>官方网站</a>
                 <a href='https://www.test.com' target='_blank'

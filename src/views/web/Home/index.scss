@@ -3,19 +3,21 @@
 // 搜索栏
 .m-search-bar {
   width: 100%;
-  height: 70px;
-  margin-top: 40px;
-  margin-bottom: 60px;
-  padding: 20px;
+  height: 50px;
+  margin: 24px 0;
+  padding: 16px;
   display: flex;
   align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px 0px rgba(221,221,221,0.2);
 
   input {
     outline: none;
     border: none;
     width: 100%;
     color: #909399;
-    font-size: 16px;
+    font-size: 14px;
     font-family: "PingFang";
 
     &::placeholder {
@@ -31,16 +33,16 @@
   justify-content: space-between;
 
   .bars-4 {
-    width: 65%;
     display: flex;
     flex-wrap: wrap;
+    flex: 1;
 
     .bar-item {
-      width: 420px;
-      height: 170px;
-      margin-right: 24px;
-      margin-bottom: 24px;
-      padding: 20px 24px;
+      width: 386px;
+      height: 144px;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      padding: 16px;
 
       &.no-mb {
         margin-bottom: 0;
@@ -52,7 +54,7 @@
 
         .number {
           color: #313131;
-          font-size: 20px;
+          font-size: 18px;
           font-weight: bold;
         }
 
@@ -62,7 +64,7 @@
         }
 
         .title-icon {
-          height: 58px;
+          height: 44px;
           margin-right: 8px;
         }
 
@@ -73,16 +75,16 @@
 
       &-content {
         &.fresh {
-          margin-top: 44px;
+          margin-top: 46px;
           font-weight: bold;
-          font-size: 20px;
+          font-size: 18px;
           color: #313131;
         }
 
         .point {
-          margin-top: 20px;
+          margin-top: 16px;
           color: #313131;
-          font-size: 20px;
+          font-size: 18px;
           font-weight: bold;
           line-height: 1.4;
 
@@ -98,15 +100,14 @@
           display: flex;
           flex-direction: column;
           width: 40%;
-          margin-top: 20px;
+          margin-top: 18px;
 
           .wrapper {
             display: flex;
             justify-content: space-between;
             color: #909399;
-            font-size: 14px;
-            margin-bottom: 12px;
-            line-height: 1.4;
+            font-size: 12px;
+            margin-bottom: 15px;
 
             p {
               display: block;
@@ -121,7 +122,7 @@
         }
 
         .content-wrapper {
-          margin-top: 8px;
+          line-height: 1.6;
 
           .left {
             font-size: 14px;
@@ -129,7 +130,7 @@
           }
 
           .right {
-            font-size: 18px;
+            font-size: 16px;
             color: #303333;
             font-weight: bold;
           }
@@ -139,8 +140,8 @@
   }
 
   .bars-1 {
-    width: 480px;
-    padding: 22px;
+    width:388px;
+    margin-top: 0%;
 
     .bars-header {
       align-items: stretch;
@@ -153,7 +154,7 @@
         font-size: 12px;
 
         img {
-          width: 234px;
+          width: 170px;
         }
       }
 
@@ -184,15 +185,16 @@
     }
 
     .amax-list {
-      margin-top: 38px;
+      margin-top: 12px;
 
       &-item {
         height: 44px;
         font-size: 12px;
         margin-bottom: 18px;
+        padding-top: 10px;
 
         .title {
-          width: 92px;
+          margin-bottom: 10px;
         }
 
         .number-font {
@@ -222,7 +224,7 @@
     }
 
     .bottom-text {
-      margin-top: 24px;
+      margin-top: 18px;
       font-size: 12px;
 
       .number {
@@ -237,23 +239,22 @@
 
 //最新区块
 .latest-block {
-  margin-top: 38px;
-  padding: 24px 30px;
+
 
   &-list {
     &-item {
-      height: 80px;
+      height: 50px;
       border-top: 1px solid #EAEEEC;
 
       .item-title {
         color: #2C2D2F;
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 600;
       }
 
       .item-time {
         color: #909399;
-        font-size: 16px;
+        font-size: 14px;
       }
 
       .item-type {
@@ -265,12 +266,12 @@
         background: rgb(234, 236, 235, 0.4);
         border-radius: 4px;
         color: #666c6c;
-        font-size: 16px;
+        font-size: 12px;
       }
 
       .item-transaction {
         color: #303333;
-        font-size: 16px;
+        font-size: 14px;
 
         .text-red {
           color: #1BA03A;
@@ -283,11 +284,10 @@
 
 //最新交易
 .latest-transaction {
-  margin-top: 40px;
-  display: flex;
+  margin-top:24px;
 
   .table-bar {
-    padding: 24px 30px 8px 30px;
+    width: 100%;
 
     &-title {
       font-size: 24px;
@@ -300,19 +300,22 @@
       color: #303332;
       font-size: 16px;
       text-align: right;
+      width: 100%;
 
       .table-header {
-        font-size: 20px;
+
         font-weight: bold;
         border-top: 1px solid #eaeeec;
 
         td {
-          height: 64px;
-          line-height: 64px;
-
+          height: 50px;
+          line-height: 50px;
+          font-size: 16px;
+          font-weight: bold;
           &:first-child {
             text-align: left;
           }
+
         }
       }
 
@@ -321,12 +324,15 @@
       }
 
       td {
-        height: 50px;
-        line-height: 50px;
+        height: 44px;
+        line-height: 44px;
         min-width: 162px;
+        font-size: 14px;
+        &:last-child {
+          text-align: right;
+        }
 
         p {
-          max-width: 210px;
           overflow: hidden;
           text-overflow: ellipsis;
         }
@@ -394,7 +400,7 @@
 
 // APOS区块
 .apos-block{
-  margin-top: 48px;
+
   .header-right{
     color: #303333;
     font-size: 12px;
@@ -416,14 +422,13 @@
 
 //市场动态
 .market-dynamic {
-  margin-top: 40px;
 
   .section-box-header {
     border-bottom: 1px solid #EAEEEC;
   }
 
   .m-tabs {
-    height: 60px;
+    height: 50px;
     margin-left: -24px;
     display: flex;
     flex-direction: row;
@@ -433,9 +438,9 @@
     .tab {
       padding: 0 22px;
       position: relative;
-      font-size: 16px;
+      font-size: 14px;
       height: 100%;
-      line-height: 60px;
+      line-height: 50px;
       cursor: pointer;
 
       &::after {
@@ -454,7 +459,7 @@
 
       &.z-cur {
         font-weight: bold;
-        font-size: 18px;
+        font-size:16px;
 
         &::after {
           width: 40%;
@@ -467,7 +472,7 @@
     margin-top: 30px;
     &-item {
       .desc {
-        font-size: 14px;
+        font-size: 12px;
         color: #000000;
 
         .number-font {
@@ -487,6 +492,7 @@
 
         img {
           margin-left: 4px;
+          width: 160px;
         }
 
         .rise-icon-red {
@@ -521,7 +527,7 @@
 //最新节点
 
 .producer-list {
-  margin-top: 40px;
+
 
   .section-box-header {
     border-bottom: 1px solid #eaeeec;
@@ -535,27 +541,28 @@
     }
 
     td {
-      height: 80px;
-      line-height: 80px;
+      height: 50px;
+      line-height: 50px;
       color: #000000;
-      font-size: 18px;
+      font-size: 14px;
 
       img {
         display: inline-block;
         vertical-align: middle;
+        width: 32px;
       }
 
       .tag {
-        width: 100px;
-        height: 40px;
-        line-height: 40px;
+        width: 88px;
+        height: 32px;
+        line-height: 32px;
         text-align: center;
         display: inline-block;
         vertical-align: middle;
         background: #4BC98F;
         box-shadow: 3px 4px 22px 0px rgba(182, 182, 182, 0.19);
         border-radius: 4px;
-        font-size: 18px;
+        font-size: 12px;
         color: #fff;
       }
 

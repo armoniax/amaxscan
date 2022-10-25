@@ -20,7 +20,7 @@ const OverView: FC = (): ReactElement => {
           <div className="bar-item-title flex-row-between-center">
             <div className="title-wrapper">
               <img className="title-icon" src={curBlockPng} alt="" />
-              {t('home.currentBlock')}
+              {t("home.currentBlock")}
             </div>
             <div className="number number-font">3764565</div>
           </div>
@@ -56,14 +56,14 @@ const OverView: FC = (): ReactElement => {
           </div>
           <div className="bar-item-content flex-row-between-center">
             <div className="point left">
-              <p className="point-title">当前生产节点</p>
+              <p className="point-title">当前生产点</p>
               <p>Armonia1</p>
             </div>
             <div>
               <img src={forward} alt=""></img>
             </div>
             <div className="point right">
-              <p className="point-title t-right">下一个生产节点</p>
+              <p className="point-title t-right">下一个生产点</p>
               <p className="t-right">Armonia2</p>
             </div>
           </div>
@@ -84,7 +84,7 @@ const OverView: FC = (): ReactElement => {
           <div className="bar-item-title">
             <div className="title-wrapper">
               <img className="title-icon" src={statusPng} alt="" />
-              {t('home.realTimeStatus')}
+              {t("home.realTimeStatus")}
             </div>
           </div>
           <div className="bar-item-content">
@@ -119,24 +119,28 @@ const OverView: FC = (): ReactElement => {
           </div> */}
         </div>
         <div className="amax-list">
-          <div className="amax-list-item flex-row-between-center">
-            <div className="flex-auto c-909399 flex-row-start-center">
-              <div className="title">AMAX总供应量</div>
-              <div className="progress progress-60 "></div>
-            </div>
+          <div className="amax-list-item">
+          <div className="title c-909399">AMAX总供应量</div>
+            <div className="flex-row-between-center">
+              <div className="flex-auto c-909399 flex-row-start-center">
+                <div className="progress progress-60 "></div>
+              </div>
             <div>
               <span className="number-font">347364328947237</span>
               <span className="c-909399 unit">/AMAX</span>
             </div>
-          </div>
-          <div className="amax-list-item flex-row-between-center">
-            <div className="flex-auto c-909399 flex-row-start-center">
-              <div className="title">已质押</div>
-              <div className="progress progress-40"></div>
             </div>
-            <div>
-              <span className="number-font">347947237</span>
-              <span className="c-909399 unit">/AMAX</span>
+          </div>
+          <div className="amax-list-item">
+            <div className="title c-909399">已质押</div>
+            <div className="flex-row-between-center">
+              <div className="flex-auto c-909399 flex-row-start-center">
+                <div className="progress progress-40"></div>
+              </div>
+              <div>
+                <span className="number-font">347947237</span>
+                <span className="c-909399 unit">/AMAX</span>
+              </div>
             </div>
           </div>
         </div>
