@@ -11,7 +11,7 @@ import connect_scatter from '@/assets/images/common/connect_scatter.svg'
 */
 export interface IConnectModalProps {
   visible: boolean
-  login: (connectorId: any) => void
+  login: (connectorType: any) => void
   className?: string
   onDismiss?: () => void
 }
@@ -29,16 +29,16 @@ const userList = [
   }
 ]
 const ConnectModal: React.FunctionComponent<IConnectModalProps> = (props) => {
-  const { className, visible, onDismiss } = props
+  const { className, visible, onDismiss,login } = props
   const { isMobile } = (window as any)._global || {}
   const confirmLogin = useCallback(
     (title) => {
-      console.log('title',title)
+      login(title)
       if (onDismiss) {
         onDismiss()
       }
     },
-    [onDismiss]
+    [onDismiss,login]
   )
 
   const dialogWidth = isMobile ? '6.7rem' : '420px'

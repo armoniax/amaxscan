@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppThunk } from '@/state';
 import { setUserInfo, AccountStatus } from './actions';
-import { network, getScatter, getClient } from '@/utils/client'
+import {network, getScatter, getClient, initLink} from '@/utils/client'
+import {IdentityProof} from "@amax/anchor-link";
 
 const initialState = {
     account: {
@@ -22,30 +23,39 @@ const BaseInfoSlice = createSlice({
     },
 });
 export const getUserInfo =
-    (): AppThunk =>
+    (connectorType:any): AppThunk =>
     async dispatch => {
         try{
-            let accountStatus: AccountStatus;
-            const scatter:any = getScatter(), _getClient:any = await getClient();
-            const identity = await scatter.getIdentity({
-                accounts: [{ chainId: network.chainId, blockchain: network.blockchain }],
-            });
-            console.log('identityidentity',identity)
-            const account = identity?.accounts[0];
-            try{
-                await _getClient.getAccount(account.name);
-                accountStatus = 1;
-            }catch(e){
-                accountStatus = 0;
+            if(connectorType === 'Scatter'){
+                let accountStatus: AccountStatus;
+                const scatter:any = getScatter(), _getClient:any = await getClient();
+                const identity = await scatter.getIdentity({
+                    accounts: [{ chainId: network.chainId, blockchain: network.blockchain }],
+                });
+                console.log('identityidentity',identity)
+                const account = identity?.accounts[0];
+                try{
+                    await _getClient.getAccount(account.name);
+                    accountStatus = 1;
+                }catch(e){
+                    accountStatus = 0;
+                }
+
+                dispatch(setUserInfo({
+                    kyc: identity.kyc,
+                    name: account.name,
+                    publicKey: identity.publicKey,
+                    status: accountStatus
+                }));
+            }else{
+                const link = initLink();
+                const identity = await link.login("anchor-link-demo");
+                console.log(identity)
+                const proof = IdentityProof.from(identity.proof);
+                const account = await link.client.v1.chain.get_account(proof.signer.actor);
+                console.log(identity.session,account)
             }
 
-            dispatch(setUserInfo({
-                kyc: identity.kyc,
-                name: account.name,
-                publicKey: identity.publicKey,
-                status: accountStatus
-            }));
-            console.log("----login",identity)
         }catch(e){
             console.error('login Error:', e)
         }

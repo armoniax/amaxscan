@@ -1,5 +1,6 @@
 import Amax from '@amax/amaxjs'
-
+import AnchorLink from '@amax/anchor-link'
+import AnchorLinkBrowserTransport from '@amax/anchor-link-browser-transport'
 let _getClient = null
 
 console.log('chainId---', process.env.REACT_APP_NETWORK_chainId)
@@ -19,6 +20,10 @@ const options = {
   expireInSeconds: 200,
   chainId: network.chainId
 }
+
+export const isAPLink = window.navigator.userAgent
+    .toLowerCase()
+    .includes('aplink');
 
 export async function getClient () {
   const isAPLink = window.navigator.userAgent
@@ -63,6 +68,24 @@ export async function getClient () {
 
 export function getScatter () {
   return (window as any).scatter
+}
+
+export function initLink() {
+  if (!(window as any).AnchorLink) {
+    const transport = new AnchorLinkBrowserTransport();
+    const link = new AnchorLink({
+      transport,
+      service: "https://fwd.aplink.app", // 'ws://192.168.80.152:7001', // 'http://fwd.aplink.app', //
+      chains: [
+        {
+          chainId: network.chainId,
+          nodeUrl: `${network.protocol}://${network.host}`,
+        },
+      ],
+    });
+    (window as any).AnchorLink = link;
+  }
+  return (window as any).AnchorLink;
 }
 
 export async function getContract (abiName: any) {

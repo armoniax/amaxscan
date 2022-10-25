@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppState} from "@/state";
 import {getUserInfo} from "@/state/base/reducer";
 import ConnectModal from "@/components/ConnectModal";
+import {isAPLink} from "@/utils/client";
 
 interface IMpHeaderProps {
     pagename?: string
@@ -31,8 +32,16 @@ const MpHeader: React.FunctionComponent<IMpHeaderProps> = (props) => {
         }
     }
 
-    const connectWallt = () => {
-        dispatch(getUserInfo());
+    const connectWallt = (connectorType:any) => {
+        dispatch(getUserInfo(connectorType));
+    }
+
+    const handleConnect = ()=> {
+        if (isAPLink) {
+            dispatch(getUserInfo('Scatter'));
+        }else{
+            setConnectVisible(true)
+        }
     }
     return (
         <>
@@ -40,7 +49,7 @@ const MpHeader: React.FunctionComponent<IMpHeaderProps> = (props) => {
                 <Link to="/">
                     <Icon src={header_logo} height="0.4rem"></Icon>
                 </Link>
-                {account.name?account.name:<p onClick={()=>setConnectVisible(true)}>登录</p>}
+                {account.name?account.name:<p onClick={()=>handleConnect()}>登录</p>}
                 <div className='flex-row-center-end'>
                     <Icon src={showDarkIcon?nav_dark_icon:nav_light_icon} height="0.48rem" className='m-r-20'
                           onClick={() => handleDarkTheme()}></Icon>
@@ -48,7 +57,7 @@ const MpHeader: React.FunctionComponent<IMpHeaderProps> = (props) => {
 
                 </div>
             </header>
-            <ConnectModal visible={connectVisible} login={()=>connectWallt()} onDismiss={() => setConnectVisible(false)} />
+            <ConnectModal visible={connectVisible} login={(connectorType:any)=>connectWallt(connectorType)} onDismiss={() => setConnectVisible(false)} />
         </>
     )
 }

@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@amax/amaxjs": "^0.0.1",
+    "@amax/anchor-link": "^3.5.6",
+    "@amax/anchor-link-browser-transport": "^3.5.1",
     "@babel/plugin-proposal-decorators": "^7.14.5",
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^5.11.4",
