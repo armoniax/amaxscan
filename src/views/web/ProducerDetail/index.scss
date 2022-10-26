@@ -1,0 +1,34 @@
+.producer-detail{
+  .producer-detail-account{
+    display: flex;
+    justify-content: space-between;
+    .account-info{
+      font-size: 18px;
+      display: flex;
+      justify-content: flex-start;
+
+      img{
+        width: 74px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      &-name{
+        color: #000;
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+    .account-balance{
+      font-size: 18px;
+      text-align: right;
+      &-number{
+        font-size: 28px;
+      }
+    }
+
+  }
+
+  .section-box.tabs{
+    padding-top: 0;
+  }
+}

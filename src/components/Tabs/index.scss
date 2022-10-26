@@ -1,7 +1,7 @@
 .m-tabs {
 
   .tab-list {
-    height: 50px;
+    height: 60px;
     margin-left: -24px;
     display: flex;
     flex-direction: row;
@@ -11,9 +11,9 @@
     .tab {
       padding: 0 22px;
       position: relative;
-      font-size: 14px;
+      font-size: 16px;
       height: 100%;
-      line-height: 50px;
+      line-height: 60px;
       cursor: pointer;
 
       &::after {
@@ -21,7 +21,7 @@
         position: absolute;
         display: inline-block;
         width: 0;
-        height: 7px;
+        height: 6px;
         background: #4BC98F;
         border-radius: 4px;
         bottom: 0;
@@ -32,7 +32,7 @@
 
       &.z-cur {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 18px;
 
         &::after {
           width: 40%;

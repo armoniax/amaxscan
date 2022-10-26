@@ -23,7 +23,7 @@ const Tabs: React.FunctionComponent<TabsProps> = ({defaultActiveIndex = 0,data,o
                     index:i
                   })
                 }}
-                key={item.key}
+                key={item.key?item.key:i}
               >
                 {item.label}
               </div>
