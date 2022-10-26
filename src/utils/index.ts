@@ -11,6 +11,14 @@ const { format } = Amax.modules
 export const nameToNumeric = (accountName: any) =>
   format.encodeName(accountName, false)
 
+/**
+ * bigNumber转帐号
+ * @param {*} accountName
+ * @returns
+ */
+export const numerToNameic = (accountName: any) =>
+    format.decodeName(accountName, false)
+
 // 生成随机UUID
 export const makeUUID = () => {
   const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')

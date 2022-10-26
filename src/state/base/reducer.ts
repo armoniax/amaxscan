@@ -3,6 +3,7 @@ import { AppThunk } from '@/state';
 import { setUserInfo, AccountStatus } from './actions';
 import {network, getScatter, getClient, initLink} from '@/utils/client'
 import {IdentityProof} from "@amax/anchor-link";
+import {numerToNameic} from "@/utils";
 
 const initialState = {
     account: {
@@ -40,7 +41,7 @@ export const getUserInfo =
                 }catch(e){
                     accountStatus = 0;
                 }
-
+                console.log('ssssssssssss',account.name,identity.publicKey)
                 dispatch(setUserInfo({
                     kyc: identity.kyc,
                     name: account.name,
@@ -54,6 +55,13 @@ export const getUserInfo =
                 const proof = IdentityProof.from(identity.proof);
                 const account = await link.client.v1.chain.get_account(proof.signer.actor);
                 console.log(identity.session,account)
+                dispatch(setUserInfo({
+                    kyc: false,
+                    name: account.account_name.toString(),
+                    publicKey: '',
+                    status: 0
+                }));
+                console.log('ssssssssssss',account.account_name.toString())
             }
 
         }catch(e){

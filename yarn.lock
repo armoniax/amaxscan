@@ -36,9 +36,9 @@
     tslib "^2.0.3"
 
 "@amax/anchor-link@^3.5.6":
-  version "3.5.3"
-  resolved "https://registry.npmmirror.com/@amax/anchor-link/-/anchor-link-3.5.3.tgz#1b86b2f666669eec4496e18b8aa8392ffec3d0cf"
-  integrity sha512-kPXUKyx7lq2qfSJQf2iBfaGRFGwMyxDVlEzGjfGGWnGarIedV+cMXFB3Ybr8+9lcZ5k3nhY/rhXTZlJ57pRjcA==
+  version "3.5.6"
+  resolved "https://registry.npmmirror.com/@amax/anchor-link/-/anchor-link-3.5.6.tgz#cdbdaedc5cee2ec375d923d2aaf215150822a0ba"
+  integrity sha512-cYTo/H4yRq5gVchfJi8km5QHA0BCkyF54DaUsZGYllddcpnMkU+JbVY1uIzc8QHwIGzjynMk93MhkbmEFHZjTw==
   dependencies:
     "@greymass/eosio" "^0.6.0"
     "@greymass/miniaes" "^1.0.0"
