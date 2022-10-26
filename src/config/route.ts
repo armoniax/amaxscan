@@ -14,6 +14,20 @@ const routerConfig: IRouterConfig[] = [
         component: lazy(async () => await import('@/views/web/Home/index')),
         mpComponent: lazy(async () => await import('@/views/mobile/Home/index')),
         exact: true
+    },
+    {
+      // 生产节点列表
+      path: '/producer-list',
+      component: lazy(async () => await import('@/views/web/ProducerList/index')),
+      mpComponent: lazy(async () => await import('@/views/mobile/ProducerList/index')),
+      exact: true
+    },
+    {
+      // 生产节点详情
+      path: '/producer-detail',
+      component: lazy(async () => await import('@/views/web/ProducerDetail/index')),
+      mpComponent: lazy(async () => await import('@/views/mobile/ProducerDetail/index')),
+      exact: true
     }
 ]
 

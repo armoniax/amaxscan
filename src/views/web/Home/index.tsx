@@ -5,13 +5,17 @@ import './index.scss'
 import Overview from './components/overview'
 import LatestBlock from './components/latest-block'
 import LatestTransaction from './components/latest-transaction'
-import ProductionNodes from './components/production-nodes'
+import ProducerList from '@/components/ProducerList'
 // import APOSBlock from './components/apos-block'
 import MarketDynamic from './components/market-dynamic'
 
 
 const Home: FC = (): ReactElement => {
     const {t} = useTranslation()
+    const list = []
+    for (let i = 0; i < 5; i++) {
+      list.push(i)
+    }
     return (
       <div>
         <div className="m-search-bar section-box animate">
@@ -22,7 +26,7 @@ const Home: FC = (): ReactElement => {
         <LatestTransaction/>
         {/* <APOSBlock/> */}
         <MarketDynamic/>
-        <ProductionNodes />
+        <ProducerList data={list} />
       </div>
     )
 }

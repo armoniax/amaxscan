@@ -18,7 +18,7 @@ const WebHeader: React.FunctionComponent<IWebHeaderProps> = (props) => {
             title: 'home'
         },
         {
-            path: '/nodes',
+            path: '/producer-list',
             title: 'nodes'
         },
         {
@@ -42,7 +42,7 @@ const WebHeader: React.FunctionComponent<IWebHeaderProps> = (props) => {
     return (
         <header className="web-header flex-row-between-center">
             <Link to="/">
-                <Icon src={header_logo} height="45px"></Icon>
+                <Icon src={header_logo} height="32px"></Icon>
             </Link>
             <div className='flex-row-end-center'>
                 <div className="nav flex-row-end-center">
