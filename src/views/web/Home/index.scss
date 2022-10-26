@@ -426,48 +426,6 @@
   .section-box-header {
     border-bottom: 1px solid #EAEEEC;
   }
-
-  .m-tabs {
-    height: 50px;
-    margin-left: -24px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-
-    .tab {
-      padding: 0 22px;
-      position: relative;
-      font-size: 14px;
-      height: 100%;
-      line-height: 50px;
-      cursor: pointer;
-
-      &::after {
-        content: "";
-        position: absolute;
-        display: inline-block;
-        width: 0;
-        height: 7px;
-        background: #4BC98F;
-        border-radius: 4px;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        transition: all 0.4s;
-      }
-
-      &.z-cur {
-        font-weight: bold;
-        font-size:16px;
-
-        &::after {
-          width: 40%;
-        }
-      }
-    }
-  }
-
   .chart-list {
     margin-top: 30px;
     &-item {

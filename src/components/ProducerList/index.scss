@@ -10,6 +10,12 @@
 
     tr {
       border-bottom: 1px solid #EAEEEC;
+      &:not(.producer-list-table-header){
+        cursor: pointer;
+        &:hover{
+          background-color: rgb(232 237 241 / 60%);
+        }
+      }
     }
 
     td {
@@ -56,9 +62,13 @@
       font-weight: bold;
       font-size: 18px;
 
+      // &:hover{
+      //   background-color: transparent !important;
+      // }
       td {
         height: 60px;
         line-height: 60px;
+
       }
     }
   }

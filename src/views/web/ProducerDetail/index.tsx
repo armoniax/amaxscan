@@ -1,14 +1,15 @@
-import {FC, memo, ReactElement} from 'react'
-import Baseweb from '@/components/baseContainer/webwrap'
-import './index.scss'
-
+import { FC, memo, ReactElement } from "react";
+import Baseweb from "@/components/baseContainer/webwrap";
+import "./index.scss";
 
 const ProducerDetail: FC = (): ReactElement => {
-    return (
-      <div>
-       ProducerDetail
-      </div>
-    )
-}
+  return (
+    <div className="producer-detail">
+      <div className="section-box">
 
-export default Baseweb(memo(ProducerDetail))
+      </div>
+    </div>
+  );
+};
+
+export default Baseweb(memo(ProducerDetail));

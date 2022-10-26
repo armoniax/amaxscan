@@ -3,13 +3,15 @@ import { memo } from "react";
 import node_icon from "@/assets/images/web/node_icon.png";
 import Pagination from "@/components/Pagination";
 import "./index.scss";
-
+import { useHistory } from "react-router-dom";
 export interface ListProps {
   showPage?:boolean,
   data?:any[]
 }
 
+
 const ProducerList: React.FunctionComponent<ListProps> = ({showPage = false,data}) => {
+  const history = useHistory()
   // const { t } = useTranslation();
   const onChangePage = (pageNum) => {
     console.log(pageNum,'pageNum');
@@ -35,7 +37,7 @@ const ProducerList: React.FunctionComponent<ListProps> = ({showPage = false,data
           </tr>
           {data && data.map((item, i) => {
             return (
-              <tr key={i}>
+              <tr key={i} onClick={()=>{history.push('/producer-detail')}}>
                 <td style={{textAlign:'center'}}>{i + 1}</td>
                 <td style={{textAlign:'center'}}>
                   <img src={node_icon} alt="" />
