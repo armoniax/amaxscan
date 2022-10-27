@@ -4,7 +4,7 @@ import block_icon from "@/assets/images/web/block_icon.png";
 import chain_icon from "@/assets/images/web/chain_icon.png";
 import search_icon from "@/assets/images/web/search_icon.png";
 import node_icon from "@/assets/images/web/node_icon.png";
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
 import "../index.scss";
 
 const ChainData: FC = (): ReactElement => {
@@ -142,7 +142,7 @@ const ChainData: FC = (): ReactElement => {
   ];
   return (
     <div className="section-box chain-data">
-      <DateRangePicker onChange={onChange} value={value} />
+      <DateTimeRangePicker onChange={onChange} value={value} />
       <div className="chain-data-title">
         <img src={block_icon} alt="" /> Chain Data
       </div>
