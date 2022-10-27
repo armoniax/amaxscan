@@ -15,7 +15,7 @@ const LatestTransaction: FC = (): ReactElement => {
             <td width="180">Transaction ID</td>
             <td>Block Number</td>
             <td>CPU Usage</td>
-            <td>NET Usage</td>
+            <td>NFT Usage</td>
             <td>Actions</td>
           </tr>
           {[1, 2, 3, 4,5].map((item,i) => {

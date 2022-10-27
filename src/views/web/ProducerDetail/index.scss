@@ -1,34 +1,397 @@
-.producer-detail{
-  .producer-detail-account{
+
+.producer-detail {
+  .producer-detail-account {
     display: flex;
     justify-content: space-between;
-    .account-info{
-      font-size: 18px;
+
+    .account-info {
+      font-size: 14px;
       display: flex;
       justify-content: flex-start;
 
-      img{
-        width: 74px;
+      img {
+        width: 60px;
         border-radius: 50%;
         margin-right: 10px;
       }
-      &-name{
+
+      &-name {
         color: #000;
         font-weight: bold;
-        font-size: 20px;
+        font-size: 18px;
       }
     }
-    .account-balance{
-      font-size: 18px;
+
+    .account-balance {
+      font-size: 14px;
       text-align: right;
-      &-number{
-        font-size: 28px;
+
+      &-number {
+        font-size: 20px;
       }
     }
 
   }
 
-  .section-box.tabs{
+  .section-box.tabs {
     padding-top: 0;
+  }
+}
+
+//账户详情
+.account-detail {
+  padding-top: 10px;
+
+  .left {
+    width: 416px;
+
+
+    .color-block {
+      width: 192px;
+      height: 83px;
+      box-shadow: 2px 2px 6px 0px rgba(217, 212, 241, 0.92);
+      border-radius: 11px;
+      position: relative;
+      overflow: hidden;
+      padding: 14px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 4px;
+
+      &.blue {
+        background: #A995FF;
+
+        &::after {
+          content: "";
+          display: inline-block;
+          width: 54px;
+          height: 54px;
+          opacity: 0.58;
+          border: 12px solid #CABDFF;
+          border-radius: 50%;
+          position: absolute;
+          right: -8%;
+          top: -27%;
+        }
+      }
+
+      &.pink {
+        background: #FF9993;
+
+        &::after {
+          content: "";
+          display: inline-block;
+          width: 54px;
+          height: 54px;
+          opacity: 0.58;
+          border-radius: 50%;
+          position: absolute;
+          right: -7%;
+          top: 55%;
+          opacity: 0.39;
+          border: 12px solid #FFCCC9;
+        }
+      }
+
+      .title {
+        font-size: 12px;
+      }
+
+      .ct {
+        font-size: 14px;
+
+        .number {
+          font-size: 34px;
+          display: inline-block;
+          margin-right: 12px;
+        }
+      }
+    }
+
+    .data-item {
+      margin-top: 16px;
+      font-size: 14px;
+      line-height: 1.2;
+
+      .number-font {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .right {
+    width: 676px;
+
+    .process-list {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      height: 100%;
+
+      &-item {
+        width: 100%;
+
+        .title {
+          color: #303332;
+          font-size: 20px;
+          font-weight: bold;
+          line-height: 1.8;
+        }
+
+        .desc {
+          color: #909399;
+          font-size: 12px;
+        }
+
+        .process-wrapper {
+          width: 437px;
+          margin-right: 42px;
+
+          .process {
+            height: 24px;
+            background: linear-gradient(270deg, #21CCDF 0%, rgba(176, 242, 225, 0.1) 100%);
+            position: relative;
+
+            .radius {
+              width: 46px;
+              height: 46px;
+              background: linear-gradient(90deg, #3FCFE5 0%, #37B2E8 100%);
+              box-shadow: -2px 0px 5px 0px rgba(61, 180, 192, 0.22);
+              position: absolute;
+              right: -42px;
+              top: 50%;
+              transform: translateY(-50%);
+              border-radius: 50%;
+              font-size: 16px;
+              font-weight: 500;
+              color: #fff;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+
+//智能合约
+.smart-contract {
+  padding-top: 12px;
+
+  &-tabs {
+    &-item {
+      padding: 10px 16px;
+      background: #F5F7F9;
+      border-radius: 4px;
+      margin-right: 24px;
+      font-size: 16px;
+      color: #303333;
+      cursor: pointer;
+
+      &.active {
+        background: #50BF8C;
+        color: #fff;
+      }
+    }
+  }
+
+  .condition-query {
+    font-size: 16px;
+    color: #000;
+    padding-top: 22px;
+
+    input {
+      outline: none;
+      border: 1px solid #DFE2E8;
+      height: 34px;
+      border-radius: 4px;
+      width: 132px;
+      margin: 0 16px 0 6px;
+      padding: 0 6px;
+      box-sizing: border-box;
+    }
+
+    .query-button {
+      width: 116px;
+      height: 34px;
+      background: #50BF8C;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      font-size: 16px;
+    }
+  }
+
+  &-table {
+    width: 100%;
+    color: #303333;
+    font-size: 14px;
+    margin-top: 16px;
+
+    tr {
+      height: 50px;
+      border-bottom: 1px solid #EAEEEC;
+
+      td {
+        min-width: 80px;
+      }
+    }
+
+    .table-header {
+      height: 60px;
+      font-size: 16px;
+      color: #000000;
+      font-weight: bold;
+    }
+  }
+}
+
+//chain-data
+.chain-data {
+  &-title {
+    font-size: 20px;
+    color: #303333;
+  }
+
+  &-list {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    &-item {
+      width: 185px;
+      height: 88px;
+      background: #F5FFFE;
+      border-radius: 12px;
+      margin: 0 11px 12px 0;
+      color: #303333;
+      font-size: 16px;
+      padding: 14px;
+      &:nth-child(6n){
+        margin-right: 0;
+      }
+      &.dark{
+        background: #F6FAFF;
+      }
+      img{
+        width: 28px;
+      }
+      .dfs{
+        margin-top: 12px;
+        font-size: 18px;
+        color: #000000;
+        .orange{
+          color: #F5B84A;
+        }
+      }
+    }
+  }
+  .toggle-button{
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #DCDFE6;
+    font-size: 14px;
+    color: #606266;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:hover{
+      .arrow-down{
+        animation-name: updown;
+        /*动画名称*/
+        animation-duration: 1s;
+        /*设置秒数*/
+        animation-timing-function: linear;
+        /*速度曲线*/
+        animation-iteration-count: infinite;
+      }
+    }
+    .arrow-down {
+      width: 0;
+      margin-left: 6px;
+      margin-top: 9px;
+      border: 4px solid;
+      border-color: #C0C4CC transparent transparent transparent;
+      &.up{
+        border-color: transparent transparent  #C0C4CC transparent;
+        margin-top: -4px;
+      }
+    }
+  }
+  .nft-search{
+    height: 39px;
+    background: rgba(255,255,255,0);
+    border-radius: 4px;
+    border: 1px solid #DFE3E0;
+    padding: 12px 16px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    img{
+      width: 16px;
+      opacity: 0.4;
+      margin-right: 10px;
+    }
+    input{
+      border: none;
+      width: 100%;
+      &::placeholder{
+        color: #7F7F7F;
+      }
+    }
+  }
+  .nft-table{
+    .logo{
+      width: 32px;
+      border-radius: 50%;
+    }
+    .s-green{
+      color: #50BF8C;
+    }
+  }
+  .activate-list{
+
+    &-item{
+      width: 180px;
+      height: 77px;
+      background: rgba(244,251,245,0);
+      box-shadow: 0px 2px 10px 0px rgba(211,223,217,0.75);
+      border-radius: 4px;
+      margin-right: 8px;
+      color: #606266;
+      .name{
+        flex: 1;
+      }
+      .detail-btn{
+        width: 100%;
+        height: 28px;
+        background: #ECFFF6;
+        cursor: pointer;
+        color: #0A804A;
+      }
+    }
+  }
+}
+
+@keyframes updown {
+  0%{
+    transform: translateY(0);
+  }
+  25%{
+    transform: translateY(-2px);
+  }
+  50%{
+    transform: translateY(0);
+  }
+  75%{
+    transform: translateY(2px);
+  }
+  100%{
+    transform: translateY(0);
   }
 }

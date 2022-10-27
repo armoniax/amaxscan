@@ -107,3 +107,22 @@ body {
 .number-font-bold{
   font-family: 'D-DINExp-Bold';
 }
+
+
+.common-table{
+  width: 100%;
+  tr{
+    height: 50px;
+    font-size: 14px;
+    color: #303333;
+    border-bottom: 1px solid #F1F1F1;
+    td{
+      min-width: 80px;
+    }
+  }
+  .table-header{
+    height: 60px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
