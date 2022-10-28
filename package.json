@@ -19,6 +19,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/webpack-env": "^1.18.0",
     "@wojtekmaj/react-datetimerange-picker": "^4.0.1",
+    "antd": "^4.23.6",
     "babel-plugin-import": "^1.13.3",
     "bignumber.js": "^1.1.0",
     "classnames": "^2.3.2",

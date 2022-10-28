@@ -4,11 +4,9 @@ import block_icon from "@/assets/images/web/block_icon.png";
 import chain_icon from "@/assets/images/web/chain_icon.png";
 import search_icon from "@/assets/images/web/search_icon.png";
 import node_icon from "@/assets/images/web/node_icon.png";
-import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
 import "../index.scss";
 
 const ChainData: FC = (): ReactElement => {
-  const [value, onChange] = useState([new Date(), new Date()]);
   const [chainDataList, setChainDataList] = useState(
     (() => {
       let list = [];
@@ -64,7 +62,7 @@ const ChainData: FC = (): ReactElement => {
               toggleMore();
             }}
           >
-            {isUnfold ? "收起" : "展开"}
+            {isUnfold ? "收起" : "展示全部"}
             <i className={`arrow-down${isUnfold ? " up" : ""}`}></i>
           </div>
         </>
@@ -122,9 +120,9 @@ const ChainData: FC = (): ReactElement => {
         <div className="p-t-16 fs-14">
           <div className="activate-list flex-row-start-center">
             {
-              [1,2,3,4,5,6,].map(item=>{
+              [1,2,3,4,5,6,].map((item,i)=>{
                 return(
-                  <div className="activate-list-item flex-col-between-center">
+                  <div className="activate-list-item flex-col-between-center" key={i}>
                     <div className="name flex-row-center-center">
                       velah@le.ac
                     </div>
@@ -142,7 +140,6 @@ const ChainData: FC = (): ReactElement => {
   ];
   return (
     <div className="section-box chain-data">
-      <DateTimeRangePicker onChange={onChange} value={value} />
       <div className="chain-data-title">
         <img src={block_icon} alt="" /> Chain Data
       </div>

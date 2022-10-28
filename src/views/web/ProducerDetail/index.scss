@@ -43,11 +43,12 @@
   padding-top: 10px;
 
   .left {
-    width: 416px;
+    width: 30%;
+    margin-right: 5%;
 
 
     .color-block {
-      width: 192px;
+      width: 46%;
       height: 83px;
       box-shadow: 2px 2px 6px 0px rgba(217, 212, 241, 0.92);
       border-radius: 11px;
@@ -122,7 +123,7 @@
   }
 
   .right {
-    width: 676px;
+    flex: 1;
 
     .process-list {
       display: flex;
@@ -147,7 +148,7 @@
         }
 
         .process-wrapper {
-          width: 437px;
+          width: 72%;
           margin-right: 42px;
 
           .process {
@@ -260,21 +261,21 @@
   &-list {
     margin-top: 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     &-item {
-      width: 185px;
+      width: 16%;
       height: 88px;
       background: #F5FFFE;
       border-radius: 12px;
-      margin: 0 11px 12px 0;
+      margin: 0 0 12px 0;
       color: #303333;
       font-size: 16px;
       padding: 14px;
-      &:nth-child(6n){
-        margin-right: 0;
-      }
+      // &:nth-child(6n){
+      //   margin-right: 0;
+      // }
       &.dark{
         background: #F6FAFF;
       }
@@ -315,7 +316,7 @@
     .arrow-down {
       width: 0;
       margin-left: 6px;
-      margin-top: 9px;
+      margin-top: 6px;
       border: 4px solid;
       border-color: #C0C4CC transparent transparent transparent;
       &.up{
@@ -378,6 +379,7 @@
   }
 }
 
+
 @keyframes updown {
   0%{
     transform: translateY(0);
@@ -393,5 +395,118 @@
   }
   100%{
     transform: translateY(0);
+  }
+}
+
+
+
+// transactions
+.transactions{
+  &-header{
+    img{
+      width: 26px;
+      font-size: 20px;
+      color: #303332;
+    }
+  }
+  .filters{
+    font-size: 16px;
+    color: #303333;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    &-item{
+      cursor: pointer;
+      padding: 0 20px;
+      height: 34px;
+      border-radius: 20px;
+      border: 1px solid #DCDFE6;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 8px 10px 8px;
+      color: #606266;
+      &.active{
+        color: #303333;
+        background: #F0F2F5;
+        border-color: #F0F2F5;
+        font-weight: bold;
+      }
+      &.disabled{
+        border: none;
+        background: none;
+        color: #303333;
+        margin: 0 12px 10px 0;
+        padding: 0;
+        font-weight: bold;
+      }
+    }
+  }
+  .serach-filters{
+    font-size: 16px;
+    color: #303333;
+    margin-top: 10px;
+    &-item{
+      margin-right: 24px;
+
+      .name{
+        font-weight: bold;
+      }
+    }
+    .serach-filters-btn{
+      width: 123px;
+      height: 34px;
+      background: #50BF8C;
+      border-radius: 4px;
+      opacity: 0.9;
+      font-size: 14px;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+  .transactions-table{
+    tr{
+      height: 60px;
+    }
+    .s-green{
+      color: #4BC98F;
+    }
+    .s-red{
+      color: #FA454B;
+    }
+    .type{
+      height: 34px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      &.square{
+        padding: 0 20px;
+        border-radius: 4px;
+        border: 1px solid #DCDFE6;
+        color: #303333;
+      }
+      &.round{
+        width: 96px;
+        height: 34px;
+        border-radius: 17px;
+        border: 1px solid #FFA02F;
+        color: #FFA02F;
+      }
+    }
+    .data-1{
+      line-height: 1.4;
+    }
+    .data-2{
+      img{
+        width: 15px;
+        margin: 0 26px;
+      }
+      .square{
+        margin: 0 40px;
+      }
+    }
   }
 }

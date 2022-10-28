@@ -35,7 +35,7 @@ const Tabs: React.FunctionComponent<TabsProps> = ({defaultActiveIndex = 0,data,o
             return (
               activeIndex  === i
                &&
-              <div className={`tab-panel-${i}`}key={item.key}>
+              <div className={`tab-panel-${i}`} key={item.key?item.key:i}>
                 {item.children}
               </div>
             )

@@ -4,6 +4,7 @@ import avatar from "@/assets/images/web/node_icon.png";
 import ChainData from './components/chain-data'
 import "./index.scss";
 import Tabs from "@/components/Tabs";
+import Transactions from "./components/transactions";
 
 const ProducerDetail: FC = (): ReactElement => {
   const accountTabList = [
@@ -119,9 +120,9 @@ const ProducerDetail: FC = (): ReactElement => {
                 <td>data</td>
               </tr>
               {
-                  [1,2,3,4,5].map(item=>{
+                  [1,2,3,4,5].map((item,i)=>{
                     return (
-                      <tr>
+                      <tr key={i}>
                         <td>1</td>
                         <td>21</td>
                         <td>424setsession4242transactioFSA8fasfisolation98level12re</td>
@@ -159,6 +160,7 @@ const ProducerDetail: FC = (): ReactElement => {
         <Tabs data={accountTabList} defaultActiveIndex={0} />
       </div>
       <ChainData></ChainData>
+      <Transactions/>
     </div>
   );
 };

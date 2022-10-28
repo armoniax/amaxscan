@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react'
 import './index.scss'
 export interface PageProps {
-  onChange:Function,
+  onChange?:Function,
   total:number,
   sizeOptions?:any[]
 }
@@ -91,7 +91,7 @@ const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOpti
 
   const changePage = (currentPage) => {
     setCurrentPage(currentPage)
-    onChange(currentPage)
+    onChange && onChange(currentPage)
     if (currentPage >= 7) {
       if (totalPage - currentPage < 5) {
         return
