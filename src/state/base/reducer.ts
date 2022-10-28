@@ -3,7 +3,6 @@ import { AppThunk } from '@/state';
 import { setUserInfo, AccountStatus } from './actions';
 import {network, getScatter, getClient, initLink} from '@/utils/client'
 import {IdentityProof} from "@amax/anchor-link";
-import {numerToNameic} from "@/utils";
 
 const initialState = {
     account: {
