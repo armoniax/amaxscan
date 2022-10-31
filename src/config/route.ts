@@ -31,7 +31,7 @@ const routerConfig: IRouterConfig[] = [
     },
     {
       // 公钥列表
-      path: '/pubilcKey-list',
+      path: '/publicKey-list',
       component: lazy(async () => await import('@/views/web/PublicKeyList/index')),
       mpComponent: lazy(async () => await import('@/views/mobile/PublicKeyList/index')),
       exact: true
@@ -39,8 +39,8 @@ const routerConfig: IRouterConfig[] = [
     {
       // 单个NFT详情
       path: '/nft-item',
-      component: lazy(async () => await import('@/views/web/ProducerDetail/index')),
-      mpComponent: lazy(async () => await import('@/views/mobile/ProducerDetail/index')),
+      component: lazy(async () => await import('@/views/web/NFTItem/index')),
+      mpComponent: lazy(async () => await import('@/views/mobile/NFTItem/index')),
       exact: true
     },
     {
@@ -62,6 +62,20 @@ const routerConfig: IRouterConfig[] = [
       path: '/block-list',
       component: lazy(async () => await import('@/views/web/BlockList/index')),
       mpComponent: lazy(async () => await import('@/views/mobile/BlockList/index')),
+      exact: true
+    },
+    {
+      // 代币列表
+      path: '/token-list',
+      component: lazy(async () => await import('@/views/web/TokenList/index')),
+      mpComponent: lazy(async () => await import('@/views/mobile/TokenList/index')),
+      exact: true
+    },
+    {
+      // 代币详情
+      path: '/token-detail',
+      component: lazy(async () => await import('@/views/web/TokenDetail/index')),
+      mpComponent: lazy(async () => await import('@/views/mobile/TokenDetail/index')),
       exact: true
     },
 ]

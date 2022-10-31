@@ -238,111 +238,15 @@
 }
 
 
-//最新区块
-.latest-block {
 
-
-  &-list {
-    &-item {
-      height: 50px;
-      border-top: 1px solid #EAEEEC;
-
-      .item-title {
-        color: #2C2D2F;
-        font-size: 16px;
-        font-weight: 600;
-      }
-
-      .item-time {
-        color: #909399;
-        font-size: 14px;
-      }
-
-      .item-type {
-        padding: 6px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 22px;
-        background: rgb(234, 236, 235, 0.4);
-        border-radius: 4px;
-        color: #666c6c;
-        font-size: 12px;
-      }
-
-      .item-transaction {
-        color: #303333;
-        font-size: 14px;
-
-        .text-red {
-          color: #1BA03A;
-        }
-      }
-    }
-  }
-}
 
 
 //最新交易
 .latest-transaction {
   margin-top:24px;
-
-  .table-bar {
-    width: 100%;
-
-    &-title {
-      font-size: 24px;
-      color: #303332;
-      font-weight: bold;
-      padding-bottom: 16px;
-    }
-
-    .transaction-table {
-      color: #303332;
-      font-size: 16px;
-      text-align: right;
-      width: 100%;
-
-      .table-header {
-
-        font-weight: bold;
-        border-top: 1px solid #eaeeec;
-
-        td {
-          height: 50px;
-          line-height: 50px;
-          font-size: 16px;
-          font-weight: bold;
-          &:first-child {
-            text-align: left;
-          }
-
-        }
-      }
-
-      tr {
-        border-top: 1px solid #eaeeec;
-      }
-
-      td {
-        height: 44px;
-        line-height: 44px;
-        min-width: 162px;
-        font-size: 14px;
-        &:last-child {
-          text-align: right;
-        }
-
-        p {
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
-    }
-
+  .section-box-header{
+    border-bottom: 1px solid #EAEEEC;
   }
-
-
 
   .chart-bar {
     flex: 1;

@@ -1,0 +1,64 @@
+.nft-item {
+  &-main {
+    .nft-info {
+      width: 50%;
+
+      &-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 50px;
+        justify-content: space-between;
+        border-top: 1px solid #EAEEEC;
+
+        .title {
+          font-size: 14px;
+          color: #606266;
+        }
+
+        .ct {
+          font-size: 16px;
+          color: #303333;
+          font-weight: bold;
+        }
+
+        .s-green {
+          color: #50BF8C;
+        }
+      }
+    }
+
+    .nft-avatar {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 290px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .immutable-info {
+    &-item {
+      height: 50px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      border-top: 1px solid #EAEEEC;
+      font-size: 16px;
+
+      .title {
+        color: #606266;
+        width: 250px;
+      }
+
+      .ct {
+        color: #303333;
+        font-weight: bold;
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+.token-detail{
+  font-size: 14px;
+  .token-logo{
+    width: 74px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
+  .token-title{
+    font-size: 20px;
+    color: #303333;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+  .token-number{
+    color: #303333;
+    font-weight: bold;
+    .token-trend{
+      width: 128px;
+      height: 40px;
+      background: #E6FBF1;
+      border-radius: 8px;
+      color: #50BF8C;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 48px;
+    }
+  }
+
+  .number-list{
+    margin-top: 16px;
+    border-top: 1px solid #DFDFDF;
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    &-item{
+      width: 48%;
+      height: 60px;
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      color: #606266;
+      font-size: 16px;
+      line-height: 1.8;
+      .number-font{
+        color: #000;
+        text-align: right;
+      }
+    }
+  }
+  .rank-table{
+    img{
+      margin-right: 10px;
+      width: 26px;
+    }
+  }
+}

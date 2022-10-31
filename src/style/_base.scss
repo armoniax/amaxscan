@@ -119,10 +119,65 @@ body {
     td{
       min-width: 80px;
     }
+    &.text-align-between{
+      td{
+        text-align: center;
+        &:first-child{
+          text-align: left;
+        }
+        &:last-child{
+          text-align: right;
+        }
+      }
+    }
   }
   .table-header{
     height: 60px;
     font-size: 16px;
     font-weight: bold;
+  }
+}
+
+//最新区块
+.latest-block {
+
+
+  &-list {
+    &-item {
+      height: 50px;
+      border-top: 1px solid #EAEEEC;
+
+      .item-title {
+        color: #2C2D2F;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .item-time {
+        color: #909399;
+        font-size: 14px;
+      }
+
+      .item-type {
+        padding: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 22px;
+        background: rgb(234, 236, 235, 0.4);
+        border-radius: 4px;
+        color: #666c6c;
+        font-size: 12px;
+      }
+
+      .item-transaction {
+        color: #303333;
+        font-size: 14px;
+
+        .text-red {
+          color: #1BA03A;
+        }
+      }
+    }
   }
 }
