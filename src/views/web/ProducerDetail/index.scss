@@ -209,14 +209,14 @@
       border: 1px solid #DFE2E8;
       height: 34px;
       border-radius: 4px;
-      width: 132px;
+      width: 11%;
       margin: 0 16px 0 6px;
       padding: 0 6px;
       box-sizing: border-box;
     }
 
     .query-button {
-      width: 116px;
+      width: 7%;
       height: 34px;
       background: #50BF8C;
       border-radius: 4px;
@@ -509,4 +509,12 @@
       }
     }
   }
+}
+
+.abi-panel{
+  width: 100%;
+  background: #F8FCFC;
+  border-radius: 4%;
+  padding: 16px 8px;
+  margin-top: 14px;
 }
