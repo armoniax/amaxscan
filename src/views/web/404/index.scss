@@ -1,0 +1,13 @@
+.not-found{
+  font-size: 20px;
+  color: #909995;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  img{
+    display: block;
+    margin-bottom: 30 px;
+  }
+}
