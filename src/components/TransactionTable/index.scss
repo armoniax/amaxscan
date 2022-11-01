@@ -33,6 +33,10 @@
 
     tr {
       border-top: 1px solid #eaeeec;
+      cursor: pointer;
+      &:hover{
+        background-color: rgba(232, 237, 241, 0.6);
+      }
     }
 
     td {

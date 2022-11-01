@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { useHistory } from "react-router-dom";
 import "./index.scss";
 
 export interface TableProps {
@@ -6,6 +7,10 @@ export interface TableProps {
 }
 
 const TransactionTable: React.FunctionComponent<TableProps> = ({data}) => {
+  const  history = useHistory()
+  const goDetail = (id)=>{
+    history.push({pathname:'/transaction-detail',state: { id }})
+  }
   return (
     <div className="table-bar">
         <table className="transaction-table">
@@ -19,7 +24,7 @@ const TransactionTable: React.FunctionComponent<TableProps> = ({data}) => {
             </tr>
             {data && data.map((item,i) => {
               return (
-                <tr key={i}>
+                <tr key={i} onClick={()=>{goDetail(i)}}>
                   <td>
                     <p>fd838b517b17dsadfsa31cccccc</p>
                   </td>

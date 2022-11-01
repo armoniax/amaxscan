@@ -4,9 +4,9 @@ import search_icon from "@/assets/images/web/search_icon.png";
 import "./index.scss";
 
 const TokenList: FC = (): ReactElement => {
-  const _list =[]
+  const _list = [];
   for (let i = 0; i < 30; i++) {
-    _list.push(i)
+    _list.push(i);
   }
   return (
     <div>
@@ -16,22 +16,22 @@ const TokenList: FC = (): ReactElement => {
           <input type="text" placeholder="搜索代币的名称或者合约" />
         </div>
         <table className="common-table">
-          <tr className="table-header text-align-between">
-            <td>名称</td>
-            <td>合约地址</td>
-            <td>已发行供应量</td>
-          </tr>
-          {
-            _list.map((item,i)=>{
+          <tbody>
+            <tr className="table-header text-align-between">
+              <td>名称</td>
+              <td>合约地址</td>
+              <td>已发行供应量</td>
+            </tr>
+            {_list.map((item, i) => {
               return (
-                <tr className="text-align-between">
+                <tr className="text-align-between" key={i}>
                   <td>AMAX</td>
-                  <td className="c-50BF8C" >amax.token</td>
-                  <td className="number-font" >4784997342</td>
+                  <td className="c-50BF8C">amax.token</td>
+                  <td className="number-font">4784997342</td>
                 </tr>
-              )
-            })
-          }
+              );
+            })}
+          </tbody>
         </table>
       </div>
     </div>

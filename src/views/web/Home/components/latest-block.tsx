@@ -1,4 +1,5 @@
 import { FC, memo, ReactElement } from "react";
+import { Link } from "react-router-dom";
 import "../index.scss";
 
 const LatestBlock: FC = (): ReactElement => {
@@ -6,7 +7,7 @@ const LatestBlock: FC = (): ReactElement => {
     <div className="latest-block section-box">
       <div className="section-box-header flex-row-between-center">
         <p className="title">最新区块</p>
-        <a href="/#" className="flex-row-start-center">更多区块 <i className="arrow-icon"></i></a>
+        <Link to={{pathname:'/block-list'}} className="flex-row-start-center">更多区块 <i className="arrow-icon"></i></Link>
       </div>
       <div className="latest-block-list">
         {

@@ -1,5 +1,6 @@
 import TransactionTable from "@/components/TransactionTable";
 import { FC, memo, ReactElement } from "react";
+import { Link } from "react-router-dom";
 import "../index.scss";
 
 const LatestTransaction: FC = (): ReactElement => {
@@ -11,7 +12,7 @@ const LatestTransaction: FC = (): ReactElement => {
     <div className="latest-transaction section-box">
       <div className="section-box-header flex-row-between-center">
         <p className="title">最新交易</p>
-        <a href="/#" className="flex-row-start-center">更多交易 <i className="arrow-icon"></i></a>
+        <Link to={{ pathname: "/transaction-list"}} className="flex-row-start-center">更多交易 <i className="arrow-icon"></i></Link>
       </div>
       <TransactionTable data={_list} />
     </div>

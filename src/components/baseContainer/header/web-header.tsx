@@ -22,15 +22,15 @@ const WebHeader: React.FunctionComponent<IWebHeaderProps> = (props) => {
             title: 'nodes'
         },
         {
-          path: '/blocks',
+          path: '/block-list',
           title: 'blocks'
       },
         {
-            path: '/transactions',
+            path: '/transaction-list',
             title: 'transactions'
         },
         {
-            path: '/tokens',
+            path: '/token-list',
             title: 'tokens'
         }
     ]

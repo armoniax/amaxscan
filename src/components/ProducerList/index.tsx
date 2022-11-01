@@ -3,7 +3,7 @@ import { memo } from "react";
 import node_icon from "@/assets/images/web/node_icon.png";
 import Pagination from "@/components/Pagination";
 import "./index.scss";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 export interface ListProps {
   showPage?:boolean,
   data?:any[]
@@ -20,9 +20,9 @@ const ProducerList: React.FunctionComponent<ListProps> = ({showPage = false,data
     <div className="producer-list section-box">
       <div className="section-box-header flex-row-between-center">
         <p className="title">生产节点</p>
-        <a href="/" className="flex-row-between-center">
+        <Link to={{pathname:'/producer-list'}} className="flex-row-between-center">
           更多节点 <i className="arrow-icon"></i>
-        </a>
+        </Link>
       </div>
       <table className="producer-list-table">
         <tbody>

@@ -5,9 +5,9 @@ import trend_icon from "@/assets/images/web/trend_icon.png";
 import "./index.scss";
 
 const TokenDetail: FC = (): ReactElement => {
-  const _list =[]
+  const _list = [];
   for (let i = 0; i < 30; i++) {
-    _list.push(i)
+    _list.push(i);
   }
   return (
     <div className="token-detail">
@@ -24,7 +24,9 @@ const TokenDetail: FC = (): ReactElement => {
             </div>
           </div>
           <div className="token-number flex-row-start-center">
-            <span className="fs-20 number-font">2.22331 <span className="fs-14">USD</span></span>
+            <span className="fs-20 number-font">
+              2.22331 <span className="fs-14">USD</span>
+            </span>
             <div className="token-trend">＋1.82%</div>
           </div>
         </div>
@@ -52,25 +54,27 @@ const TokenDetail: FC = (): ReactElement => {
       </div>
       <div className="rank-table section-box">
         <div className="section-box-header">
-          <p className="title"><img src={trend_icon} alt="" /> 持有者地址排名</p>
+          <p className="title">
+            <img src={trend_icon} alt="" /> 持有者地址排名
+          </p>
         </div>
         <table className="common-table">
-          <tr className="table-header text-align-between">
-            <td>排名</td>
-            <td>账户名</td>
-            <td>AMAX数量</td>
-          </tr>
-          {
-            _list.map((item,i)=>{
+          <tbody>
+            <tr className="table-header text-align-between">
+              <td>排名</td>
+              <td>账户名</td>
+              <td>AMAX数量</td>
+            </tr>
+            {_list.map((item, i) => {
               return (
                 <tr className="text-align-between">
                   <td>1</td>
-                  <td className="c-50BF8C" >amax.token</td>
-                  <td className="number-font" >47849233</td>
+                  <td className="c-50BF8C">amax.token</td>
+                  <td className="number-font">47849233</td>
                 </tr>
-              )
-            })
-          }
+              );
+            })}
+          </tbody>
         </table>
       </div>
     </div>
