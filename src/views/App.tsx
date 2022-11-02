@@ -6,7 +6,7 @@ import Loading from "@/components/Loading";
 import routerConfig from "@/config/route";
 
 const NotFound404 = lazy(async () => await import('./NotFound404'))
-const App: FC = (props) => {
+const App: FC = () => {
     const { isMobile } = (window as any)._global || {}
     useEffect(() => {
         window.addEventListener('scroll', () => {

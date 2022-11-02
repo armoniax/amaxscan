@@ -6,12 +6,20 @@ import full_icon from "@/assets/images/web/full_icon.png";
 import check_icon from "@/assets/images/web/check_icon.png";
 import network_icon from "@/assets/images/web/network_icon.png";
 import forward_icon from "@/assets/images/web/forward_icon.png";
+import copy from 'copy-to-clipboard';
 import "./index.scss";
 
 const TransactionDetail: FC = (props): ReactElement => {
   const [activeIndex ,setActiveIndex] = useState(1)
+  const [showCopyTip,setShowCopyTip] = useState(false)
   // const id = props.location.state.id
-
+  const copyText = (text)=>{
+    text && copy(text)
+    setShowCopyTip(true)
+    setTimeout(() => {
+      setShowCopyTip(false)
+    }, 1000);
+  }
   const tabList = [
     {
       name:'内含操作',
@@ -37,7 +45,8 @@ const TransactionDetail: FC = (props): ReactElement => {
             <p className="m-b-4 fs-14">交易哈希</p>
             <div className="hash-bar flex-row-between-center">
               <div className="hash-value number-font">515ee47804de85050decdd93a7c6c0fe375161e9f843c02303d56671e3767188</div>
-              <div className="btn flex-row-center-center">复制</div>
+              <div className="btn flex-row-center-center" onClick={()=>{copyText('515ee47804de85050decdd93a7c6c0fe375161e9f843c02303d56671e3767188')}}>复制</div>
+              <span className={`copy-tip${showCopyTip ? ' show':''}`}>复制成功</span>
             </div>
           </div>
           <div className="status">

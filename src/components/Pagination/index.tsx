@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import './index.scss'
 export interface PageProps {
   onChange?:Function,
@@ -12,7 +12,11 @@ const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOpti
   const pageSizeOptions = sizeOptions ? sizeOptions : [10,20,30]
   const [currentSize,setCurrentSize] = useState<number>(pageSizeOptions[0])
   const groupCount:number = 7
-  let totalPage = Math.ceil(total/pageSizeOptions[0])
+  const [totalPage,setTotalPage] = useState<number>(0)
+  useEffect(()=>{
+    setTotalPage(Math.ceil(total/currentSize))
+    setCurrentPage(1)
+  },[currentSize,total])
 
   const createPage = () => {
     let pages = []
@@ -114,7 +118,7 @@ const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOpti
 
   const changeSize = (size) => {
     setCurrentSize(size)
-    totalPage = Math.ceil(total/ size)
+    // totalPage = Math.ceil(total/ size)
     // let pageList = createPage()
     // setPageList(pageList)
   }

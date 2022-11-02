@@ -12,6 +12,20 @@
         background: #F7F9F8;
         border-radius: 8px;
         backdrop-filter: blur(3px);
+        user-select: none;
+        .copy-tip{
+          opacity: 0;
+          position: absolute;
+          right: -63px;
+          font-size: 13px;
+          color: #f1275f;
+          font-weight: bold;
+          transition: all 0.4s;
+          &.show{
+            transform: translateY(-2px);
+            opacity: 1;
+          }
+        }
         .hash-value{
           padding-left: 16px;
           flex: 1;
@@ -198,3 +212,4 @@
 
   }
 }
+
