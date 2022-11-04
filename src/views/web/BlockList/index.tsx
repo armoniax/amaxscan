@@ -1,33 +1,29 @@
-import { FC, memo, ReactElement } from "react";
+import { FC, memo, ReactElement, useEffect, useState } from "react";
 import Baseweb from "@/components/baseContainer/webwrap";
+import ServerApi from '@/api'
 import "./index.scss";
+import BlockList from "@/components/BlockList";
 
-const BlockList: FC = (): ReactElement => {
-  const _list =[]
-  for (let i = 0; i < 30; i++) {
-    _list.push(i)
-  }
+
+const BlockListPage: FC = (): ReactElement => {
+  const [latestBlockList,setLatestBlockList] = useState<any[]>([])
+  const {
+      getLastBlocksData
+  } = ServerApi
+
+  useEffect(() => {
+    const initData = async () => {
+        const responseData = await getLastBlocksData(20)
+        setLatestBlockList(responseData)
+    }
+    void initData()
+  }, [getLastBlocksData])
+
   return (
     <div className="latest-block section-box">
-      <div className="latest-block-list">
-        {_list.map((item, i) => {
-          return (
-            <ul
-              className="latest-block-list-item flex-row-between-center"
-              key={i}
-            >
-              <li className="item-title">#3762039</li>
-              <li className="item-time">2022-Apr-08, 16:05:12</li>
-              <li className="item-type">AMAXyreywr</li>
-              <li className="item-transaction">
-                交易<span className="text-red">8</span>笔
-              </li>
-            </ul>
-          );
-        })}
-      </div>
+      <BlockList data={latestBlockList} />
     </div>
   );
 };
 
-export default Baseweb(memo(BlockList));
+export default Baseweb(memo(BlockListPage));
