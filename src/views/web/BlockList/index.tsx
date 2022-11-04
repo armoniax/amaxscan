@@ -20,7 +20,7 @@ const BlockListPage: FC = (): ReactElement => {
   }, [getLastBlocksData])
 
   return (
-    <div className="latest-block section-box">
+    <div className="latest-block section-box page">
       <BlockList data={latestBlockList} />
     </div>
   );
