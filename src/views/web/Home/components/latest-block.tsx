@@ -3,17 +3,32 @@ import { Link } from "react-router-dom";
 import ServerApi from '@/api'
 import "../index.scss";
 import BlockList from "@/components/BlockList";
+import { io } from "socket.io-client";
+const ioOptions = {
+  transports: ['websocket', 'polling'],
+}
+const socket = io(`${process.env.REACT_APP_AMAX_SCAN}`,ioOptions);
 
+socket.on('get_last_blocks', (res: any) => {
+  console.log(res,'resresresres');
+    // state.blocks = sortArray(res);
+    // state.txns = createTransactionsArray(res);
+});
+
+console.log(socket,7878);
 const LatestBlock: FC = (): ReactElement => {
   const [latestBlockList,setLatestBlockList] = useState<any[]>([])
   const {
       getLastBlocksData
   } = ServerApi
 
+
   useEffect(() => {
     const initData = async () => {
         const responseData = await getLastBlocksData(6)
         setLatestBlockList(responseData)
+
+
     }
     void initData()
   }, [getLastBlocksData])

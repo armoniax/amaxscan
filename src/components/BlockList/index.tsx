@@ -16,7 +16,7 @@ const BlockList: React.FunctionComponent<ListProps> = ({showPage = false,data}) 
       {
         data.map((item,i) => {
          return(
-          <tr className="latest-block-list-item text-align-between">
+          <tr className="latest-block-list-item text-align-between" key={item.id}>
             <td className="item-title">{`#${item?.block_num}`}</td>
             <td className="item.time">{handleTime(item?.timestamp)}</td>
             <td><span className="item-type">{item?.producer}</span></td>
