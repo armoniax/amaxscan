@@ -11,7 +11,10 @@ const App: FC = (props) => {
     useEffect(() => {
         window.addEventListener('scroll', () => {
             const scrollT = document.documentElement.scrollTop || document.body.scrollTop;
-            scrollT > 120 ? document.getElementsByClassName(isMobile?'mp-header':'web-header')[0].classList.add('showback') : document.getElementsByClassName(isMobile?'mp-header':'web-header')[0].classList.remove('showback')
+            if(document.getElementsByClassName(isMobile?'mp-header':'web-header')[0].classList){
+                scrollT > 120 ? document.getElementsByClassName(isMobile?'mp-header':'web-header')[0].classList.add('showback') : document.getElementsByClassName(isMobile?'mp-header':'web-header')[0].classList.remove('showback')
+            }
+
         })
         return () => {
             window.removeEventListener('scroll', () => {
