@@ -7,46 +7,26 @@ import node_icon from "@/assets/images/web/node_icon.png";
 import "../index.scss";
 
 const ChainData: FC = (): ReactElement => {
-  const [chainDataList, setChainDataList] = useState(
-    (() => {
-      let list = [];
-      for (let i = 0; i < 12; i++) {
-        list.push(
-          <div
-            className={`chain-data-list-item${i % 2 === 0 ? " dark" : ""}`}
-            key={i}
-          >
-            <img src={chain_icon} alt="" /> prospectorsg
-            <p className="dfs number-font">
-              190,749.9181 <span className="orange">DFS</span>
-            </p>
-          </div>
-        );
-      }
-      return list;
-    })()
-  );
+
+  let _data = []
+  for (let i = 0; i < 20; i++) {
+    _data.push({
+      name:'prospectorsg',
+      dfs:'190,749.9181'
+    })
+  }
+  const [chainDataList, setChainDataList] = useState(_data.slice(0,12));
   const [isUnfold, setIsUnfold] = useState(false);
+
   const toggleMore = () => {
     if (!isUnfold) {
-      for (let i = 0; i < 6; i++) {
-        chainDataList.push(
-          <div
-            className={`chain-data-list-item${i % 2 === 0 ? " dark" : ""}`}
-            key={i}
-          >
-            <img src={chain_icon} alt="" /> prospectorsg
-            <p className="dfs number-font">
-              190,749.9181 <span className="orange">DFS</span>
-            </p>
-          </div>
-        );
-      }
+      setChainDataList(_data)
     } else {
-      setChainDataList(chainDataList.slice(0, 12));
+      setChainDataList(_data.slice(0, 12));
     }
     setIsUnfold(!isUnfold);
   };
+
   const chainTabList = [
     {
       label: "Tokens（19）",
@@ -55,7 +35,21 @@ const ChainData: FC = (): ReactElement => {
           <div className="p-t-16 fs-14">
             Total Tokens Value: $2.69 USD / 1.2117 EOS
           </div>
-          <div className="chain-data-list">{chainDataList}</div>
+          <div className="chain-data-list">{
+            chainDataList.map((item,i)=>{
+              return (
+                <div
+                  className={`chain-data-list-item${i % 2 === 0 ? " dark" : ""}`}
+                  key={i}
+                >
+                  <img src={chain_icon} alt="" /> {item.name}
+                  <p className="dfs number-font">
+                    {item.dfs} <span className="orange">DFS</span>
+                  </p>
+                </div>
+              )
+            })
+          }</div>
           <div
             className="toggle-button"
             onClick={() => {
@@ -143,7 +137,7 @@ const ChainData: FC = (): ReactElement => {
       <div className="chain-data-title">
         <img src={block_icon} alt="" /> Chain Data
       </div>
-      <Tabs data={chainTabList} defaultActiveIndex={3} />
+      <Tabs data={chainTabList} defaultActiveIndex={0} />
     </div>
   );
 };

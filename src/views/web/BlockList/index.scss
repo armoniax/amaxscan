@@ -1,8 +1,10 @@
-.latest-block-list{
-  margin-top: -16px;
-  &-item{
-    &:first-child{
-      border-top: none;
+.page{
+  .latest-block-list{
+    margin-top: -16px;
+    &-item{
+      &:first-child{
+        border-top: none;
+      }
     }
   }
 }

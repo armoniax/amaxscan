@@ -7,11 +7,11 @@ const {post,get} = axiosRequest
 class ServerApi {
     private readonly baseConfig = {
         amaxNodeApi: `${process.env.REACT_APP_URL}/v1/chain/get_table_rows`,
-        amaxScanApi:`${process.env.REACT_APP_AMAX_SCAN}/api/v1/get_last_blocks/6`,
+        amaxScanApi:`${process.env.REACT_APP_AMAX_SCAN}/api/v1`,
     }
 
-    getLastBlocksData = async ()=>{
-        const data = await get(this.baseConfig.amaxScanApi, {})
+    getLastBlocksData = async (size)=>{
+        const data = await get(`${this.baseConfig.amaxScanApi}/get_last_blocks/${size}`, {})
         return data
     }
     getTableRowsByVendorinfo = async () => {

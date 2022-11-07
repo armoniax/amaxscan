@@ -1,0 +1,45 @@
+//最新区块
+.latest-block {
+
+
+  &-list {
+    margin-top:0;
+    &-item {
+      height: 50px;
+
+      .item-title {
+        color: #2C2D2F;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .item-time {
+        color: #909399;
+        font-size: 14px;
+      }
+
+      .item-type {
+        padding: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 22px;
+        background: rgb(234, 236, 235, 0.4);
+        border-radius: 4px;
+        color: #666c6c;
+        font-size: 12px;
+        width: fit-content;
+        margin: 0 auto;
+      }
+
+      .item-transaction {
+        color: #303333;
+        font-size: 14px;
+
+        .text-red {
+          color: #1BA03A;
+        }
+      }
+    }
+  }
+}

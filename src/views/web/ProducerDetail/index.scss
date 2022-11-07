@@ -261,7 +261,7 @@
   &-list {
     margin-top: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
     &-item {
@@ -273,9 +273,10 @@
       color: #303333;
       font-size: 16px;
       padding: 14px;
-      // &:nth-child(6n){
-      //   margin-right: 0;
-      // }
+      margin-right: 0.8%;
+      &:nth-child(6n){
+        margin-right: 0;
+      }
       &.dark{
         background: #F6FAFF;
       }

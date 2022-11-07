@@ -29,7 +29,7 @@ const Home: FC = (): ReactElement => {
 
     useEffect(() => {
         const initData = async () => {
-            const responseData = await getLastBlocksData()
+            const responseData = await getLastBlocksData(6)
             setLastBlockList(responseData)
         }
         void initData()
