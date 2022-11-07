@@ -5,7 +5,7 @@ import './index.scss'
 import Overview from './components/overview'
 import LatestBlock from './components/latest-block'
 import LatestTransaction from './components/latest-transaction'
-import ProducerList from '@/components/ProducerList'
+import ProducerList from './components/producer-list'
 // import APOSBlock from './components/apos-block'
 import MarketDynamic from './components/market-dynamic'
 
@@ -26,7 +26,7 @@ const Home: FC = (): ReactElement => {
         <LatestTransaction/>
         {/* <APOSBlock/> */}
         <MarketDynamic/>
-        <ProducerList data={list} />
+        <ProducerList ></ProducerList>
       </div>
     )
 }

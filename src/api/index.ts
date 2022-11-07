@@ -10,10 +10,25 @@ class ServerApi {
         amaxScanApi:`${process.env.REACT_APP_AMAX_SCAN}/api/v1`,
     }
 
-    getLastBlocksData = async (size)=>{
-        const data = await get(`${this.baseConfig.amaxScanApi}/get_last_blocks/${size}`, {})
-        return data
+    getLastBlocksData = async (size:number)=>{
+      const data = await get(`${this.baseConfig.amaxScanApi}/get_last_blocks/${size}`, {})
+      return data
     }
+
+    getTransactionData = async (id:string)=>{
+      const data = await get(`${this.baseConfig.amaxScanApi}/get_transaction/${id}`, {})
+      return data
+    }
+
+    getTableRows = async(accountName: string, name: string, count = 20) =>{
+      const data = await  get(`${this.baseConfig.amaxScanApi}/get_table_rows/${accountName}/${accountName}/${name}/${count}`)
+      return data
+    };
+    getProducersBpJson = async() => {
+      const data = await get('/v1/get_producers_bp_json')
+      return data
+    };
+
     getTableRowsByVendorinfo = async () => {
         const data = await post(this.baseConfig.amaxNodeApi, {
             code: process.env.REACT_APP_CONTARCT_NAME,
