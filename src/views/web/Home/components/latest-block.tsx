@@ -4,7 +4,7 @@ import ServerApi from '@/api'
 import "../index.scss";
 import BlockList from "@/components/BlockList";
 // import TransactionTable from "@/components/TransactionTable";
-import io from 'socket.io-client';
+import socket from '@/api/socket'
 const ungerKey = "AMAX1111111111111111111111111111111114T1Anm";
 const sortArray = (data: any) => {
   if (!data) {
@@ -59,10 +59,6 @@ const LatestBlock: FC = (): ReactElement => {
         getLastBlocksData
     } = ServerApi
     useEffect(() => {
-        const ioOptions = {
-            transports: ['websocket', 'polling'],
-        }
-        const socket = io('https://amaxscan.io', ioOptions);
         // socket.on('get_info', (res: any) => {
         //     console.log('get_info', res);
         // });
@@ -85,13 +81,16 @@ const LatestBlock: FC = (): ReactElement => {
 
     useEffect(() => {
         const initData = async () => {
-            const res = await getLastBlocksData(6)
+            const res = await getLastBlocksData(9)
             setLatestBlockList(sortArray(res))
             // setTransactionList(createTransactionsArray(res));
         }
         void initData()
+        return ()=>{
+          socket.close();
+          socket.disconnect();
+        }
     }, [getLastBlocksData])
-
     return (
        <>
         <div className="latest-block section-box">

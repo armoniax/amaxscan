@@ -31,14 +31,13 @@ const TransactionTable: React.FunctionComponent<TableProps> = ({ data }) => {
               return (
                 <tr
                   key={i}
-                  onClick={() => {
-                    goDetail(i);
-                  }}
                 >
-                  <td>
-                    <p>{item.id}</p>
+                  <td className="pointer main-color" onClick={() => {
+                    goDetail(i);
+                  }}>
+                    <p className="limit-length" title={item.id}>{item.id}</p>
                   </td>
-                  <td>
+                  <td className="main-color pointer">
                     <p className="number-font">240706426</p>
                   </td>
                   <td>

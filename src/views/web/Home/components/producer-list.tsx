@@ -1,23 +1,9 @@
 import ProducerTable from "@/components/ProducerTable";
-import { FC, memo, ReactElement, useEffect, useState } from "react";
+import { FC, memo, ReactElement } from "react";
 import { Link } from "react-router-dom";
-import ServerApi from '@/api'
 import "../index.scss";
 
 const ProducerList: FC = (): ReactElement => {
-  const [producerList,setProducerList] = useState<any[]>([])
-  const {
-      getLastBlocksData
-  } = ServerApi
-
-
-  useEffect(() => {
-    const initData = async () => {
-        const res = await getLastBlocksData(6)
-        setProducerList(res)
-    }
-    void initData()
-  }, [getLastBlocksData])
   return (
     <div className="producer-list section-box">
       <div className="section-box-header flex-row-between-center">
@@ -26,7 +12,7 @@ const ProducerList: FC = (): ReactElement => {
           更多节点 <i className="arrow-icon"></i>
         </Link>
       </div>
-      <ProducerTable data={producerList}></ProducerTable>
+      <ProducerTable length={7}></ProducerTable>
     </div>
   );
 };

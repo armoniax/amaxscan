@@ -15,6 +15,11 @@ class ServerApi {
       return data
     }
 
+    getBlockDetail = async (id:string)=>{
+      const data = await get(`${this.baseConfig.amaxScanApi}/get_block/${id}`, {})
+      return data
+    }
+
     getTransactionData = async (id:string)=>{
       const data = await get(`${this.baseConfig.amaxScanApi}/get_transaction/${id}`, {})
       return data
@@ -25,7 +30,7 @@ class ServerApi {
       return data
     };
     getProducersBpJson = async() => {
-      const data = await get('/v1/get_producers_bp_json')
+      const data = await get(`${this.baseConfig.amaxScanApi}/get_producers_bp_json`)
       return data
     };
 

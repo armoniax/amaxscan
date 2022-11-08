@@ -65,6 +65,13 @@ const routerConfig: IRouterConfig[] = [
       exact: true
     },
     {
+      // 区块详情
+      path: '/block-detail/:block_num',
+      component: lazy(async () => await import('@/views/web/BlockDetail/index')),
+      mpComponent: lazy(async () => await import('@/views/mobile/BlockDetail/index')),
+      exact: true
+    },
+    {
       // 代币列表
       path: '/token-list',
       component: lazy(async () => await import('@/views/web/TokenList/index')),

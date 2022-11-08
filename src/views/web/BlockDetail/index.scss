@@ -1,0 +1,94 @@
+.block-detail{
+  .text-yellow{
+    color: #F5B84A;
+  }
+  .text-red{
+    color: #FA454B;
+  }
+  margin-top: 32px;
+  .box-title{
+    color: #303333;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 16px;
+    margin-top: 28px;
+    img{
+      width: 26px;
+      margin-right: 10px;
+    }
+  }
+  .section-box{
+    margin-top: 10px;
+    &.half{
+      width: 49%;
+    }
+    &.right{
+      .row{
+        .title{
+          width: 148px;
+        }
+      }
+    }
+    .row.header{
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 36px;
+      .title{
+        color: #303333;
+      }
+    }
+    .row{
+      font-size: 14px;
+      margin-bottom: 30px;
+      .title{
+        width: 100px;
+        color: #606266;
+      }
+      .ct{
+        // max-width: 330px;
+        flex: 1;
+        line-height: 1.2;
+        margin-left: 10px;
+        word-break: break-word;
+        .prenext-btns{
+          .btn{
+            padding: 4px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #4BC98F;
+            background: #E1F9EE;
+            line-height: 1;
+            border-radius: 4px;
+            margin-left: 8px;
+            cursor: pointer;
+            .arrow-icon.left{
+              transform: rotate(90deg);
+            }
+            &.left{
+              padding-right: 10px;
+            }
+            &.right{
+              padding-left: 10px;
+            }
+          }
+        }
+      }
+
+    }
+  }
+  .tabs{
+    margin-top: -16px;
+  }
+  .transaction-table{
+    border-top: 1px solid #EAEEEC;
+    margin-top: 10px;
+    .green-tag{
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 4px;
+      background-color: #50BF8C;
+      font-size: 4px;
+      color: #fff;
+    }
+  }
+}

@@ -34,7 +34,6 @@
     tr {
       border-top: 1px solid #eaeeec;
       &:not(.table-header){
-        cursor: pointer;
         &:hover{
           background-color: rgba(232, 237, 241, 0.6);
         }
@@ -49,7 +48,9 @@
       &:last-child {
         text-align: right;
       }
-
+      .limit-length{
+        max-width: 200px;
+      }
       p {
         overflow: hidden;
         text-overflow: ellipsis;

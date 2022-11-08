@@ -11,7 +11,6 @@
     tr {
       border-bottom: 1px solid #EAEEEC;
       &:not(.producer-list-table-header){
-        cursor: pointer;
         &:hover{
           background-color: rgb(232 237 241 / 60%);
         }
@@ -21,7 +20,6 @@
     td {
       height: 50px;
       line-height: 50px;
-      color: #000000;
       font-size: 14px;
 
       img {
