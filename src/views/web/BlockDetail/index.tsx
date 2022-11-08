@@ -4,11 +4,12 @@ import "./index.scss";
 import blockchain_icon from "@/assets/images/web/blockchain_icon.png";
 import message_icon from "@/assets/images/web/message_icon.png";
 import Tabs from "@/components/Tabs";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useHistory } from "react-router";
 import ServerApi from '@/api'
 import moment from "moment";
 const {getBlockDetail} = ServerApi
 const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): ReactElement => {
+  const history = useHistory()
   const [detailData,setDetailData] = useState<any>({})
   const formatTime = (t?: any) => {
     return moment(t).local().format('YYYY-MMM-DD,  HH:mm:ss');
@@ -71,20 +72,20 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
                 <td>操作数量</td>
               </tr>
               {
-                detailData?.trxArr?.map(item=>{
+                detailData?.trxArr?.map((item,i)=>{
                   return(
-                    <tr className="text-align-between">
+                    <tr className="text-align-between" key={i}>
                       <td width={300}>
-                        e4d235c119240fa56241394e39aff0c7522f0269706d9ce4b
+                        {item?.hash}
                       </td>
-                      <td>{formatTime(item.expiration)}</td>
+                      <td>{formatTime(item?.expiration)}</td>
                       <td>
-                        <div className="green-tag">272 μs</div>
+                        <div className="green-tag">{item?.cpu} μs</div>
                       </td>
                       <td>
-                        <div className="green-tag">120 Bytes</div>
+                        <div className="green-tag">{item?.net} Bytes</div>
                       </td>
-                      <td>4</td>
+                      <td>{item?.actions?.length}</td>
                     </tr>
                   )
                 })
@@ -115,12 +116,16 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
           <div className="row flex-row-start-center">
             <div className="title">区块高度:</div>
             <div className="ct flex-row-between-center">
-              <span>127,173,641</span>
+              <span>{detailData?.block_num}</span>
               <div className="prenext-btns flex-row-start-center">
-                <div className="btn left flex-row-between-center">
+                <div className="btn left flex-row-between-center" onClick={()=>{
+                  history.push(`/block-detail/${Number(block_num) - 1}`)
+                }}>
                   <i className="arrow-icon left"></i>上一个
                 </div>
-                <div className="btn right flex-row-between-center">
+                <div className="btn right flex-row-between-center" onClick={()=>{
+                  history.push(`/block-detail/${Number(block_num) + 1}`)
+                }}>
                   下一个<i className="arrow-icon"></i>
                 </div>
               </div>
@@ -128,16 +133,18 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
           </div>
           <div className="row flex-row-start-center">
             <div className="title">时间戳:</div>
-            <div className="ct">{formatTime(detailData.time)}</div>
+            <div className="ct">{formatTime(detailData?.timestamp)}</div>
           </div>
           <div className="row flex-row-start-center">
             <div className="title">出块节点名:</div>
-            <div className="ct text-yellow">eosrio</div>
+            <div className="ct text-yellow pointer" onClick={()=>{
+              history.push(`/producer-detail/${detailData?.producer}`)
+            }}>{detailData?.producer}</div>
           </div>
           <div className="row flex-row-start-start">
             <div className="title">区块ID:</div>
             <div className="ct">
-              0794840912729fa095d5876d6563f099bc985d98a26de663a90ed78ebeed0597
+              {detailData?.id}
             </div>
           </div>
         </div>
@@ -159,11 +166,11 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
           </div>
           <div className="row flex-row-start-center">
             <div className="title">上一个区块：</div>
-            <div className="ct main-color">127,173,640</div>
+            <div className="ct main-color">{Number(block_num)-1}</div>
           </div>
           <div className="row flex-row-start-center">
             <div className="title">下一个区块：</div>
-            <div className="ct main-color">127,173,640</div>
+            <div className="ct main-color">{Number(block_num)+1}</div>
           </div>
         </div>
       </div>
