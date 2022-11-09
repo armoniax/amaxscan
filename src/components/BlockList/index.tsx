@@ -1,4 +1,4 @@
-import moment from "moment";
+import { handleTime } from "@/utils";
 import { memo } from "react";
 import { useHistory } from "react-router";
 import "./index.scss";
@@ -6,9 +6,7 @@ export interface ListProps {
   showPage?:boolean,
   data?:any[]
 }
-const handleTime = (timestamp?: any) => {
-  return moment(timestamp).local().format('YYYY-MMM-DD,  HH:mm:ss');
-};
+
 
 const BlockList: React.FunctionComponent<ListProps> = ({showPage = false,data}) => {
   const history = useHistory()

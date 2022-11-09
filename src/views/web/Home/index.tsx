@@ -4,7 +4,7 @@ import {useTranslation} from 'react-i18next'
 import './index.scss'
 import Overview from './components/overview'
 import LatestBlock from './components/latest-block'
-import LatestTransaction from './components/latest-transaction'
+// import LatestTransaction from './components/latest-transaction'
 import ProducerList from './components/producer-list'
 // import APOSBlock from './components/apos-block'
 import MarketDynamic from './components/market-dynamic'
@@ -23,7 +23,7 @@ const Home: FC = (): ReactElement => {
         </div>
         <Overview/>
         <LatestBlock />
-        <LatestTransaction/>
+        {/* <LatestTransaction/> */}
         {/* <APOSBlock/> */}
         <MarketDynamic/>
         <ProducerList ></ProducerList>

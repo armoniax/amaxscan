@@ -3,6 +3,7 @@ import Baseweb from "@/components/baseContainer/webwrap";
 import ServerApi from '@/api'
 import "./index.scss";
 import BlockList from "@/components/BlockList";
+import Pagination from "@/components/Pagination";
 
 
 const BlockListPage: FC = (): ReactElement => {
@@ -22,6 +23,7 @@ const BlockListPage: FC = (): ReactElement => {
   return (
     <div className="latest-block section-box page">
       <BlockList data={latestBlockList} />
+      <div className="flex-row-end-center"><Pagination total={latestBlockList.length} /></div>
     </div>
   );
 };

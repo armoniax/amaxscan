@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { Serialize, Numeric } from 'eosjs'
 import Amax from '@amax/amaxjs'
+import moment from 'moment'
 const { format } = Amax.modules
 
 /**
@@ -162,4 +163,10 @@ export const calculateAmaxFromVotes = (votes: number) => {
 
   let weight = parseInt(`${date / (86400 * 7)}`, 10) / 52; // 86400 = seconds per day 24*3600
   return votes / 2 ** weight / 100000000;
+};
+
+export const handleTime = (timestamp?: any) => {
+  if (timestamp) {
+    return moment(timestamp).local().format('YYYY-MMM-DD,  HH:mm:ss');
+  }
 };

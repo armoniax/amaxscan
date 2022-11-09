@@ -1,7 +1,6 @@
 import { memo, useEffect, useState } from "react";
 // import { useTranslation } from "react-i18next";
 import node_icon from "@/assets/images/web/node_icon.png";
-import Pagination from "@/components/Pagination";
 import "./index.scss";
 import { useHistory } from "react-router-dom";
 import { sortArray } from "@/utils";
@@ -18,10 +17,6 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
   length,
 }) => {
   const history = useHistory();
-  // const { t } = useTranslation();
-  const onChangePage = (pageNum) => {
-    console.log(pageNum, "pageNum");
-  };
   const [list, setList] = useState<any[]>([]);
   useEffect(() => {
     let votesToRemove
@@ -117,7 +112,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
           if (length) {
 
             socket.on("producers", (data: any) => {
-              console.log(data,'socket');
+              console.log(data,'producers');
               if (!data) return;
 
               createTable(data, totalProducerVoteWeight, bpJson);
@@ -179,9 +174,6 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
             })}
         </tbody>
       </table>
-      <div className="page-bottom">
-        {showPage && <Pagination total={list.length} onChange={onChangePage} />}
-      </div>
     </div>
   );
 };

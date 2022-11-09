@@ -6,30 +6,47 @@ import message_icon from "@/assets/images/web/message_icon.png";
 import Tabs from "@/components/Tabs";
 import { RouteComponentProps, useHistory } from "react-router";
 import ServerApi from '@/api'
-import moment from "moment";
+import ReactJson from 'react-json-view'
+import { handleTime } from "@/utils";
+
 const {getBlockDetail} = ServerApi
 const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): ReactElement => {
   const history = useHistory()
   const [detailData,setDetailData] = useState<any>({})
-  const formatTime = (t?: any) => {
-    return moment(t).local().format('YYYY-MMM-DD,  HH:mm:ss');
-};
+  const [jsonData,setJsonData] = useState<any>({})
   const {
     match: {
       params: { block_num },
     },
   } = props;
   useEffect(() => {
-    console.log(21);
-
     const initData = async() => {
-      console.log(77);
-
       const res = await getBlockDetail(block_num)
+      setJsonData(JSON.parse(JSON.stringify(res)))
       const _data = res
       if (res.transactions && res.transactions.length) {
         _data.trxArr = createTransactionsArray(res.transactions);
+
+       if(_data.trxArr.length > 1){
+         const cpuUsage = _data.trxArr.reduce((pre,cur)=>{
+          return pre.cpu+cur.cpu
+        })
+        const netUsage = _data.trxArr.reduce((pre,cur)=>{
+          return pre.net+cur.net
+        })
+        const actionsTotal = _data.trxArr.reduce((pre,cur)=>{
+          return pre.actions.length+cur.actions.length
+        })
+        _data.cpuUsage = cpuUsage
+        _data.netUsage = netUsage
+        _data.actionsTotal = actionsTotal
+       }else{
+        _data.cpuUsage = _data.trxArr[0].cpu
+        _data.netUsage = _data.trxArr[0].net
+        _data.actionsTotal = _data.trxArr[0].actions.length
+       }
       }
+
       setDetailData(_data)
     };
 
@@ -46,10 +63,9 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
           status: elem.status,
           hash: elem.trx.id,
           actions: elem.trx.transaction.actions,
-          expiration: elem.trx.transaction.expiration,
+          expiration: elem.trx.transaction.expiration
         });
       });
-      console.log(result);
 
       return result;
     };
@@ -74,11 +90,11 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
               {
                 detailData?.trxArr?.map((item,i)=>{
                   return(
-                    <tr className="text-align-between" key={i}>
+                    <tr className="text-align-between" key={item.hash}>
                       <td width={300}>
                         {item?.hash}
                       </td>
-                      <td>{formatTime(item?.expiration)}</td>
+                      <td>{handleTime(item?.expiration)}</td>
                       <td>
                         <div className="green-tag">{item?.cpu} μs</div>
                       </td>
@@ -98,7 +114,11 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
     {
       label: "Raw",
       key: 2,
-      children: `<div>2</div>`,
+      children: (
+        <div className="json-viewer-back m-t-10">
+          <ReactJson src={jsonData} indentWidth={10} collapsed={1} style={{fontFamily:'PingFang', fontSize:'14px',wordBreak:'break-all',lineHeight:'1.2'}} />
+        </div>
+      ),
     },
   ];
   return (
@@ -133,7 +153,7 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
           </div>
           <div className="row flex-row-start-center">
             <div className="title">时间戳:</div>
-            <div className="ct">{formatTime(detailData?.timestamp)}</div>
+            <div className="ct">{handleTime(detailData?.timestamp)}</div>
           </div>
           <div className="row flex-row-start-center">
             <div className="title">出块节点名:</div>
@@ -154,15 +174,15 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
           </div>
           <div className="row flex-row-start-center">
             <div className="title">资源使用 -CPU/NET:</div>
-            <div className="ct">1,980 μs / 982 bytes</div>
+            <div className="ct">{detailData?.cpuUsage || 0} μs / {detailData?.netUsage || 0} bytes</div>
           </div>
           <div className="row flex-row-start-center">
             <div className="title">TX交易哈希数量：</div>
-            <div className="ct text-yellow">4</div>
+            <div className="ct text-yellow">{detailData?.trxArr?.length || 0}</div>
           </div>
           <div className="row flex-row-start-center">
             <div className="title">Action数量：</div>
-            <div className="ct text-red">5</div>
+            <div className="ct text-red">{detailData?.actionsTotal || 0}</div>
           </div>
           <div className="row flex-row-start-center">
             <div className="title">上一个区块：</div>

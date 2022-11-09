@@ -52,7 +52,7 @@ const routerConfig: IRouterConfig[] = [
     },
     {
       // 交易详情
-      path: '/transaction-detail',
+      path: '/transaction-detail/:hash',
       component: lazy(async () => await import('@/views/web/TransactionDetail/index')),
       mpComponent: lazy(async () => await import('@/views/mobile/TransactionDetail/index')),
       exact: true

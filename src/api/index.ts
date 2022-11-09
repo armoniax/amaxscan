@@ -24,7 +24,6 @@ class ServerApi {
       const data = await get(`${this.baseConfig.amaxScanApi}/get_transaction/${id}`, {})
       return data
     }
-
     getTableRows = async(accountName: string, name: string, count = 20) =>{
       const data = await  get(`${this.baseConfig.amaxScanApi}/get_table_rows/${accountName}/${accountName}/${name}/${count}`)
       return data

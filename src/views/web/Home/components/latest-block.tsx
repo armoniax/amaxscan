@@ -3,8 +3,9 @@ import {Link} from "react-router-dom";
 import ServerApi from '@/api'
 import "../index.scss";
 import BlockList from "@/components/BlockList";
-// import TransactionTable from "@/components/TransactionTable";
 import socket from '@/api/socket'
+import TransactionTable from "@/components/TransactionTable";
+// import TransactionList from "../../TransactionList";
 const ungerKey = "AMAX1111111111111111111111111111111114T1Anm";
 const sortArray = (data: any) => {
   if (!data) {
@@ -23,24 +24,26 @@ const sortArray = (data: any) => {
       // elem.total_votes = Number(eos_votes).toLocaleString();
       return elem
     });
-  return result;
+  return result.slice(0,5);
 };
 
-// const createTransactionsArray = (data: any) => {
-//   if (!data) {
-//     return;
-//   }
-//   let transactions = []
-//   data.forEach(item=>{
-//     if (item.transactions && item.transactions.length) {
-//       item.transactions.forEach(item=>{
-//         transactions.push({cpu_usage_us:item.cpu_usage_us,net_usage_words:item.net_usage_words,id:item.trx?.id,actions:item.trx?.transaction?.actions.length})
-//       })
-//     }
+const createTransactionsArray = (data: any) => {
+  if (!data) {
+    return;
+  }
+  let transactions = []
+  data.forEach(item=>{
+    if (item.transactions && item.transactions.length) {
+      item.transactions.forEach(txn=>{
+        transactions.push({block_num:item.block_num,...txn})
+      })
+    }
 
-//   })
-//   return transactions;
-// };
+  })
+  console.log(transactions,'transactions');
+
+  return transactions.slice(0,5);
+};
 
 const calculateEosFromVotes = (votes) => {
   let date = +new Date() / 1000 - 946684800; // 946... start timestamp
@@ -54,36 +57,22 @@ const calculateEosFromVotes = (votes) => {
 
 const LatestBlock: FC = (): ReactElement => {
     const [latestBlockList, setLatestBlockList] = useState<any[]>([])
-    // const [transactionList, setTransactionList] = useState<any[]>([]);
+    const [transactionList, setTransactionList] = useState<any[]>([]);
     const {
         getLastBlocksData
     } = ServerApi
     useEffect(() => {
-        // socket.on('get_info', (res: any) => {
-        //     console.log('get_info', res);
-        // });
-        // socket.on('users_online', (res: any) => {
-        //     console.log('users_online', res);
-        // });
-
-        // socket.on('get_tps_blocks', (res: any) => {
-        //     console.log('get_tps_blocks', res.length, res);
-
-        // });
         socket.on('get_last_blocks', (res: any) => {
           setLatestBlockList(sortArray(res))
-          // setTransactionList(createTransactionsArray(res));
+          setTransactionList(createTransactionsArray(res));
         });
-        // socket.on('get_aggregation', (res: any) => {
-        //     console.log('get_aggregation', res);
-        // });
     }, [])
 
     useEffect(() => {
         const initData = async () => {
-            const res = await getLastBlocksData(9)
+            const res = await getLastBlocksData(4)
             setLatestBlockList(sortArray(res))
-            // setTransactionList(createTransactionsArray(res));
+            setTransactionList(createTransactionsArray(res));
         }
         void initData()
         return ()=>{
@@ -100,6 +89,13 @@ const LatestBlock: FC = (): ReactElement => {
                     className="arrow-icon"></i></Link>
             </div>
             <BlockList data={latestBlockList}/>
+        </div>
+        <div className="latest-transaction section-box">
+          <div className="section-box-header flex-row-between-center">
+            <p className="title">最新交易</p>
+            <Link to={{ pathname: "/transaction-list"}} className="flex-row-start-center">更多交易 <i className="arrow-icon"></i></Link>
+          </div>
+          <TransactionTable data={transactionList} />
         </div>
       </>
     );
