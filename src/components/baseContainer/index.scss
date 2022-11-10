@@ -187,3 +187,28 @@
     }
   }
 }
+
+
+.search-bar{
+  width: 229px;
+  height: 32px;
+  border-radius: 2px;
+  margin-left: 24px;
+  border: 1px solid #DFDFDF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  input{
+    height: 100%;
+    font-size: 14px;
+    border: none;
+    box-sizing: border-box;
+    background: transparent;
+    flex: 1;
+  }
+  .icon{
+    width: 16px;
+    margin-left: 6px;
+  }
+}

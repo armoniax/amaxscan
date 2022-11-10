@@ -2,7 +2,9 @@ import BigNumber from 'bignumber.js'
 import { Serialize, Numeric } from 'eosjs'
 import Amax from '@amax/amaxjs'
 import moment from 'moment'
+import ServerApi from "@/api";
 const { format } = Amax.modules
+const { searchBy } = ServerApi;
 
 /**
  * 帐号转bigNumber
@@ -169,4 +171,21 @@ export const handleTime = (timestamp?: any) => {
   if (timestamp) {
     return moment(timestamp).local().format('YYYY-MMM-DD,  HH:mm:ss');
   }
+};
+
+export const searchByInsert = async (keyword: string,history) => {
+  setTimeout(async() => {
+    const res = await searchBy(keyword);
+    if (res.block && !isNaN(+keyword)) {
+      history.push(`/block-detail/${res.block?.block_num}`);
+    } else if (res.transaction) {
+      history.push(`/transaction-detail/${res.transaction?.id}`);
+    } else if (res.account) {
+      history.push(`/account/${res.account?.account_name}`);
+    } else if (res.pubkey) {
+      history.push(`/pubkey/${keyword}`);
+    } else {
+      history.push("/404");
+    }
+  }, 500);
 };

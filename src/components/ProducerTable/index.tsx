@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from "react";
 // import { useTranslation } from "react-i18next";
-import node_icon from "@/assets/images/web/node_icon.png";
+// import node_icon from "@/assets/images/web/node_icon.png";
+import url_icon from "@/assets/images/web/url_icon.png";
 import "./index.scss";
 import { useHistory } from "react-router-dom";
 import { sortArray } from "@/utils";
@@ -129,7 +130,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
         <tbody>
           <tr className="producer-list-table-header">
             <td style={{ textAlign: "center",width:'40px' }}>排名</td>
-            <td style={{ textAlign: "center" }}>图标</td>
+            {/* <td style={{ textAlign: "center" }}>图标</td> */}
             <td style={{ textAlign: "center" }}>节点账号</td>
             {/* <td style={{ textAlign: "center" }}>完整名称</td> */}
             <td style={{ textAlign: "center" }}>状态</td>
@@ -143,13 +144,14 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
                   key={i}
                 >
                   <td style={{ textAlign: "center" }} >{ item?.index }</td>
-                  <td style={{ textAlign: "center" }}>
+                  {/* <td style={{ textAlign: "center" }}>
                     <img src={node_icon} alt="" />
-                  </td>
-                  <td style={{ textAlign: "center" }} onClick={() => {
+                  </td> */}
+                  <td style={{ textAlign: "center" }} >
+                    <span  className="pointer main-color" onClick={() => {
                     history.push("/producer-detail");
-                  }}>
-                    <span  className="pointer main-color">{item?.owner}</span>
+                  }}>{item?.owner}</span>
+                    {item?.url && <img src={url_icon} className="pointer" style={{width:'14px',marginLeft:'10px'}} alt="" onClick={()=>{window.open(item?.url)}} />}
                   </td>
                   {/* <td style={{ textAlign: "center" }}>Newdex</td> */}
                   <td style={{ textAlign: "center" }}>

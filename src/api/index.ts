@@ -33,6 +33,11 @@ class ServerApi {
       return data
     };
 
+    searchBy = async(text: string) => {
+      const data = await post(`${this.baseConfig.amaxScanApi}/search`, { text: text.replace(/ /g, '') })
+      return data
+    };
+
     getTableRowsByVendorinfo = async () => {
         const data = await post(this.baseConfig.amaxNodeApi, {
             code: process.env.REACT_APP_CONTARCT_NAME,

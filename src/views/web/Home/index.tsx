@@ -1,34 +1,44 @@
-import {FC, memo, ReactElement} from 'react'
-import Baseweb from '@/components/baseContainer/webwrap'
-import {useTranslation} from 'react-i18next'
-import './index.scss'
-import Overview from './components/overview'
-import LatestBlock from './components/latest-block'
+import { FC, memo, ReactElement } from "react";
+import Baseweb from "@/components/baseContainer/webwrap";
+import { useTranslation } from "react-i18next";
+import "./index.scss";
+import Overview from "./components/overview";
+import LatestBlock from "./components/latest-block";
 // import LatestTransaction from './components/latest-transaction'
-import ProducerList from './components/producer-list'
+import ProducerList from "./components/producer-list";
 // import APOSBlock from './components/apos-block'
-import MarketDynamic from './components/market-dynamic'
+import MarketDynamic from "./components/market-dynamic";
+import { useHistory } from "react-router-dom";
+import { searchByInsert } from "@/utils";
 
 
 const Home: FC = (): ReactElement => {
-    const {t} = useTranslation()
-    const list = []
-    for (let i = 0; i < 5; i++) {
-      list.push(i)
-    }
-    return (
-      <div>
-        <div className="m-search-bar section-box animate">
-          <input type="text" placeholder={t('home.searchPlace')} />
-        </div>
-        <Overview/>
-        <LatestBlock />
-        {/* <LatestTransaction/> */}
-        {/* <APOSBlock/> */}
-        <MarketDynamic/>
-        <ProducerList ></ProducerList>
-      </div>
-    )
-}
+  const history = useHistory();
+  const { t } = useTranslation();
 
-export default Baseweb(memo(Home))
+  const list = [];
+  for (let i = 0; i < 5; i++) {
+    list.push(i);
+  }
+  return (
+    <div>
+      <div className="m-search-bar section-box animate">
+        <input
+          type="text"
+          placeholder={t("home.searchPlace")}
+          onInput={(e: any) => {
+            searchByInsert(e.target.value,history);
+          }}
+        />
+      </div>
+      <Overview />
+      <LatestBlock />
+      {/* <LatestTransaction/> */}
+      {/* <APOSBlock/> */}
+      <MarketDynamic />
+      <ProducerList></ProducerList>
+    </div>
+  );
+};
+
+export default Baseweb(memo(Home));

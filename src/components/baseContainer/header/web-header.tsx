@@ -1,16 +1,22 @@
-import React, {memo} from 'react'
+import React, {memo, useState} from 'react'
 import Icon from "@/components/Icon";
 import header_logo from "@/assets/images/web/header_logo.png";
-import {Link, NavLink} from 'react-router-dom';
+import search_icon from "@/assets/images/web/search_icon.png";
+import {Link, NavLink, useHistory} from 'react-router-dom';
 import {useTranslation} from "react-i18next";
 import {languages} from '@/locale'
 import {StorageHelper} from "@/utils/storage";
+import { searchByInsert } from '@/utils';
 
 interface IWebHeaderProps {
     pagename?: string
 }
 
 const WebHeader: React.FunctionComponent<IWebHeaderProps> = (props) => {
+    const history = useHistory()
+    console.log(history,'history');
+
+    const [searchWords,setSearchWords] = useState('')
     const {i18n, t} = useTranslation()
     const navList: any[] = [
         {
@@ -57,6 +63,17 @@ const WebHeader: React.FunctionComponent<IWebHeaderProps> = (props) => {
                         })
                     }
                 </div>
+                {
+                  history?.location?.pathname !== '/' &&
+                  <div className='search-bar'>
+                    <input type="text" placeholder='搜索账号/交易哈希/区块编号' onInput={(e:any)=>{
+                      setSearchWords(e.target.value)
+                    }} />
+                    <img src={search_icon} className="icon pointer" alt="" onClick={()=>{
+                      searchByInsert(searchWords,history)
+                    }} />
+                  </div>
+                }
                 <div className='select-box flex-row-center-center web-header-nav-dropdown m-l-26'>
                     <p>{languages && languages.find(i => i.value === i18n.language)?.label}</p>
                     <div className='arrow-down'></div>

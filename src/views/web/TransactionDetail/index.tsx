@@ -15,7 +15,7 @@ import ReactJson from "react-json-view";
 const { getTransactionData } = ServerApi
 
 const TransactionDetail: FC<RouteComponentProps<{ hash: string }>> = (props): ReactElement => {
-  const [activeIndex ,setActiveIndex] = useState<number>(1)
+  const [activeIndex ,setActiveIndex] = useState<number>(0)
   const [showCopyTip,setShowCopyTip] = useState<boolean>(false)
   const [txnData,setTxnData] =  useState<any>({})
   const [jsonData,setJsonData] = useState<any>({})
@@ -58,7 +58,7 @@ const TransactionDetail: FC<RouteComponentProps<{ hash: string }>> = (props): Re
     <div className="transaction-detail">
       <div className="section-box">
         <div className="section-box-header">
-          <p className="title flex-row-start-center"><img src={trade_icon} alt="" /> 交易信息</p>
+          <p className="title flex-row-start-center"><img src={trade_icon} alt="" />交易信息</p>
         </div>
         <div className="flex-row-between-end">
           <div className="hash">
@@ -117,27 +117,35 @@ const TransactionDetail: FC<RouteComponentProps<{ hash: string }>> = (props): Re
         </div>
         <div className="transaction-ct">
           {
-            activeIndex === 0 && <div className="flex-row-between-center">
-            <div className="left">
-              <p className=" flex-row-start-center"> <img src={network_icon} alt="" /><span className="s-green">eossanguosvr:</span> execpvpbns</p>
-              <div className="active-block">
-                <div className="blue flex-row-center-center">sanguocpucpu</div>
-                <div className="green flex-row-center-center">active</div>
-              </div>
-              <div className="active-block">
-                <div className="blue flex-row-center-center">sanguoserver</div>
-                <div className="green flex-row-center-center">active</div>
-              </div>
-            </div>
-            <div className="right">
-              <p> <span className="s-green">push.sx</span> (智能合约) 处理了以下数据</p>
-              <div className="code-bar">
-                <p>count: 50</p>
-                <p>nonce: 6404</p>
-                <p>type: 3</p>
-              </div>
-            </div>
-          </div>
+            activeIndex === 0 && txnData.trx?.trx?.actions?.map((item,i)=>{
+              return(
+                <div className="flex-row-between-start" key={i}>
+                  <div className="left">
+                    <p className=" flex-row-start-center"> <img src={network_icon} alt="" /><span className="s-green">{item.account}:</span> {item.name}</p>
+                    {
+                      item.authorization.map((author,authorIndex)=>{
+                        return(
+                          <div className="active-block" key={authorIndex}>
+                            <div className="blue flex-row-center-center">{author.actor}</div>
+                            <div className="green flex-row-center-center">{author.permission}</div>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                  <div className="right">
+                    <p> <span className="s-green">{item.account}</span> (智能合约) 处理了以下数据</p>
+                    <div className="code-bar">
+                     {
+                      Object.keys(item.data).map((key,i)=>{
+                        return <p key={i}>{`${key} : ${item.data[key]}`}</p>
+                      })
+                     }
+                    </div>
+                  </div>
+                </div>
+              )
+            })
           }
           {
             activeIndex === 1 && <div className="flex-row-between-start">

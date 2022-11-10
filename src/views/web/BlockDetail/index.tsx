@@ -92,7 +92,9 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
                   return(
                     <tr className="text-align-between" key={item.hash}>
                       <td width={300}>
-                        {item?.hash}
+                          <span className="main-color pointer" onClick={()=>{
+                            history.push(`/transaction-detail/${item?.hash}`)
+                          }}>{item?.hash}</span>
                       </td>
                       <td>{handleTime(item?.expiration)}</td>
                       <td>
@@ -131,7 +133,7 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
         <div className="section-box half">
           <div className="header row flex-row-start-center">
             <div className="title">概要：</div>
-            <div className="ct main-color">不可逆的</div>
+            <div className="ct main-color">不可逆的(未渲染)</div>
           </div>
           <div className="row flex-row-start-center">
             <div className="title">区块高度:</div>

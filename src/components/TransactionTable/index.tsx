@@ -10,10 +10,6 @@ export interface TableProps {
 const TransactionTable: React.FunctionComponent<TableProps> = ({ data }) => {
   const history = useHistory();
 
-  const goDetail = (hash) => {
-    history.push({ pathname: `/transaction-detail/${hash}` });
-  };
-
   return (
     <div className="table-bar">
       <table className="transaction-table">
@@ -33,12 +29,14 @@ const TransactionTable: React.FunctionComponent<TableProps> = ({ data }) => {
                   key={i}
                 >
                   <td className="pointer main-color" onClick={() => {
-                    goDetail(item.trx.id);
+                    history.push(`/transaction-detail/${item.trx.id}`)
                   }}>
                     <p className="limit-length" title={item.trx?.id}>{item.trx.id}</p>
                   </td>
                   <td className="main-color pointer">
-                    <p className="number-font">{item.block_num}</p>
+                    <p className="number-font" onClick={()=>{
+                      history.push(`/block-detail/${item.block_num}`)
+                    }}>{item.block_num}</p>
                   </td>
                   <td>
                     <p className="number-font">{item.cpu_usage_us} μS</p>
