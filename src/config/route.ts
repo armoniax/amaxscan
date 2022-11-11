@@ -24,7 +24,7 @@ const routerConfig: IRouterConfig[] = [
     },
     {
       // 生产节点详情
-      path: '/producer-detail',
+      path: '/producer-detail/:account',
       component: lazy(async () => await import('@/views/web/ProducerDetail/index')),
       mpComponent: lazy(async () => await import('@/views/mobile/ProducerDetail/index')),
       exact: true

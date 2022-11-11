@@ -144,6 +144,9 @@ body {
 
 .pointer{
   cursor: pointer;
+  &:hover{
+    font-weight: bold;
+  }
 }
 .json-viewer-back{
   background-color: #F8FCFC;

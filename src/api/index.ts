@@ -1,6 +1,12 @@
 import {nameToNumeric} from '@/utils'
 import {getClient, getContract} from '@/utils/client'
 import axiosRequest from '@/api/axiosRequest'
+export interface GetCurrencyBalanceParams {
+  tokenContract: string,
+  account: string | number,
+  tokenSymbol: string | number
+}
+
 
 const {post,get} = axiosRequest
 
@@ -33,10 +39,20 @@ class ServerApi {
       return data
     };
 
+    getAccountDetail = async (account: string) => {
+      const data = await get(`${this.baseConfig.amaxScanApi}/get_account/${account}`)
+      return data
+    };
+
     searchBy = async(text: string) => {
       const data = await post(`${this.baseConfig.amaxScanApi}/search`, { text: text.replace(/ /g, '') })
       return data
     };
+
+    getCurrencyBalance = async(parmas: GetCurrencyBalanceParams) => {
+      const data = await get(`${this.baseConfig.amaxScanApi}/get_currency_balance/${parmas.tokenContract}/${parmas.account}/${parmas.tokenSymbol}`);
+      return data
+    }
 
     getTableRowsByVendorinfo = async () => {
         const data = await post(this.baseConfig.amaxNodeApi, {

@@ -1,9 +1,11 @@
 import Tabs from "@/components/Tabs";
-import { FC, memo, ReactElement, useState } from "react";
+import {  memo, useState } from "react";
 import "../index.scss";
 
-const AccountDetail: FC = (): ReactElement => {
+const AccountDetail = (props) => {
   const [active, setActive] = useState('tables');
+
+
   const tablesComponent = (
     <div>
       <p className="m-t-20 m-b-20 c-303333">选择数据表名</p>
@@ -98,33 +100,33 @@ const AccountDetail: FC = (): ReactElement => {
               <div className="process-list-item flex-row-between-center">
                 <div>
                   <div className="title number-font">RAM</div>
-                  <div className="desc">已用28.09 MB/共34.65 MB</div>
+                  <div className="desc">已用{(props?.data?.net_limit?.used / 1024).toFixed(2)} KB/共{(props?.data?.net_limit?.max / 1024).toFixed(2)} KB</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className="process" style={{ width: "20%" }}>
-                    <div className="radius flex-row-center-center">20%</div>
+                  <div className="process" style={{ width: (props?.data?.net_limit?.used / props?.data?.net_limit?.max) * 100 + "%" }}>
+                    <div className="radius flex-row-center-center">{((props?.data?.net_limit?.used / props?.data?.net_limit?.max) * 100).toFixed(2)}%</div>
                   </div>
                 </div>
               </div>
               <div className="process-list-item flex-row-between-center">
                 <div>
                   <div className="title number-font">CPU</div>
-                  <div className="desc">已用∞ µs/共∞ µs</div>
+                  <div className="desc">已用{(props?.data?.cpu_limit?.used/1000).toFixed(2)} µs/共{(props?.data?.cpu_limit?.max/1000).toFixed(2)} µs</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className="process" style={{ width: "60%" }}>
-                    <div className="radius flex-row-center-center">60%</div>
+                  <div className="process" style={{ width: (props?.data?.cpu_limit?.used / props?.data?.cpu_limit?.max) * 100 + "%" }}>
+                    <div className="radius flex-row-center-center">{((props?.data?.cpu_limit?.used / props?.data?.cpu_limit?.max) * 100).toFixed(2)}%</div>
                   </div>
                 </div>
               </div>
               <div className="process-list-item flex-row-between-center">
                 <div>
-                  <div className="title number-font">NFT</div>
-                  <div className="desc">已用∞KB/共∞KB</div>
+                  <div className="title number-font">NET</div>
+                  <div className="desc">已用{(props.data?.ram_usage / 1024).toFixed(2)}KB/共{(props.data?.ram_quota / 1024).toFixed(2)}KB</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className="process" style={{ width: "100%" }}>
-                    <div className="radius flex-row-center-center">100%</div>
+                  <div className="process" style={{ width: (props?.data?.ram_usage / props?.data?.ram_quota) * 100 + "%" }}>
+                    <div className="radius flex-row-center-center">{((props?.data?.ram_usage / props?.data?.ram_quota) * 100).toFixed(2)}%</div>
                   </div>
                 </div>
               </div>

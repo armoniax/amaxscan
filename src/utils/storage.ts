@@ -25,5 +25,27 @@ export const StorageHelper = {
     clear() {
         window.localStorage.clear();
     },
+    getFrontConfig(){
+      return  {
+        coin: "AMAX",
+        bp: "bp.json",
+        tokenContract: "amax.token",
+        convertToUSD: false,
+        customBalance: false,
+        logo: "/assets/images/amax.png",
+        name: {
+          big: "",
+          small: "",
+        },
+        nets: [{ name: "AMAX", url: "https://www.amaxscan.io", active: true }],
+        disableNets: true,
+        voteDonationAcc: "eoswebnetbp1",
+        disableVoteDonation: true,
+        version: "2.2.8",
+        producers: 1000,
+        social: [],
+        liveTXenable: true,
+      }
+    }
 }
 

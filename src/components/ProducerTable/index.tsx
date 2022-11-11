@@ -8,6 +8,7 @@ import { sortArray } from "@/utils";
 import ServerApi from "@/api";
 import socket from "@/api/socket";
 const { getTableRows, getProducersBpJson } = ServerApi;
+
 export interface ListProps {
   showPage?: boolean;
   length?: number;
@@ -149,7 +150,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
                   </td> */}
                   <td style={{ textAlign: "center" }} >
                     <span  className="pointer main-color" onClick={() => {
-                    history.push("/producer-detail");
+                    history.push(`/producer-detail/${item?.owner}`);
                   }}>{item?.owner}</span>
                     {item?.url && <img src={url_icon} className="pointer" style={{width:'14px',marginLeft:'10px'}} alt="" onClick={()=>{window.open(item?.url)}} />}
                   </td>
