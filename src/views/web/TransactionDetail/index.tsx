@@ -148,20 +148,26 @@ const TransactionDetail: FC<RouteComponentProps<{ hash: string }>> = (props): Re
             })
           }
           {
-            activeIndex === 1 && <div className="flex-row-between-start">
-            <div className="left flex-row-start-center">
-              <p className="flex-row-start-center"><img src={forward_icon} alt="" /><span className="s-green">push.sx</span></p>
-              <p className="m-l-90 flex-row-start-center"><img src={network_icon} alt="" /><span className="s-green">push.sx:</span>mine</p>
-            </div>
-            <div className="right">
-              <p> <span className="s-green">push.sx</span> (智能合约) 处理了以下数据</p>
-              <div className="code-bar">
-                <p>count: 50</p>
-                <p>nonce: 6404</p>
-                <p>type: 3</p>
-              </div>
-            </div>
-          </div>
+            activeIndex === 1  && txnData.trx?.trx?.actions?.map((item,i)=>{
+              return(
+                <div className="flex-row-between-start" key={i}>
+                  <div className="left flex-row-start-center">
+                    <p className="flex-row-start-center"><img src={forward_icon} alt="" /><span className="s-green">{item.account}</span></p>
+                    <p className="m-l-90 flex-row-start-center"><img src={network_icon} alt="" /><span className="s-green">{item.account}:</span>{item.name}</p>
+                  </div>
+                  <div className="right">
+                    <p> <span className="s-green">{item.account}</span> (智能合约) 处理了以下数据</p>
+                    <div className="code-bar">
+                    {
+                      Object.keys(item.data).map((key,i)=>{
+                        return <p key={i}>{`${key} : ${item.data[key]}`}</p>
+                      })
+                     }
+                    </div>
+                  </div>
+                </div>
+                )
+            })
           }
           {
             activeIndex === 2 && <div className="json-viewer-back">

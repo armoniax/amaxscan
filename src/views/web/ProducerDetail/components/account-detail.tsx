@@ -1,11 +1,52 @@
 import Tabs from "@/components/Tabs";
-import {  memo, useState } from "react";
+import {  memo, useEffect, useState } from "react";
 import "../index.scss";
+import ServerApi from '@/api'
+import { StorageHelper } from "@/utils/storage";
+
+const { getFrontConfig } = StorageHelper;
+const frontConfig = getFrontConfig();
+
+const {getCurrencyBalance} = ServerApi
 
 const AccountDetail = (props) => {
   const [active, setActive] = useState('tables');
+  const [balance, setBalance] = useState(0);
+  console.log((props?.data?.net_limit?.used / 1024).toFixed(2),(props?.data?.net_limit?.max / 1024).toFixed(2));
 
+  const ramUsed:string = (props?.data?.net_limit?.used / 1024).toFixed(2)
+  const ramTotal:string = (props?.data?.net_limit?.max / 1024).toFixed(2)
+  const ramProcessWidth:number = (props?.data?.net_limit?.used / props?.data?.net_limit?.max) * 100
 
+  const cpuUsed:string = (props?.data?.cpu_limit?.used/1000).toFixed(2)
+  const cpuTotal:string = (props?.data?.cpu_limit?.max/1000).toFixed(2)
+  const cpuProcessWidth:number =  (props?.data?.cpu_limit?.used / props?.data?.cpu_limit?.max) * 100
+
+  const netUsed:string = (props.data?.ram_usage / 1024).toFixed(2)
+  const netTotal:string = (props.data?.ram_quota / 1024).toFixed(2)
+  const netProcessWidth:number =  (props?.data?.ram_usage / props?.data?.ram_quota) * 100
+
+  useEffect( ()=>{
+    const initData = async ()=>{
+      const res = await getCurrencyBalance({tokenContract:frontConfig.tokenContract,account:props.account_name,tokenSymbol:frontConfig.coin})
+      console.log(res,'res');
+      let unstaked
+      let staked
+      unstaked = !res[0] ? 0 : Number(res[0].split(' ')[0]);
+      // let staked = 0;
+      if (props.data.voter_info && props.data.voter_info.staked) {
+          staked = props.data.voter_info.staked;
+      }
+      if (frontConfig.customBalance) {
+          //include precision
+        setBalance(unstaked);
+      } else {
+        setBalance(unstaked + staked / 100000000);
+      }
+    }
+
+    void initData()
+  },[props])
   const tablesComponent = (
     <div>
       <p className="m-t-20 m-b-20 c-303333">选择数据表名</p>
@@ -68,7 +109,7 @@ const AccountDetail = (props) => {
               <div className="color-block blue">
                 <p className="title">可用余额</p>
                 <p className="ct">
-                  <span className="number number-font">0</span> AMAX
+                  <span className="number number-font">{balance}</span> AMAX
                 </p>
               </div>
               <div className="color-block pink">
@@ -100,33 +141,33 @@ const AccountDetail = (props) => {
               <div className="process-list-item flex-row-between-center">
                 <div>
                   <div className="title number-font">RAM</div>
-                  <div className="desc">已用{(props?.data?.net_limit?.used / 1024).toFixed(2)} KB/共{(props?.data?.net_limit?.max / 1024).toFixed(2)} KB</div>
+                  <div className="desc">已用{ramUsed} KB/共{ramTotal} KB</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className="process" style={{ width: (props?.data?.net_limit?.used / props?.data?.net_limit?.max) * 100 + "%" }}>
-                    <div className="radius flex-row-center-center">{((props?.data?.net_limit?.used / props?.data?.net_limit?.max) * 100).toFixed(2)}%</div>
+                  <div className="process" style={{ width: ramProcessWidth + '%'}}>
+                    <div className="radius flex-row-center-center">{ramProcessWidth.toFixed(2)}%</div>
                   </div>
                 </div>
               </div>
               <div className="process-list-item flex-row-between-center">
                 <div>
                   <div className="title number-font">CPU</div>
-                  <div className="desc">已用{(props?.data?.cpu_limit?.used/1000).toFixed(2)} µs/共{(props?.data?.cpu_limit?.max/1000).toFixed(2)} µs</div>
+                  <div className="desc">已用{cpuUsed} µs/共{cpuTotal} µs</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className="process" style={{ width: (props?.data?.cpu_limit?.used / props?.data?.cpu_limit?.max) * 100 + "%" }}>
-                    <div className="radius flex-row-center-center">{((props?.data?.cpu_limit?.used / props?.data?.cpu_limit?.max) * 100).toFixed(2)}%</div>
+                  <div className="process" style={{ width: cpuProcessWidth + "%" }}>
+                    <div className="radius flex-row-center-center">{cpuProcessWidth.toFixed(2)}%</div>
                   </div>
                 </div>
               </div>
               <div className="process-list-item flex-row-between-center">
                 <div>
                   <div className="title number-font">NET</div>
-                  <div className="desc">已用{(props.data?.ram_usage / 1024).toFixed(2)}KB/共{(props.data?.ram_quota / 1024).toFixed(2)}KB</div>
+                  <div className="desc">已用{netUsed}KB/共{netTotal}KB</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className="process" style={{ width: (props?.data?.ram_usage / props?.data?.ram_quota) * 100 + "%" }}>
-                    <div className="radius flex-row-center-center">{((props?.data?.ram_usage / props?.data?.ram_quota) * 100).toFixed(2)}%</div>
+                  <div className="process" style={{ width: netProcessWidth + "%" }}>
+                    <div className="radius flex-row-center-center">{netProcessWidth.toFixed(2)}%</div>
                   </div>
                 </div>
               </div>

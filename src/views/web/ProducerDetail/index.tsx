@@ -8,6 +8,7 @@ import AccountDetail from "./components/account-detail";
 import { RouteComponentProps } from "react-router-dom";
 import ServerApi from "@/api";
 import { StorageHelper } from "@/utils/storage";
+import { Spin } from 'antd';
 const { getAccountDetail, getCurrencyBalance } = ServerApi;
 const { getFrontConfig } = StorageHelper;
 const frontConfig = getFrontConfig();
@@ -60,7 +61,8 @@ const ProducerDetail: FC<RouteComponentProps<{ account: string }>> = (
         <div className="account-info">
           <img src={avatar} alt="" />
           <div className="flex-col-between-stretch">
-            <p className="account-info-name">{detailData?.account_name}</p>
+
+            <p className="account-info-name">{detailData?.account_name || <Spin  />}</p>
             <p className="account-info-desc">
               由<span className="c-50BF8C">{detailData?.creator}</span>激活
             </p>

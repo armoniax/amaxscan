@@ -165,9 +165,9 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
                   >
                     {item?.all_votes} <span className="text-gray">({item?.rate}%)</span>
                     &nbsp;&nbsp;&nbsp;
-                    <span className="text-orange">
+                    {/* <span className="text-orange">
                       -2.1K&nbsp;&nbsp;&nbsp;↑
-                    </span>
+                    </span> */}
                   </td>
                   <td>
                     <span className="number-font">{ item?.rewards } AMAX</span>

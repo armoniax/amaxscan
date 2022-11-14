@@ -49,8 +49,8 @@ class ServerApi {
       return data
     };
 
-    getCurrencyBalance = async(parmas: GetCurrencyBalanceParams) => {
-      const data = await get(`${this.baseConfig.amaxScanApi}/get_currency_balance/${parmas.tokenContract}/${parmas.account}/${parmas.tokenSymbol}`);
+    getCurrencyBalance = async(params: GetCurrencyBalanceParams) => {
+      const data = await get(`${this.baseConfig.amaxScanApi}/get_currency_balance/${params.tokenContract}/${params.account}/${params.tokenSymbol}`);
       return data
     }
 
