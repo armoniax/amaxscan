@@ -14,7 +14,6 @@ interface IWebHeaderProps {
 
 const WebHeader: React.FunctionComponent<IWebHeaderProps> = (props) => {
     const history = useHistory()
-    console.log(history,'history');
 
     const [searchWords,setSearchWords] = useState('')
     const {i18n, t} = useTranslation()

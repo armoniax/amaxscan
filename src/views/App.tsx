@@ -1,31 +1,30 @@
-import React, {FC, lazy, Suspense} from 'react'
+import React, {FC, lazy, Suspense, useEffect} from 'react'
 import {Route, BrowserRouter, Switch} from 'react-router-dom'
 
-import AutoScorllTop from '@/components/ScrollToTop/index'
+import AutoScrollTop from '@/components/ScrollToTop/index'
 import Loading from "@/components/Loading";
 import routerConfig from "@/config/route";
 
 const NotFound404 = lazy(async () => await import('./NotFound404'))
 const App: FC = () => {
-    // const {isMobile} = (window as any)._global || {}
-    // useEffect(() => {
-    //     window.addEventListener('scroll', () => {
-    //         const scrollT = document.documentElement.scrollTop || document.body.scrollTop;
-    //         if (document.getElementsByClassName(isMobile ? 'mp-header' : 'web-header')[0].classList) {
-    //             scrollT > 120 ? document.getElementsByClassName(isMobile ? 'mp-header' : 'web-header')[0].classList.add('showback') : document.getElementsByClassName(isMobile ? 'mp-header' : 'web-header')[0].classList.remove('showback')
-    //         }
-
-    //     })
-    //     return () => {
-    //         window.removeEventListener('scroll', () => {
-    //             console.log(1222);
-    //         })
-    //     }
-    // }, [isMobile])
+    const {isMobile} = (window as any)._global || {}
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            const scrollT = document.documentElement.scrollTop || document.body.scrollTop;
+            if (document.getElementsByClassName(isMobile ? 'mp-header' : 'web-header')[0]?.classList) {
+                scrollT > 120 ? document.getElementsByClassName(isMobile ? 'mp-header' : 'web-header')[0].classList.add('showback') : document.getElementsByClassName(isMobile ? 'mp-header' : 'web-header')[0].classList.remove('showback')
+            }
+        })
+        return () => {
+            window.removeEventListener('scroll', () => {
+                console.log(1222);
+            })
+        }
+    }, [isMobile])
     return (
         <Suspense fallback={<Loading/>}>
             <BrowserRouter>
-                <AutoScorllTop>
+                <AutoScrollTop>
                     <Switch>
                         {
                             routerConfig.map((item, index) => {
@@ -47,7 +46,7 @@ const App: FC = () => {
                         }
                         <Route component={NotFound404}></Route>
                     </Switch>
-                </AutoScorllTop>
+                </AutoScrollTop>
             </BrowserRouter>
         </Suspense>
     )

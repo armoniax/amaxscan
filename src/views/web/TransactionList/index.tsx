@@ -5,7 +5,7 @@ import ServerApi from "@/api";
 import TransactionTable from "@/components/TransactionTable";
 import socket from "@/api/socket";
 
-const ProducerList: FC = (): ReactElement => {
+const TransactionList: FC = (): ReactElement => {
   const [transactionList, setTransactionList] = useState<any[]>([]);
   const { getLastBlocksData } = ServerApi;
   const createTransactionsArray = (data: any) => {
@@ -44,4 +44,4 @@ const ProducerList: FC = (): ReactElement => {
   );
 };
 
-export default Baseweb(memo(ProducerList));
+export default Baseweb(memo(TransactionList));
