@@ -1,6 +1,5 @@
 import { FC, memo, ReactElement, useEffect, useState } from "react";
 import Baseweb from "@/components/baseContainer/webwrap";
-import avatar from "@/assets/images/web/node_icon.png";
 import ChainData from "./components/chain-data";
 import "./index.scss";
 import Transactions from "./components/transactions";
@@ -59,7 +58,7 @@ const ProducerDetail: FC<RouteComponentProps<{ account: string }>> = (
     <div className="producer-detail">
       <div className="producer-detail-account section-box">
         <div className="account-info">
-          <img src={avatar} alt="" />
+        { detailData?.avatar &&<img src={detailData?.avatar} alt="" />}
           <div className="flex-col-between-stretch">
 
             <p className="account-info-name">{detailData?.account_name || <Spin  />}</p>
