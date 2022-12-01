@@ -21,7 +21,7 @@ const BlockList: React.FunctionComponent<ListProps> = ({showPage = false,data}) 
               history.push({ pathname: `/block-detail/${item?.block_num }` });
             }}>{`#${item?.block_num}`}</span></td>
             <td className="item.time">{handleTime(item?.timestamp)}</td>
-            <td><span className="item-type pointer main-color">{item?.producer}</span></td>
+            <td><span className="item-type pointer main-color" onClick={()=>{history.push(`/producer-detail/${item?.producer}`)}}>{item?.producer}</span></td>
             <td className="item-transaction">交易<span className="text-red">{item?.transactions.length}</span>笔</td>
           </tr>
           )

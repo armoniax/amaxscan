@@ -73,7 +73,7 @@ const MarketDynamic: FC = (): ReactElement => {
       </div>
       <Tabs
         data={tabList}
-        defaultActiveIndex={2}
+        defaultActiveIndex={0}
         onChange={(data) => {
           console.log(data, "data");
         }}

@@ -14,24 +14,26 @@ const AccountDetail = (props) => {
   const [balance, setBalance] = useState(0);
   console.log((props?.data?.net_limit?.used / 1024).toFixed(2),(props?.data?.net_limit?.max / 1024).toFixed(2));
 
-  const ramUsed:string = (props?.data?.net_limit?.used / 1024).toFixed(2)
-  const ramTotal:string = (props?.data?.net_limit?.max / 1024).toFixed(2)
-  const ramProcessWidth:number = (props?.data?.net_limit?.used / props?.data?.net_limit?.max) * 100
 
   const cpuUsed:string = (props?.data?.cpu_limit?.used/1000).toFixed(2)
   const cpuTotal:string = (props?.data?.cpu_limit?.max/1000).toFixed(2)
   const cpuProcessWidth:number =  (props?.data?.cpu_limit?.used / props?.data?.cpu_limit?.max) * 100
 
-  const netUsed:string = (props.data?.ram_usage / 1024).toFixed(2)
-  const netTotal:string = (props.data?.ram_quota / 1024).toFixed(2)
-  const netProcessWidth:number =  (props?.data?.ram_usage / props?.data?.ram_quota) * 100
+  const ramUsed:string = (props.data?.ram_usage / 1024).toFixed(2)
+  const ramTotal:string = (props.data?.ram_quota / 1024).toFixed(2)
+  const ramProcessWidth:number =  (props?.data?.ram_usage / props?.data?.ram_quota) * 100
+
+  const netUsed:string = (props?.data?.net_limit?.used / 1024).toFixed(2)
+  const netTotal:string = (props?.data?.net_limit?.max / 1024).toFixed(2)
+  const netProcessWidth:number = (props?.data?.net_limit?.used / props?.data?.net_limit?.max) * 100
+
 
   useEffect( ()=>{
     const initData = async ()=>{
-      const res = await getCurrencyBalance({tokenContract:frontConfig.tokenContract,account:props.account_name,tokenSymbol:frontConfig.coin})
+      const res = await getCurrencyBalance({tokenContract:frontConfig.tokenContract,account:props?.data?.account_name,tokenSymbol:frontConfig.coin})
       console.log(res,'res');
-      let unstaked
-      let staked
+      let unstaked = 0
+      let staked = 0
       unstaked = !res[0] ? 0 : Number(res[0].split(' ')[0]);
       // let staked = 0;
       if (props.data.voter_info && props.data.voter_info.staked) {
