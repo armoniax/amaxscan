@@ -102,14 +102,16 @@
         .content {
           display: flex;
           flex-direction: column;
-          width: 40%;
+          width: 48%;
 
           .wrapper {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             color: #909399;
             font-size: 12px;
             margin-top: 15px;
+
 
             p {
               display: block;

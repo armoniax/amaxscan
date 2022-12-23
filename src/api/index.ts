@@ -20,6 +20,10 @@ class ServerApi {
       const data = await get(`${this.baseConfig.amaxScanApi}/get_last_blocks/${size}`, {})
       return data
     }
+    getOverview = async ()=>{
+      const data = await get(`http://localhost:3039/api/v1/pg/getstats`, {})
+      return data
+    }
 
     getBlockDetail = async (id:string)=>{
       const data = await get(`${this.baseConfig.amaxScanApi}/get_block/${id}`, {})

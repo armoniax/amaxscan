@@ -66,7 +66,7 @@ const ChainData: FC = (): ReactElement => {
       label: "Keys（4）",
     },
     {
-      label: "NFT（2）",
+      label: "NFTs（2）",
       children: (
         <div className="p-t-16">
           <div className="nft-search flex-row-start-center">

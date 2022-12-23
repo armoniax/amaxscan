@@ -133,10 +133,6 @@ const AccountDetail = (props) => {
               <span className="c-909399">他人为你质押：</span>
               <span className="number-font">0.0000 AMAX</span>
             </div>
-            <div className="flex-row-between-center data-item">
-              <span className="c-909399">Total REX：</span>
-              <span className="number-font">0.0000 AMAX</span>
-            </div>
           </div>
           <div className="right">
             <div className="process-list">
@@ -146,10 +142,10 @@ const AccountDetail = (props) => {
                   <div className="desc">已用{ramUsed} KB/共{ramTotal} KB</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className="process" style={{ width: ramProcessWidth + '%'}}>
-                    <div className="radius flex-row-center-center">{ramProcessWidth.toFixed(2)}%</div>
+                  <div className={`process ${ramProcessWidth.toFixed(2) == '100.00' ? 'full': ''}`} style={{ width: (ramProcessWidth < 1 ? 1 : ramProcessWidth) + '%'}}>
                   </div>
                 </div>
+                {ramProcessWidth.toFixed(2)}%
               </div>
               <div className="process-list-item flex-row-between-center">
                 <div>
@@ -157,10 +153,10 @@ const AccountDetail = (props) => {
                   <div className="desc">已用{cpuUsed} µs/共{cpuTotal} µs</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className="process" style={{ width: cpuProcessWidth + "%" }}>
-                    <div className="radius flex-row-center-center">{cpuProcessWidth.toFixed(2)}%</div>
+                  <div className={`process ${cpuProcessWidth.toFixed(2) == '100.00' ? 'full': ''}`} style={{ width: (cpuProcessWidth < 1 ? 1 : cpuProcessWidth) + "%" }}>
                   </div>
                 </div>
+                {cpuProcessWidth.toFixed(2)}%
               </div>
               <div className="process-list-item flex-row-between-center">
                 <div>
@@ -168,10 +164,10 @@ const AccountDetail = (props) => {
                   <div className="desc">已用{netUsed}KB/共{netTotal}KB</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className="process" style={{ width: netProcessWidth + "%" }}>
-                    <div className="radius flex-row-center-center">{netProcessWidth.toFixed(2)}%</div>
+                  <div className={`process ${netProcessWidth.toFixed(2) == '100.00' ? 'full': ''}`} style={{ width: (netProcessWidth < 1 ? 1 : netProcessWidth) + "%" }}>
                   </div>
                 </div>
+                {netProcessWidth.toFixed(2)}%
               </div>
             </div>
           </div>

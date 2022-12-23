@@ -1,4 +1,4 @@
-import { FC, memo, ReactElement } from "react";
+import { FC, memo, ReactElement, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import curBlockPng from "@/assets/images/web/cur_block.png";
 import latestBlockPng from "@/assets/images/web/latest_block.png";
@@ -8,11 +8,30 @@ import fresh_sign from "@/assets/images/web/fresh_sign.png";
 import forward from "@/assets/images/web/forward.png";
 import header_logo from "@/assets/images/web/header_logo.png";
 import amax_banner from "@/assets/images/web/amax_banner.png";
-
+import ServerApi from "@/api";
 import "../index.scss";
+
+interface overviewDataType {
+  head_num:string,
+  total_trxs:number,
+  total_actions:number,
+  irreversible_num:number,
+  max_blocktxns_count:number,
+  max_blockactions_count:number
+}
+
 
 const OverView: FC = (): ReactElement => {
   const { t } = useTranslation();
+  const [overViewData,setOverViewData] = useState<overviewDataType | any>({})
+  const { getOverview } = ServerApi;
+  useEffect(() => {
+    const initData = async () => {
+      const res = await getOverview();
+      setOverViewData(res.data[0])
+    };
+    void initData();
+  }, [getOverview]);
   return (
     <div className="m-situation-blocks">
       <div className="bars-4">
@@ -21,28 +40,29 @@ const OverView: FC = (): ReactElement => {
             <div className="title-wrapper">
               <img className="title-icon" src={curBlockPng} alt="" />
               {t("home.currentBlock")}
+
             </div>
-            <div className="number number-font">3764565</div>
+            <div className="number number-font">{overViewData.head_num}</div>
           </div>
           <div className="bar-item-content flex-row-between-center">
             <div className="content left">
               <div className="wrapper">
                 每秒处理交易
-                <p className="number-font">56</p>
+                <p className="number-font">{overViewData.total_trxs}</p>
               </div>
               <div className="wrapper">
                 历史最高
-                <p className="number-font text-red">3782</p>
+                <p className="number-font text-red">{overViewData.max_blocktxns_count}</p>
               </div>
             </div>
             <div className="content right">
               <div className="wrapper">
                 每秒处理操作
-                <p className="number-font">86</p>
+                <p className="number-font">{overViewData.total_actions}</p>
               </div>
               <div className="wrapper">
                 历史最高
-                <p className="number-font text-red">8782</p>
+                <p className="number-font text-red">{overViewData.max_blockactions_count}</p>
               </div>
             </div>
           </div>
@@ -77,7 +97,7 @@ const OverView: FC = (): ReactElement => {
             <img className="fresh-sign" src={fresh_sign} alt="" />
           </div>
           <div className="bar-item-content flex-row-between-center fresh">
-            <p className="number-font">3764400</p>
+            <p className="number-font">{overViewData.irreversible_num}</p>
           </div>
         </div>
         <div className="bar-item  s-shadow no-mb  animate">
