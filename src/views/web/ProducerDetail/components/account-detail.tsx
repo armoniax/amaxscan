@@ -12,8 +12,6 @@ const {getCurrencyBalance} = ServerApi
 const AccountDetail = (props) => {
   const [active, setActive] = useState('tables');
   const [balance, setBalance] = useState(0);
-  console.log((props?.data?.net_limit?.used / 1024).toFixed(2),(props?.data?.net_limit?.max / 1024).toFixed(2));
-
 
   const cpuUsed:string = (props?.data?.cpu_limit?.used/1000).toFixed(2)
   const cpuTotal:string = (props?.data?.cpu_limit?.max/1000).toFixed(2)
@@ -31,7 +29,6 @@ const AccountDetail = (props) => {
   useEffect( ()=>{
     const initData = async ()=>{
       const res = await getCurrencyBalance({tokenContract:frontConfig.tokenContract,account:props?.data?.account_name,tokenSymbol:frontConfig.coin})
-      console.log(res,'res');
       let unstaked = 0
       let staked = 0
       unstaked = !res[0] ? 0 : Number(res[0].split(' ')[0]);
@@ -142,7 +139,7 @@ const AccountDetail = (props) => {
                   <div className="desc">已用{ramUsed} KB/共{ramTotal} KB</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className={`process ${ramProcessWidth.toFixed(2) == '100.00' ? 'full': ''}`} style={{ width: (ramProcessWidth < 1 ? 1 : ramProcessWidth) + '%'}}>
+                  <div className={`process ${ramProcessWidth.toFixed(2) === '100.00' ? 'full': ''}`} style={{ width: (ramProcessWidth < 1 ? 1 : ramProcessWidth) + '%'}}>
                   </div>
                 </div>
                 {ramProcessWidth.toFixed(2)}%
@@ -153,7 +150,7 @@ const AccountDetail = (props) => {
                   <div className="desc">已用{cpuUsed} µs/共{cpuTotal} µs</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className={`process ${cpuProcessWidth.toFixed(2) == '100.00' ? 'full': ''}`} style={{ width: (cpuProcessWidth < 1 ? 1 : cpuProcessWidth) + "%" }}>
+                  <div className={`process ${cpuProcessWidth.toFixed(2) === '100.00' ? 'full': ''}`} style={{ width: (cpuProcessWidth < 1 ? 1 : cpuProcessWidth) + "%" }}>
                   </div>
                 </div>
                 {cpuProcessWidth.toFixed(2)}%
@@ -164,7 +161,7 @@ const AccountDetail = (props) => {
                   <div className="desc">已用{netUsed}KB/共{netTotal}KB</div>
                 </div>
                 <div className="process-wrapper">
-                  <div className={`process ${netProcessWidth.toFixed(2) == '100.00' ? 'full': ''}`} style={{ width: (netProcessWidth < 1 ? 1 : netProcessWidth) + "%" }}>
+                  <div className={`process ${netProcessWidth.toFixed(2) === '100.00' ? 'full': ''}`} style={{ width: (netProcessWidth < 1 ? 1 : netProcessWidth) + "%" }}>
                   </div>
                 </div>
                 {netProcessWidth.toFixed(2)}%

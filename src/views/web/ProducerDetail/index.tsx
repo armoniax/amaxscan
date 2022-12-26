@@ -61,7 +61,7 @@ const ProducerDetail: FC<RouteComponentProps<{ account: string }>> = (
         { detailData?.avatar &&<img src={detailData?.avatar} alt="" />}
           <div className="flex-col-between-stretch">
 
-            <p className="account-info-name">{detailData?.account_name || <Spin  />}</p>
+            <div className="account-info-name">{detailData?.account_name || <Spin  />}</div>
             <p className="account-info-desc">
               由<span className="c-50BF8C">{detailData?.creator}</span>激活
             </p>
@@ -75,7 +75,7 @@ const ProducerDetail: FC<RouteComponentProps<{ account: string }>> = (
         </div>
       </div>
       <AccountDetail data={detailData} />
-      <ChainData></ChainData>
+      <ChainData account={account}></ChainData>
       <Transactions />
     </div>
   );

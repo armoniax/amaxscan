@@ -1,32 +1,53 @@
 import Tabs from "@/components/Tabs";
-import { FC, memo, ReactElement, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import block_icon from "@/assets/images/web/block_icon.png";
 import chain_icon from "@/assets/images/web/chain_icon.png";
 import search_icon from "@/assets/images/web/search_icon.png";
 import node_icon from "@/assets/images/web/node_icon.png";
+import ServerApi from "@/api";
+import { useHistory } from "react-router-dom";
+
 import "../index.scss";
+import moment from "moment";
+import Pagination from "@/components/Pagination";
 
-const ChainData: FC = (): ReactElement => {
-
-  let _data = []
+const { getAccountByCreator } = ServerApi;
+const ChainData = (props) => {
+  const history = useHistory();
+  let _data = [];
   for (let i = 0; i < 20; i++) {
     _data.push({
-      name:'prospectorsg',
-      dfs:'190,749.9181'
-    })
+      name: "prospectorsg",
+      dfs: "190,749.9181",
+    });
   }
-  const [chainDataList, setChainDataList] = useState(_data.slice(0,12));
+  const [chainDataList, setChainDataList] = useState(_data.slice(0, 12));
+  const [activateData, setActivateData] = useState([]);
+  const [activatelength, setActivatelength] = useState(0);
   const [isUnfold, setIsUnfold] = useState(false);
 
   const toggleMore = () => {
     if (!isUnfold) {
-      setChainDataList(_data)
+      setChainDataList(_data);
     } else {
       setChainDataList(_data.slice(0, 12));
     }
     setIsUnfold(!isUnfold);
   };
+  const getAccountCreator = async (page) => {
+    const res = await getAccountByCreator({
+      creator: "amax",
+      pageIndex: page,
+      pageSize: 30,
+    });
+    setActivateData(res.data?.content);
+    setActivatelength(res.data?.totalElements);
+  };
 
+  useEffect(() => {
+    console.log("useEffect");
+    getAccountCreator(0);
+  }, [props]);
   const chainTabList = [
     {
       label: "Tokens（19）",
@@ -35,11 +56,13 @@ const ChainData: FC = (): ReactElement => {
           <div className="p-t-16 fs-14">
             Total Tokens Value: $2.69 USD / 1.2117 EOS
           </div>
-          <div className="chain-data-list">{
-            chainDataList.map((item,i)=>{
+          <div className="chain-data-list">
+            {chainDataList.map((item, i) => {
               return (
                 <div
-                  className={`chain-data-list-item${i % 2 === 0 ? " dark" : ""}`}
+                  className={`chain-data-list-item${
+                    i % 2 === 0 ? " dark" : ""
+                  }`}
                   key={i}
                 >
                   <img src={chain_icon} alt="" /> {item.name}
@@ -47,9 +70,9 @@ const ChainData: FC = (): ReactElement => {
                     {item.dfs} <span className="orange">DFS</span>
                   </p>
                 </div>
-              )
-            })
-          }</div>
+              );
+            })}
+          </div>
           <div
             className="toggle-button"
             onClick={() => {
@@ -109,27 +132,39 @@ const ChainData: FC = (): ReactElement => {
       ),
     },
     {
-      label: "为他人激活（2）",
-      children:(
+      label: `为他人激活（${activatelength}）`,
+      children: (
         <div className="p-t-16 fs-14">
           <div className="activate-list flex-row-start-center">
-            {
-              [1,2,3,4,5,6,].map((item,i)=>{
-                return(
-                  <div className="activate-list-item flex-col-between-center" key={i}>
-                    <div className="name flex-row-center-center">
-                      velah@le.ac
-                    </div>
-                    <div className="detail-btn flex-row-center-center">
-                      激活详情
-                    </div>
+            {activateData.map((item, i) => {
+              return (
+                <div
+                  className="activate-list-item flex-col-between-center"
+                  key={i}
+                  onClick={() => {
+                    history.push(`/producer-detail/${item?.name}`);
+                  }}
+                >
+                  <div className="name flex-row-center-center">{item.name}</div>
+                  <div className="detail-btn flex-row-center-center">
+                    {moment(item.creation_date).local().format("YYYY/MM/DD")}{" "}
+                    激活
                   </div>
-                )
-              })
-            }
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex-row-end-center">
+            <Pagination
+              sizeOptions={[30]}
+              total={activatelength}
+              onChange={(currentPage)=>{
+                getAccountCreator(currentPage - 1);
+              }}
+            />
           </div>
         </div>
-      )
+      ),
     },
   ];
   return (

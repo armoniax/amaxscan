@@ -13,11 +13,11 @@ const {post,get} = axiosRequest
 class ServerApi {
     private readonly baseConfig = {
         amaxNodeApi: `${process.env.REACT_APP_URL}/v1/chain/get_table_rows`,
-        amaxScanApi:`${process.env.REACT_APP_AMAX_SCAN}/api/v1`,
+        amaxScanApi:`${process.env.REACT_APP_AMAX_SCAN}/api`,
     }
 
     getLastBlocksData = async (size:number)=>{
-      const data = await get(`${this.baseConfig.amaxScanApi}/get_last_blocks/${size}`, {})
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_last_blocks/${size}`, {})
       return data
     }
     getOverview = async ()=>{
@@ -26,35 +26,35 @@ class ServerApi {
     }
 
     getBlockDetail = async (id:string)=>{
-      const data = await get(`${this.baseConfig.amaxScanApi}/get_block/${id}`, {})
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_block/${id}`, {})
       return data
     }
 
     getTransactionData = async (id:string)=>{
-      const data = await get(`${this.baseConfig.amaxScanApi}/get_transaction/${id}`, {})
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_transaction/${id}`, {})
       return data
     }
     getTableRows = async(accountName: string, name: string, count = 20) =>{
-      const data = await  get(`${this.baseConfig.amaxScanApi}/get_table_rows/${accountName}/${accountName}/${name}/${count}`)
+      const data = await  get(`${this.baseConfig.amaxScanApi}/v1/get_table_rows/${accountName}/${accountName}/${name}/${count}`)
       return data
     };
     getProducersBpJson = async() => {
-      const data = await get(`${this.baseConfig.amaxScanApi}/get_producers_bp_json`)
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_producers_bp_json`)
       return data
     };
 
     getAccountDetail = async (account: string) => {
-      const data = await get(`${this.baseConfig.amaxScanApi}/get_account/${account}`)
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_account/${account}`)
       return data
     };
 
     searchBy = async(text: string) => {
-      const data = await post(`${this.baseConfig.amaxScanApi}/search`, { text: text.replace(/ /g, '') })
+      const data = await post(`${this.baseConfig.amaxScanApi}/v1/search`, { text: text.replace(/ /g, '') })
       return data
     };
 
     getCurrencyBalance = async(params: GetCurrencyBalanceParams) => {
-      const data = await get(`${this.baseConfig.amaxScanApi}/get_currency_balance/${params.tokenContract}/${params.account}/${params.tokenSymbol}`);
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_currency_balance/${params.tokenContract}/${params.account}/${params.tokenSymbol}`);
       return data
     }
 
@@ -112,6 +112,11 @@ class ServerApi {
     transferFee = async (accountName: any, userChargeAmount: any, memo: any) => {
         const contract = await getContract(process.env.REACT_APP_TOKEN_NAME)
         return contract.transfer(accountName, process.env.REACT_APP_CONTARCT_NAME, userChargeAmount, memo)
+    }
+
+    getAccountByCreator = async({ creator, pageIndex, pageSize }) => {
+      const data = await get(`${this.baseConfig.amaxScanApi}/stats/account/listbyceator?creator=${creator}&pageIndex=${pageIndex}&pageSize=${pageSize}`);
+      return data
     }
 }
 
