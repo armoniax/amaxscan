@@ -75,7 +75,7 @@ const ProducerDetail: FC<RouteComponentProps<{ account: string }>> = (
         </div>
       </div>
       <AccountDetail data={detailData} />
-      <ChainData account={account}></ChainData>
+      <ChainData account={account} permissions={detailData.permissions}></ChainData>
       <Transactions />
     </div>
   );

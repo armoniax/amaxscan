@@ -4,6 +4,7 @@ import block_icon from "@/assets/images/web/block_icon.png";
 import chain_icon from "@/assets/images/web/chain_icon.png";
 import search_icon from "@/assets/images/web/search_icon.png";
 import node_icon from "@/assets/images/web/node_icon.png";
+import key_icon from "@/assets/images/web/key_icon.png";
 import ServerApi from "@/api";
 import { useHistory } from "react-router-dom";
 
@@ -23,6 +24,7 @@ const ChainData = (props) => {
   }
   const [chainDataList, setChainDataList] = useState(_data.slice(0, 12));
   const [activateData, setActivateData] = useState([]);
+  const [keysData, setKeysData] = useState([]);
   const [activatelength, setActivatelength] = useState(0);
   const [isUnfold, setIsUnfold] = useState(false);
 
@@ -43,10 +45,23 @@ const ChainData = (props) => {
     setActivateData(res.data?.content);
     setActivatelength(res.data?.totalElements);
   };
-
+  const toTree = (arr, perm_name)=> {
+    function loop(perm_name) {
+      return arr?.reduce((acc, cur) => {
+        if (cur.parent === perm_name) {
+          cur.children = loop(cur.perm_name)
+          acc.push(cur)
+        }
+        return acc
+      }, [])
+    }
+    return loop(perm_name)
+  }
   useEffect(() => {
     console.log("useEffect");
     getAccountCreator(0);
+    setKeysData(toTree(props.permissions,''))
+
   }, [props]);
   const chainTabList = [
     {
@@ -87,6 +102,79 @@ const ChainData = (props) => {
     },
     {
       label: "Keys（4）",
+      children: (
+        <div className="keys-wrapper">
+          <ul className="keys-tree">
+            <li>
+              <div className="keys-tree-item">
+                <span className="title">owner (1)</span>
+                <div className="key-set">
+                  <span className="ct">
+                    ＋1
+                    <img className="key-icon" src={key_icon} alt="" />
+                    <span className="c-50BF8C">
+                      PUB_K1_55csjge6LNnLxECFTtTpCU6Z7chi3h47G8vyzPBjAKdvZmnZ8Z
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <ul>
+                <li>
+                  <div className="keys-tree-item">
+                    <span className="title">owner (1)</span>
+                    <div className="key-set">
+                      <span className="ct">
+                        ＋1
+                        <img className="key-icon" src={key_icon} alt="" />
+                        <span className="c-50BF8C">
+                          PUB_K1_55csjge6LNnLxECFTtTpCU6Z7chi3h47G8vyzPBjAKdvZmnZ8Z
+                        </span>
+                      </span>
+                      <span className="ct">
+                        ＋1
+                        <img className="key-icon" src={key_icon} alt="" />
+                        <span className="c-50BF8C">
+                          PUB_K1_55csjge6LNnLxECFTtTpCU6Z7chi3h47G8vyzPBjAKdvZmnZ8Z
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      <div className="keys-tree-item">
+                        <span className="title">owner (1)</span>
+                        <div className="key-set">
+                          <span className="ct">
+                            ＋1
+                            <img className="key-icon" src={key_icon} alt="" />
+                            <span className="c-50BF8C">
+                              PUB_K1_55csjge6LNnLxECFTtTpCU6Z7chi3h47G8vyzPBjAKdvZmnZ8Z
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="keys-tree-item">
+                        <span className="title">owner (1)</span>
+                        <div className="key-set">
+                          <span className="ct">
+                            ＋1
+                            <img className="key-icon" src={key_icon} alt="" />
+                            <span className="c-50BF8C">
+                              PUB_K1_55csjge6LNnLxECFTtTpCU6Z7chi3h47G8vyzPBjAKdvZmnZ8Z
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      ),
     },
     {
       label: "NFTs（2）",
@@ -158,7 +246,7 @@ const ChainData = (props) => {
             <Pagination
               sizeOptions={[30]}
               total={activatelength}
-              onChange={(currentPage)=>{
+              onChange={(currentPage) => {
                 getAccountCreator(currentPage - 1);
               }}
             />
@@ -172,7 +260,7 @@ const ChainData = (props) => {
       <div className="chain-data-title">
         <img src={block_icon} alt="" /> Chain Data
       </div>
-      <Tabs data={chainTabList} defaultActiveIndex={0} />
+      <Tabs data={chainTabList} defaultActiveIndex={1} />
     </div>
   );
 };
