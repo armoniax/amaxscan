@@ -7,10 +7,17 @@ import node_icon from "@/assets/images/web/node_icon.png";
 import key_icon from "@/assets/images/web/key_icon.png";
 import ServerApi from "@/api";
 import { useHistory } from "react-router-dom";
-
 import "../index.scss";
 import moment from "moment";
 import Pagination from "@/components/Pagination";
+import KeyItem from "@/components/KeyItem";
+
+export interface keysDataType {
+  perm_name?: string;
+  parent?: string;
+  required_auth?:any;
+  children?:any
+}
 
 const { getAccountByCreator } = ServerApi;
 const ChainData = (props) => {
@@ -24,7 +31,7 @@ const ChainData = (props) => {
   }
   const [chainDataList, setChainDataList] = useState(_data.slice(0, 12));
   const [activateData, setActivateData] = useState([]);
-  const [keysData, setKeysData] = useState([]);
+  const [keysData, setKeysData] = useState<keysDataType>({});
   const [activatelength, setActivatelength] = useState(0);
   const [isUnfold, setIsUnfold] = useState(false);
 
@@ -60,7 +67,10 @@ const ChainData = (props) => {
   useEffect(() => {
     console.log("useEffect");
     getAccountCreator(0);
-    setKeysData(toTree(props.permissions,''))
+    if (toTree(props.permissions,'')) {
+      console.log(toTree(props.permissions,'')[0]);
+      setKeysData(toTree(props.permissions,'')[0])
+    }
 
   }, [props]);
   const chainTabList = [
@@ -107,70 +117,24 @@ const ChainData = (props) => {
           <ul className="keys-tree">
             <li>
               <div className="keys-tree-item">
-                <span className="title">owner (1)</span>
+                <span className="title">{keysData.perm_name}</span>
                 <div className="key-set">
-                  <span className="ct">
-                    ＋1
-                    <img className="key-icon" src={key_icon} alt="" />
-                    <span className="c-50BF8C">
-                      PUB_K1_55csjge6LNnLxECFTtTpCU6Z7chi3h47G8vyzPBjAKdvZmnZ8Z
-                    </span>
-                  </span>
+                  {
+                    keysData.required_auth?.keys?.map((el,idx)=>{
+                      return (
+                        <span className="ct" key={idx}>
+                        ＋{el.weight}
+                        <img className="key-icon" src={key_icon} alt="" />
+                        <span className="c-50BF8C">
+                          {el.key}
+                        </span>
+                      </span>
+                      )
+                    })
+                  }
                 </div>
               </div>
-              <ul>
-                <li>
-                  <div className="keys-tree-item">
-                    <span className="title">owner (1)</span>
-                    <div className="key-set">
-                      <span className="ct">
-                        ＋1
-                        <img className="key-icon" src={key_icon} alt="" />
-                        <span className="c-50BF8C">
-                          PUB_K1_55csjge6LNnLxECFTtTpCU6Z7chi3h47G8vyzPBjAKdvZmnZ8Z
-                        </span>
-                      </span>
-                      <span className="ct">
-                        ＋1
-                        <img className="key-icon" src={key_icon} alt="" />
-                        <span className="c-50BF8C">
-                          PUB_K1_55csjge6LNnLxECFTtTpCU6Z7chi3h47G8vyzPBjAKdvZmnZ8Z
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <ul>
-                    <li>
-                      <div className="keys-tree-item">
-                        <span className="title">owner (1)</span>
-                        <div className="key-set">
-                          <span className="ct">
-                            ＋1
-                            <img className="key-icon" src={key_icon} alt="" />
-                            <span className="c-50BF8C">
-                              PUB_K1_55csjge6LNnLxECFTtTpCU6Z7chi3h47G8vyzPBjAKdvZmnZ8Z
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="keys-tree-item">
-                        <span className="title">owner (1)</span>
-                        <div className="key-set">
-                          <span className="ct">
-                            ＋1
-                            <img className="key-icon" src={key_icon} alt="" />
-                            <span className="c-50BF8C">
-                              PUB_K1_55csjge6LNnLxECFTtTpCU6Z7chi3h47G8vyzPBjAKdvZmnZ8Z
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
+              {keysData.children && <KeyItem data={keysData.children} />}
             </li>
           </ul>
         </div>
