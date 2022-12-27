@@ -30,7 +30,7 @@ const ProducerDetail: FC<RouteComponentProps<{ account: string }>> = (
       setDetailData(res);
     };
     const getBalance = async (account: string) => {
-      const res = getCurrencyBalance({
+      const res = await getCurrencyBalance({
         tokenContract: frontConfig.tokenContract,
         account,
         tokenSymbol: frontConfig.coin,
@@ -76,7 +76,7 @@ const ProducerDetail: FC<RouteComponentProps<{ account: string }>> = (
       </div>
       <AccountDetail data={detailData} />
       <ChainData account={account} permissions={detailData.permissions}></ChainData>
-      <Transactions />
+      <Transactions account={account} />
     </div>
   );
 };

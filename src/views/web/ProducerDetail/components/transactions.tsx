@@ -1,12 +1,16 @@
-import { FC, memo, ReactElement, useState } from "react";
+import {  memo, useEffect, useState } from "react";
 import deal_icon from "@/assets/images/web/deal_icon.png";
 import forward_icon from "@/assets/images/web/forward_icon.png";
-import { DatePicker, Select } from "antd";
+// import { DatePicker, Select } from "antd";
 import Pagination from '@/components/Pagination'
-import moment from "moment";
+// import moment from "moment";
 import "../index.scss";
-const { RangePicker } = DatePicker;
-const { Option } = Select;
+import ServerApi from '@/api'
+import { handleTime } from "@/utils";
+import { Link } from "react-router-dom";
+const {getActionsByAccount} = ServerApi
+// const { RangePicker } = DatePicker;
+// const { Option } = Select;
 
 const actionArr = [
   {
@@ -43,8 +47,12 @@ const actionArr = [
   },
 ]
 
-const Transactions: FC = (): ReactElement => {
+const Transactions= (props) => {
   const [actionList,setActionList] = useState(actionArr)
+  const [trxList,setTrxList] = useState([])
+  const [position,setPosition] = useState(-1)
+  const [currentPage,setCurrentPage] = useState(1)
+
   const setAction = (curIndex) =>{
     const _list = actionList.map((item,i) => {
       if (i === curIndex) {
@@ -54,12 +62,44 @@ const Transactions: FC = (): ReactElement => {
     })
     setActionList(_list)
   }
+  // 中间省略号
+  const ellipsisTextInMiddle = (text) =>{
+    console.log(text,'text');
+    return `${text.slice(0,4)}...${text.slice(-4,text.length)}`
+  }
+
+
+  const changePage = (type:string)=>{
+    switch (type) {
+      case 'prev':
+        if (currentPage > 1) {
+          setPosition(trxList[0].account_action_seq + 1)
+          setCurrentPage(currentPage-1)
+        }
+        break;
+      case 'next':
+        setPosition(trxList[trxList.length - 1].account_action_seq -1)
+        setCurrentPage(currentPage+1)
+        break;
+      default:
+        break;
+    }
+  }
+
+  useEffect(()=>{
+    const getActions = async ()=>{
+      const res = await getActionsByAccount(props.account, position, 15)
+      console.log('getActions-----', res.actions);
+      setTrxList(res.actions.reverse())
+    }
+    getActions()
+  },[props,position])
   return (
     <div className="section-box transactions">
       <div className="transactions-header">
         <img src={deal_icon} alt="" /> Transactions
       </div>
-      <ul className="filters flex-row-start-center">
+      {/* <ul className="filters flex-row-start-center">
         <li className="filters-item disabled">Actions过滤</li>
         {
           actionList.map((item,i)=>{
@@ -68,8 +108,8 @@ const Transactions: FC = (): ReactElement => {
             )
           })
         }
-      </ul>
-      <div className="serach-filters flex-row-start-center">
+      </ul> */}
+      {/* <div className="serach-filters flex-row-start-center">
         <div className="serach-filters-item">
         <span className="name">日期</span>&nbsp;&nbsp;
           <RangePicker
@@ -103,7 +143,7 @@ const Transactions: FC = (): ReactElement => {
           </Select>
         </div>
         <div className="serach-filters-btn">搜索</div>
-      </div>
+      </div> */}
       <table className="transactions-table common-table">
         <tbody>
         <tr className="table-header">
@@ -112,68 +152,34 @@ const Transactions: FC = (): ReactElement => {
           <td>Action</td>
           <td>数据</td>
         </tr>
-        <tr>
-          <td>b424…5840</td>
-          <td>Apr 28, 2022 12:05:10 PM</td>
-          <td>
-            <span className="type square">eosio - onblockeosio</span>
-          </td>
-          <td>
-          <div className="data-1">
-              <p>account: <span className="s-green">sz441siulzhq</span></p>
-              <p>permission: <span className="s-red">46</span> </p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>b424…5840</td>
-          <td>Apr 28, 2022 12:05:10 PM</td>
-          <td>
-            <span className="type round">发送代币</span>
-          </td>
-          <td>
-          <div className="data-2">
-              <span className="s-green">sz441siulzhper</span>
-              <img src={forward_icon} alt="" />
-              <span className="s-green">permission</span>
-              <div className="type square">0.1058 DCASH</div>
-              <span>issue cash for LP mining.</span>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>b424…5840</td>
-          <td>Apr 28, 2022 12:05:10 PM</td>
-          <td>
-            <span className="type square">eosio - onblockeosio</span>
-          </td>
-          <td>
-            <div className="data-2">
-              <span className="s-green">sz441siulzhper</span>
-              <img src={forward_icon} alt="" />
-              <span className="s-green">permission</span>
-              <div className="type square">0.1058 DCASH</div>
-              <span>issue cash for LP mining.</span>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>b424…5840</td>
-          <td>Apr 28, 2022 12:05:10 PM</td>
-          <td>
-          <span className="type round">发送代币</span>
-          </td>
-          <td>
-          <div className="data-1">
-              <p>account: <span className="s-green">sz441siulzhq</span></p>
-              <p>permission: <span className="s-red">46</span> </p>
-            </div>
-          </td>
-        </tr>
+        {
+          trxList.map((item,index)=>{
+            return (
+              <tr>
+                <td width={100}><Link to={{pathname: `/transaction-detail/${item.action_trace?.trx_id}`}} className="s-green" title={item.action_trace?.trx_id}>{ellipsisTextInMiddle(item.action_trace?.trx_id)}</Link></td>
+                <td>{handleTime(item.block_time)}</td>
+                <td>
+                  <span className="type square">{ item?.action_trace?.act?.account } - { item?.action_trace?.act?.name }</span>
+                </td>
+                <td>
+                <div className="data-1">
+                  {'怎么展示怎么展示'}
+                    {/* <p>account: <span className="s-green">sz441siulzhq</span></p>
+                    <p>permission: <span className="s-red">46</span> </p> */}
+                  </div>
+                </td>
+              </tr>
+            )
+          })
+        }
         </tbody>
       </table>
       <div className="flex-row-end-center">
-        <Pagination total={400}  />
+          <div className="btn-wrapper">
+            <div className="btn" onClick={()=>{changePage('prev')}}>prev</div>
+            <div className="btn">{currentPage}</div>
+            <div className="btn" onClick={()=>{changePage('next')}}>next</div>
+          </div>
       </div>
     </div>
   );

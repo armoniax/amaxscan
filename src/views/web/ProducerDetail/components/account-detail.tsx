@@ -19,7 +19,7 @@ const AccountDetail = (props) => {
 
   const ramUsed:string = (props.data?.ram_usage / 1024).toFixed(2)
   const ramTotal:string = (props.data?.ram_quota / 1024).toFixed(2)
-  const ramProcessWidth:number =  (props?.data?.ram_usage / props?.data?.ram_quota) * 100
+  const ramProcessWidth:number =  (props?.data?.ram_usage / props?.data?.ram_quota) * 100 < 0 ? 0 : (props?.data?.ram_usage / props?.data?.ram_quota) * 100
 
   const netUsed:string = (props?.data?.net_limit?.used / 1024).toFixed(2)
   const netTotal:string = (props?.data?.net_limit?.max / 1024).toFixed(2)
@@ -142,7 +142,7 @@ const AccountDetail = (props) => {
                   <div className={`process ${ramProcessWidth.toFixed(2) === '100.00' ? 'full': ''}`} style={{ width: (ramProcessWidth < 1 ? 1 : ramProcessWidth) + '%'}}>
                   </div>
                 </div>
-                {ramProcessWidth.toFixed(2)}%
+                <span className="percent">{ramProcessWidth.toFixed(2)}%</span>
               </div>
               <div className="process-list-item flex-row-between-center">
                 <div>
@@ -153,7 +153,7 @@ const AccountDetail = (props) => {
                   <div className={`process ${cpuProcessWidth.toFixed(2) === '100.00' ? 'full': ''}`} style={{ width: (cpuProcessWidth < 1 ? 1 : cpuProcessWidth) + "%" }}>
                   </div>
                 </div>
-                {cpuProcessWidth.toFixed(2)}%
+                <span className="percent">{cpuProcessWidth.toFixed(2)}%</span>
               </div>
               <div className="process-list-item flex-row-between-center">
                 <div>
@@ -164,7 +164,7 @@ const AccountDetail = (props) => {
                   <div className={`process ${netProcessWidth.toFixed(2) === '100.00' ? 'full': ''}`} style={{ width: (netProcessWidth < 1 ? 1 : netProcessWidth) + "%" }}>
                   </div>
                 </div>
-                {netProcessWidth.toFixed(2)}%
+                <span className="percent">{netProcessWidth.toFixed(2)}%</span>
               </div>
             </div>
           </div>
