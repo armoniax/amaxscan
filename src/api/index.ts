@@ -118,6 +118,19 @@ class ServerApi {
       const data = await get(`${this.baseConfig.amaxScanApi}/stats/account/listbyceator?creator=${creator}&pageIndex=${pageIndex}&pageSize=${pageSize}`);
       return data
     }
+    getKeyAccounts = async(pubkey:string) => {
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_accounts_by_authorizers/${pubkey}`);
+      return data
+    }
+    getActionsByAccount = async(accountName:string,pos: number, elementsLimit: number) => {
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_actions/${accountName}/${pos}/-${elementsLimit}`);
+      return data
+    }
+
+    getCode = async(accountName:string) => {
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_code/${accountName}`);
+      return data
+    }
 }
 
 export default new ServerApi()

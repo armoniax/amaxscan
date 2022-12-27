@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 // import "./index.scss";
 import key_icon from "@/assets/images/web/key_icon.png";
+import { Link } from "react-router-dom";
 export interface keyProps {
   data?: any[];
 }
@@ -23,9 +24,9 @@ const KeyItem: React.FunctionComponent<keyProps> = ({ data }) => {
                         <span className="ct" key={idx}>
                         ＋{el.weight}
                         <img className="key-icon" src={key_icon} alt="" />
-                        <span className="c-50BF8C">
+                        <Link to={{pathname: `/publicKey-list/${el.key}`,}} className="c-50BF8C" >
                           {el.key}
-                        </span>
+                        </Link>
                       </span>
                       )
                     })

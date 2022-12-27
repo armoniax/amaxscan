@@ -31,7 +31,7 @@ const routerConfig: IRouterConfig[] = [
     },
     {
       // 公钥列表
-      path: '/publicKey-list',
+      path: '/publicKey-list/:publicKey',
       component: lazy(async () => await import('@/views/web/PublicKeyList/index')),
       mpComponent: lazy(async () => await import('@/views/mobile/PublicKeyList/index')),
       exact: true

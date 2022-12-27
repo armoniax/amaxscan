@@ -6,7 +6,7 @@ import search_icon from "@/assets/images/web/search_icon.png";
 import node_icon from "@/assets/images/web/node_icon.png";
 import key_icon from "@/assets/images/web/key_icon.png";
 import ServerApi from "@/api";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../index.scss";
 import moment from "moment";
 import Pagination from "@/components/Pagination";
@@ -111,7 +111,7 @@ const ChainData = (props) => {
       ),
     },
     {
-      label: "Keys（4）",
+      label: `Keys（${props.permissions?.length}）`,
       children: (
         <div className="keys-wrapper">
           <ul className="keys-tree">
@@ -125,9 +125,9 @@ const ChainData = (props) => {
                         <span className="ct" key={idx}>
                         ＋{el.weight}
                         <img className="key-icon" src={key_icon} alt="" />
-                        <span className="c-50BF8C">
+                        <Link to={{pathname: `/publicKey-list/${el.key}`,}} className="c-50BF8C" >
                           {el.key}
-                        </span>
+                        </Link>
                       </span>
                       )
                     })
