@@ -1,70 +1,61 @@
 import {  memo, useEffect, useState } from "react";
 import deal_icon from "@/assets/images/web/deal_icon.png";
-import forward_icon from "@/assets/images/web/forward_icon.png";
+// import forward_icon from "@/assets/images/web/forward_icon.png";
 // import { DatePicker, Select } from "antd";
-import Pagination from '@/components/Pagination'
+// import Pagination from '@/components/Pagination'
 // import moment from "moment";
 import "../index.scss";
 import ServerApi from '@/api'
 import { handleTime } from "@/utils";
 import { Link } from "react-router-dom";
+import NoData from "@/components/NoData";
 const {getActionsByAccount} = ServerApi
 // const { RangePicker } = DatePicker;
 // const { Option } = Select;
 
-const actionArr = [
-  {
-    name:'发送代币',
-    active:false
-  },
-  {
-    name:'接收代币',
-    active:false
-  },
-  {
-    name:'抵押和买卖资源',
-    active:false
-  },
-  {
-    name:'投票和节点相关',
-    active:false
-  },
-  {
-    name:'智能合约',
-    active:false
-  },
-  {
-    name:'多重签名',
-    active:false
-  },
-  {
-    name:'账号相关',
-    active:false
-  },
-  {
-    name:'其他',
-    active:false
-  },
-]
+// const actionArr = [
+//   {
+//     name:'发送代币',
+//     active:false
+//   },
+//   {
+//     name:'接收代币',
+//     active:false
+//   },
+//   {
+//     name:'抵押和买卖资源',
+//     active:false
+//   },
+//   {
+//     name:'投票和节点相关',
+//     active:false
+//   },
+//   {
+//     name:'智能合约',
+//     active:false
+//   },
+//   {
+//     name:'多重签名',
+//     active:false
+//   },
+//   {
+//     name:'账号相关',
+//     active:false
+//   },
+//   {
+//     name:'其他',
+//     active:false
+//   },
+// ]
 
 const Transactions= (props) => {
-  const [actionList,setActionList] = useState(actionArr)
+  // const [actionList,setActionList] = useState(actionArr)
   const [trxList,setTrxList] = useState([])
   const [position,setPosition] = useState(-1)
   const [currentPage,setCurrentPage] = useState(1)
 
-  const setAction = (curIndex) =>{
-    const _list = actionList.map((item,i) => {
-      if (i === curIndex) {
-        item.active  = !item.active
-      }
-      return item
-    })
-    setActionList(_list)
-  }
   // 中间省略号
   const ellipsisTextInMiddle = (text) =>{
-    console.log(text,'text');
     return `${text.slice(0,4)}...${text.slice(-4,text.length)}`
   }
 
@@ -153,9 +144,9 @@ const Transactions= (props) => {
           <td>数据</td>
         </tr>
         {
-          trxList.map((item,index)=>{
+          trxList?.map((item,index)=>{
             return (
-              <tr>
+              <tr key={index}>
                 <td width={100}><Link to={{pathname: `/transaction-detail/${item.action_trace?.trx_id}`}} className="s-green" title={item.action_trace?.trx_id}>{ellipsisTextInMiddle(item.action_trace?.trx_id)}</Link></td>
                 <td>{handleTime(item.block_time)}</td>
                 <td>
@@ -174,6 +165,7 @@ const Transactions= (props) => {
         }
         </tbody>
       </table>
+      {!trxList.length && <NoData />}
       <div className="flex-row-end-center">
           <div className="btn-wrapper">
             <div className="btn" onClick={()=>{changePage('prev')}}>prev</div>

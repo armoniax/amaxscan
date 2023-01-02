@@ -181,15 +181,25 @@
   padding-top: 12px;
 
   &-tabs {
+    flex-wrap: wrap;
     &-item {
-      padding: 10px 16px;
+      width: 100px;
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
       background: #F5F7F9;
       border-radius: 4px;
-      margin-right: 24px;
+      margin-right: 21px;
+      margin-bottom: 21px;
       font-size: 16px;
       color: #303333;
       cursor: pointer;
-
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &:nth-child(9n){
+        margin-right: 0;
+      }
       &.active {
         background: #50BF8C;
         color: #fff;
@@ -679,3 +689,4 @@
     }
   }
 }
+

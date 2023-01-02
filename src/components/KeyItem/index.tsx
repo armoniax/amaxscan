@@ -7,8 +7,6 @@ export interface keyProps {
 }
 
 const KeyItem: React.FunctionComponent<keyProps> = ({ data }) => {
-  console.log(data, "datadata");
-
   return (
     <ul>
       {data.map((item, index) => {

@@ -2,16 +2,18 @@ import Tabs from "@/components/Tabs";
 import {  memo, useEffect, useState } from "react";
 import "../index.scss";
 import ServerApi from '@/api'
-import { StorageHelper } from "@/utils/storage";
+import ReactJson from "react-json-view";
 
-const { getFrontConfig } = StorageHelper;
-const frontConfig = getFrontConfig();
 
-const {getCurrencyBalance} = ServerApi
+const {getCode,getTableRows} = ServerApi
 
 const AccountDetail = (props) => {
   const [active, setActive] = useState('tables');
-  const [balance, setBalance] = useState(0);
+  const [activeTableIndex, setActiveTableIndex] = useState(0);
+  const [abiJson, setAbiJson] = useState({});
+  const [currentTableName, setCurrentTableName] = useState('');
+  const [tableJson, setTableJson] = useState({});
+  const [tablesData, setTablesData] = useState([]);
 
   const cpuUsed:string = (props?.data?.cpu_limit?.used/1000).toFixed(2)
   const cpuTotal:string = (props?.data?.cpu_limit?.max/1000).toFixed(2)
@@ -26,37 +28,42 @@ const AccountDetail = (props) => {
   const netProcessWidth:number = (props?.data?.net_limit?.used / props?.data?.net_limit?.max) * 100
 
 
-  useEffect( ()=>{
-    const initData = async ()=>{
-      const res = await getCurrencyBalance({tokenContract:frontConfig.tokenContract,account:props?.data?.account_name,tokenSymbol:frontConfig.coin})
-      let unstaked = 0
-      let staked = 0
-      unstaked = !res[0] ? 0 : Number(res[0].split(' ')[0]);
-      // let staked = 0;
-      if (props.data.voter_info && props.data.voter_info.staked) {
-          staked = props.data.voter_info.staked;
-      }
-      if (frontConfig.customBalance) {
-          //include precision
-        setBalance(unstaked);
-      } else {
-        setBalance(unstaked + staked / 100000000);
-      }
+  useEffect(()=>{
+
+    const getAbiData = async ()=>{
+      const res = await getCode(props?.data?.account_name)
+      setAbiJson(res?.abi)
+      setTablesData(res?.abi?.tables || [])
+      setCurrentTableName(res?.abi?.tables[0].name)
     }
 
-    void initData()
+    void getAbiData()
   },[props])
+
+  useEffect(()=>{
+    const getTableJson = async ()=>{
+      const res = await getTableRows(props?.data.account_name,currentTableName)
+      setTableJson(res)
+    }
+    void getTableJson()
+  },[props,activeTableIndex,currentTableName])
+
   const tablesComponent = (
     <div>
       <p className="m-t-20 m-b-20 c-303333">选择数据表名</p>
       <div className="smart-contract-tabs flex-row-start-center">
-        <div className="smart-contract-tabs-item active">A1</div>
-        <div className="smart-contract-tabs-item">A2</div>
-        <div className="smart-contract-tabs-item">Collections</div>
-        <div className="smart-contract-tabs-item">V1</div>
-        <div className="smart-contract-tabs-item">V2</div>
+        {
+          tablesData?.map((item,index)=>{
+            return (
+              <div className={`smart-contract-tabs-item${activeTableIndex === index ? ' active':''}`} key={index}  onClick={()=>{
+                setActiveTableIndex(index)
+                setCurrentTableName(tablesData[index].name)
+              }}>{item.name}</div>
+            )
+          })
+        }
       </div>
-      <div className="condition-query">
+      {/* <div className="condition-query">
         查询范围
         <input type="text" />
         下限（Lower Bound)
@@ -90,12 +97,15 @@ const AccountDetail = (props) => {
             );
           })}
         </tbody>
-      </table>
+      </table> */}
+      <div className="abi-panel">
+        <ReactJson src={tableJson} name={false} collapsed={1} indentWidth={10}  style={{fontFamily:'PingFang', fontSize:'14px',wordBreak:'break-all',lineHeight:'1.2'}} />
+      </div>
     </div>
   )
   const ABIComponent = (
     <div className="abi-panel">
-
+      <ReactJson src={abiJson} name={false} collapsed={1}  indentWidth={10}  style={{fontFamily:'PingFang', fontSize:'14px',wordBreak:'break-all',lineHeight:'1.2'}} />
     </div>
   )
   const accountTabList = [
@@ -108,7 +118,7 @@ const AccountDetail = (props) => {
               <div className="color-block blue">
                 <p className="title">可用余额</p>
                 <p className="ct">
-                  <span className="number number-font">{balance}</span> AMAX
+                  <span className="number number-font">{props.balance}</span> AMAX
                 </p>
               </div>
               <div className="color-block pink">
@@ -180,7 +190,7 @@ const AccountDetail = (props) => {
             <div className={`smart-contract-tabs-item${active==='ABI'?' active':''}`}  onClick={()=>{setActive('ABI')}}>ABI</div>
           </div>
           {
-            active==='tables' ? tablesComponent :ABIComponent
+            active==='tables' ? tablesComponent : ABIComponent
           }
         </div>
       ),

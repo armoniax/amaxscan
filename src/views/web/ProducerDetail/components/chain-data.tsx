@@ -11,6 +11,7 @@ import "../index.scss";
 import moment from "moment";
 import Pagination from "@/components/Pagination";
 import KeyItem from "@/components/KeyItem";
+import NoData from "@/components/NoData";
 
 export interface keysDataType {
   perm_name?: string;
@@ -111,9 +112,10 @@ const ChainData = (props) => {
       ),
     },
     {
-      label: `Keys（${props.permissions?.length}）`,
+      label: `Keys（${props.permissions?.length || 0}）`,
       children: (
         <div className="keys-wrapper">
+          {!props.permissions?.length && <NoData />}
           <ul className="keys-tree">
             <li>
               <div className="keys-tree-item">
@@ -187,6 +189,7 @@ const ChainData = (props) => {
       label: `为他人激活（${activatelength}）`,
       children: (
         <div className="p-t-16 fs-14">
+          {!activatelength && <NoData />}
           <div className="activate-list flex-row-start-center">
             {activateData.map((item, i) => {
               return (
@@ -224,7 +227,7 @@ const ChainData = (props) => {
       <div className="chain-data-title">
         <img src={block_icon} alt="" /> Chain Data
       </div>
-      <Tabs data={chainTabList} defaultActiveIndex={1} />
+      <Tabs data={chainTabList} defaultActiveIndex={0} />
     </div>
   );
 };

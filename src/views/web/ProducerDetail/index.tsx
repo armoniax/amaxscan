@@ -46,6 +46,7 @@ const ProducerDetail: FC<RouteComponentProps<{ account: string }>> = (
         //include precision
         setBalance(unstaked);
       } else {
+        console.log(unstaked,'producer-detail ----- unstakedunstakedunstaked');
         setBalance(unstaked + staked / 100000000);
       }
       // state.eosRate = this.MainService.getEosPrice();
@@ -74,7 +75,7 @@ const ProducerDetail: FC<RouteComponentProps<{ account: string }>> = (
           </p>
         </div>
       </div>
-      <AccountDetail data={detailData} />
+      <AccountDetail data={detailData} balance={balance} />
       <ChainData account={account} permissions={detailData.permissions}></ChainData>
       <Transactions account={account} />
     </div>
