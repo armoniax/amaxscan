@@ -3,7 +3,6 @@ import { memo, useEffect, useState } from "react";
 import block_icon from "@/assets/images/web/block_icon.png";
 import chain_icon from "@/assets/images/web/chain_icon.png";
 import search_icon from "@/assets/images/web/search_icon.png";
-import node_icon from "@/assets/images/web/node_icon.png";
 import key_icon from "@/assets/images/web/key_icon.png";
 import ServerApi from "@/api";
 import { Link, useHistory } from "react-router-dom";
@@ -12,6 +11,7 @@ import moment from "moment";
 import Pagination from "@/components/Pagination";
 import KeyItem from "@/components/KeyItem";
 import NoData from "@/components/NoData";
+import axiosRequest from "@/api/axiosRequest";
 
 export interface keysDataType {
   perm_name?: string;
@@ -20,39 +20,56 @@ export interface keysDataType {
   children?:any
 }
 
-const { getAccountByCreator } = ServerApi;
+const { getAccountByCreator,getNFTByScope,getTokenByScope } = ServerApi;
 const ChainData = (props) => {
+  console.log(props,'propspropspropsprops');
+
   const history = useHistory();
   let _data = [];
-  for (let i = 0; i < 20; i++) {
-    _data.push({
-      name: "prospectorsg",
-      dfs: "190,749.9181",
-    });
-  }
-  const [chainDataList, setChainDataList] = useState(_data.slice(0, 12));
+  const [tokenList, setTokenList] = useState([]);
   const [activateData, setActivateData] = useState([]);
+  const [NFTData, setNFTData] = useState([]);
   const [keysData, setKeysData] = useState<keysDataType>({});
   const [activatelength, setActivatelength] = useState(0);
   const [isUnfold, setIsUnfold] = useState(false);
+  const [currentPage,setCurrentPage] = useState(1)
 
   const toggleMore = () => {
     if (!isUnfold) {
-      setChainDataList(_data);
+      setTokenList(_data);
     } else {
-      setChainDataList(_data.slice(0, 12));
+      setTokenList(_data.slice(0, 12));
     }
     setIsUnfold(!isUnfold);
   };
+
+  const changePage = (type:string)=>{
+    switch (type) {
+      case 'prev':
+        if (currentPage > 1) {
+          setCurrentPage(currentPage-1)
+        }
+        break;
+      case 'next':
+        setCurrentPage(currentPage+1)
+        break;
+      default:
+        break;
+    }
+  }
+
   const getAccountCreator = async (page) => {
     const res = await getAccountByCreator({
-      creator: "amax",
+      creator: props.account,
       pageIndex: page,
       pageSize: 30,
     });
     setActivateData(res.data?.content);
     setActivatelength(res.data?.totalElements);
   };
+
+
+
   const toTree = (arr, perm_name)=> {
     function loop(perm_name) {
       return arr?.reduce((acc, cur) => {
@@ -65,25 +82,43 @@ const ChainData = (props) => {
     }
     return loop(perm_name)
   }
+
+  useEffect(()=>{
+    getAccountCreator(0);
+    const getTokenList = async () => {
+      const res = await getTokenByScope(props?.account);
+      setTokenList(res?.data)
+    };
+    getTokenList()
+  },[props])
   useEffect(() => {
     console.log("useEffect");
-    getAccountCreator(0);
+
     if (toTree(props.permissions,'')) {
       console.log(toTree(props.permissions,'')[0]);
       setKeysData(toTree(props.permissions,'')[0])
     }
 
-  }, [props]);
+    const getNFT = async () => {
+      const _data = []
+      const res = await getNFTByScope('testuser1',currentPage - 1)
+      for (let i = 0; i < res.data.length; i++) {
+        const data = await axiosRequest.get(res.data[i].token_uri)
+        _data.push({balance_nsymbol_id: res.data[i].balance_nsymbol_id,max_supply_amount:res.data[i].max_supply_amount,...data})
+      }
+      console.log(res,'getNFT');
+      setNFTData(_data)
+    };
+
+    getNFT()
+  }, [props,currentPage]);
   const chainTabList = [
     {
-      label: "Tokens（19）",
+      label: `Tokens（${tokenList.length}）`,
       children: (
         <>
-          <div className="p-t-16 fs-14">
-            Total Tokens Value: $2.69 USD / 1.2117 EOS
-          </div>
           <div className="chain-data-list">
-            {chainDataList.map((item, i) => {
+            {tokenList.map((item, i) => {
               return (
                 <div
                   className={`chain-data-list-item${
@@ -91,15 +126,16 @@ const ChainData = (props) => {
                   }`}
                   key={i}
                 >
-                  <img src={chain_icon} alt="" /> {item.name}
-                  <p className="dfs number-font">
-                    {item.dfs} <span className="orange">DFS</span>
+                  <img src={chain_icon} alt="" /> {item.code}
+                  <p className="dfs">
+                    <span className="number-font" title={item.balance}>{item.balance}</span> <span className="orange">{item.coin}</span>
                   </p>
                 </div>
               );
             })}
           </div>
-          <div
+          {
+            tokenList.length > 12 && <div
             className="toggle-button"
             onClick={() => {
               toggleMore();
@@ -108,6 +144,7 @@ const ChainData = (props) => {
             {isUnfold ? "收起" : "展示全部"}
             <i className={`arrow-down${isUnfold ? " up" : ""}`}></i>
           </div>
+          }
         </>
       ),
     },
@@ -143,7 +180,7 @@ const ChainData = (props) => {
       ),
     },
     {
-      label: "NFTs（2）",
+      label: `NFTs（${NFTData?.length || 0}）`,
       children: (
         <div className="p-t-16">
           <div className="nft-search flex-row-start-center">
@@ -160,28 +197,34 @@ const ChainData = (props) => {
                 <td>作者</td>
                 <td>当前编号/全部发行量</td>
               </tr>
-              <tr>
-                <td>
-                  <img className="logo" src={node_icon} alt="" />
-                </td>
-                <td>WAX Mainnet Launch Pin</td>
-                <td className="s-green">1099608412763</td>
-                <td>waxpins</td>
-                <td>waxping</td>
-                <td>#1595/1000000</td>
-              </tr>
-              <tr>
-                <td>
-                  <img className="logo" src={node_icon} alt="" />
-                </td>
-                <td>WAX Mainnet Launch Pin</td>
-                <td className="s-green">1099608412763</td>
-                <td>waxpins</td>
-                <td>waxping</td>
-                <td>#1595/1000000</td>
-              </tr>
+              {
+                NFTData?.map((item,index)=>{
+                  return (
+                    <tr key={index} onClick={()=>{
+                      history.push(`/nft-item/${props.account}/${item?.balance_nsymbol_id}`);
+                    }}>
+                      <td>
+                        <img className="logo" src={item.cover_url} alt="" />
+                      </td>
+                      <td>{item.name}</td>
+                      <td className="s-green">{item.token_id}</td>
+                      <td>{''}</td>
+                      <td>{item.issuer}</td>
+                      <td>#{item.balance_nsymbol_id}/{item.max_supply_amount}</td>
+                    </tr>
+                  )
+                })
+              }
             </tbody>
           </table>
+          {!NFTData.length && <NoData />}
+          <div className="flex-row-end-center">
+              <div className="btn-wrapper">
+                <div className="btn" onClick={()=>{changePage('prev')}}>prev</div>
+                <div className="btn">{currentPage}</div>
+                <div className="btn" onClick={()=>{changePage('next')}}>next</div>
+              </div>
+          </div>
         </div>
       ),
     },
@@ -209,7 +252,7 @@ const ChainData = (props) => {
               );
             })}
           </div>
-          <div className="flex-row-end-center">
+          {activatelength !== 0 && <div className="flex-row-end-center">
             <Pagination
               sizeOptions={[30]}
               total={activatelength}
@@ -217,7 +260,7 @@ const ChainData = (props) => {
                 getAccountCreator(currentPage - 1);
               }}
             />
-          </div>
+          </div>}
         </div>
       ),
     },

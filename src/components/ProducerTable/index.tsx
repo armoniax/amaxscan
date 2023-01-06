@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { sortArray } from "@/utils";
 import ServerApi from "@/api";
 import socket from "@/api/socket";
-const { getTableRows, getProducersBpJson } = ServerApi;
+const { getTableRows} = ServerApi;
 
 export interface ListProps {
   showPage?: boolean;
@@ -103,12 +103,15 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
       Promise.all([
         getTableRows("amax", "producers", 1000),
         getTableRows("amax", "global", 1),
-        getProducersBpJson(),
       ])
         .then((results: any[]) => {
+          console.log(4848);
 
           const totalProducerVoteWeight = Number(results[1].rows[0].total_producer_vote_weight);
-          const bpJson = results[2];
+          const bpJson = [];
+
+          console.log(bpJson,'bpJsonbpJsonbpJsonbpJson');
+
           createTable(results[0], totalProducerVoteWeight, bpJson);
 
           if (length) {
@@ -121,7 +124,10 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
             });
           }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log('promise 失败');
+
+        });
     };
     getBlockData();
   }, [length]);

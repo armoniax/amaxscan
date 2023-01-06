@@ -14,14 +14,46 @@ class ServerApi {
     private readonly baseConfig = {
         amaxNodeApi: `${process.env.REACT_APP_URL}/v1/chain/get_table_rows`,
         amaxScanApi:`${process.env.REACT_APP_AMAX_SCAN}/api`,
+        amaxScanProApi:`https://amaxscan.io/api`,
     }
 
     getLastBlocksData = async (size:number)=>{
       const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_last_blocks/${size}`, {})
       return data
     }
+
     getOverview = async ()=>{
-      const data = await get(`http://localhost:3039/api/v1/pg/getstats`, {})
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/pg/getstats`, {})
+      return data
+    }
+
+    getNFTByScope = async (account:string,page:number)=>{
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/pg/getNFTByScope/${account}/15/${page}`, {})
+      return data
+    }
+
+    getTokenList = async (_data:object)=>{
+      const data = await post(`${this.baseConfig.amaxScanApi}/v1/pg/get/tokens`, _data)
+      return data
+    }
+
+    getCoinDetail = async (code:string,coin:string)=>{
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/pg/get/tokenBycode/${code}/${coin}`, {})
+      return data
+    }
+
+    getAccountListByToken = async (params:object)=>{
+      const data = await get(`${this.baseConfig.amaxScanProApi}/stats/account/list`, params)
+      return data
+    }
+
+    getTokenByScope = async (account:string)=>{
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/pg/getTokenByScope/${account}`, {})
+      return data
+    }
+
+    getNFTBySymbolId = async (account:string,id:string)=>{
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/pg/getNFTBySymbolId/${account}/${id}`, {})
       return data
     }
 
@@ -115,7 +147,7 @@ class ServerApi {
     }
 
     getAccountByCreator = async({ creator, pageIndex, pageSize }) => {
-      const data = await get(`${this.baseConfig.amaxScanApi}/stats/account/listbyceator?creator=${creator}&pageIndex=${pageIndex}&pageSize=${pageSize}`);
+      const data = await get(`${this.baseConfig.amaxScanProApi}/stats/account/listbyceator?creator=${creator}&pageIndex=${pageIndex}&pageSize=${pageSize}`);
       return data
     }
     getKeyAccounts = async(pubkey:string) => {
@@ -131,6 +163,8 @@ class ServerApi {
       const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_code/${accountName}`);
       return data
     }
+
+
 }
 
 export default new ServerApi()

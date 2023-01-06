@@ -148,7 +148,7 @@ const Transactions= (props) => {
             return (
               <tr key={index}>
                 <td width={100}><Link to={{pathname: `/transaction-detail/${item.action_trace?.trx_id}`}} className="s-green" title={item.action_trace?.trx_id}>{ellipsisTextInMiddle(item.action_trace?.trx_id)}</Link></td>
-                <td>{handleTime(item.block_time)}</td>
+                <td width={200}>{handleTime(item.block_time)}</td>
                 <td>
                   <span className="type square">{ item?.action_trace?.act?.account } - { item?.action_trace?.act?.name }</span>
                 </td>

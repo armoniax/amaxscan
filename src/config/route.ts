@@ -38,7 +38,7 @@ const routerConfig: IRouterConfig[] = [
     },
     {
       // 单个NFT详情
-      path: '/nft-item',
+      path: '/nft-item/:account/:id',
       component: lazy(async () => await import('@/views/web/NFTItem/index')),
       mpComponent: lazy(async () => await import('@/views/mobile/NFTItem/index')),
       exact: true
@@ -80,7 +80,7 @@ const routerConfig: IRouterConfig[] = [
     },
     {
       // 代币详情
-      path: '/token-detail',
+      path: '/token-detail/:coin/:code',
       component: lazy(async () => await import('@/views/web/TokenDetail/index')),
       mpComponent: lazy(async () => await import('@/views/mobile/TokenDetail/index')),
       exact: true

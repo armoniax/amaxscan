@@ -153,3 +153,32 @@ body {
   padding: 16px;
 
 }
+
+
+.btn-wrapper{
+  margin-top: 20px;
+  font-size: 14px;
+  width: 140px;
+  border-radius: 4px;
+  border: 1px solid #4BC98F;
+  overflow: hidden;
+  height: 36px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  cursor: pointer;
+  .btn{
+    flex: 1;
+    user-select: none;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:first-child{
+      border-right: 1px solid #4BC98F;
+    }
+    &:last-child{
+      border-left: 1px solid #4BC98F;
+    }
+  }
+}

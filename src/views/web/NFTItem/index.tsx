@@ -1,10 +1,29 @@
-import {FC, memo, ReactElement} from 'react'
+import {FC, memo, ReactElement, useEffect} from 'react'
 import Baseweb from '@/components/baseContainer/webwrap'
 import node_icon from "@/assets/images/web/node_icon.png";
 import './index.scss'
+import { RouteComponentProps } from 'react-router-dom';
+import ServerApi from "@/api";
 
-const NFTItem: FC = (): ReactElement => {
+const { getNFTBySymbolId } = ServerApi;
 
+const NFTItem: FC<RouteComponentProps<{ account: string,id:string }>> = (
+  props
+): ReactElement => {
+  const {
+    match: {
+      params: { account,id },
+    },
+  } = props;
+  console.log(account,id,'account  id');
+  useEffect(()=>{
+    const initData = async () =>{
+      const res = await getNFTBySymbolId(account,id)
+      console.log(res,'resresres');
+
+    }
+    void initData()
+  },[account,id])
     return (
       <div className='nft-item'>
         <div className='section-box'>

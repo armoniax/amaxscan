@@ -118,7 +118,7 @@ const AccountDetail = (props) => {
               <div className="color-block blue">
                 <p className="title">可用余额</p>
                 <p className="ct">
-                  <span className="number number-font">{props.balance}</span> AMAX
+                  <span className="number number-font" title={props.balance}>{props.balance}</span> AMAX
                 </p>
               </div>
               <div className="color-block pink">

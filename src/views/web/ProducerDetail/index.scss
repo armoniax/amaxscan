@@ -104,9 +104,14 @@
         font-size: 14px;
 
         .number {
-          font-size: 34px;
+          font-size: 25px;
           display: inline-block;
           margin-right: 12px;
+          width: 88px;
+          display: inline-block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -300,6 +305,14 @@
         margin-top: 12px;
         font-size: 18px;
         color: #000000;
+        display: flex;
+        .number-font{
+          display: inline-block;
+          width: 87px;
+          white-space:nowrap;
+          overflow: hidden;
+          text-overflow:ellipsis;
+        }
 
         .orange {
           color: #F5B84A;
@@ -373,10 +386,19 @@
     .logo {
       width: 32px;
       border-radius: 50%;
+      height: 32px;
     }
 
     .s-green {
       color: #50BF8C;
+    }
+    tr{
+      &:not(.table-header){
+        cursor: pointer;
+        &:hover{
+          background-color: #f9f9f9;
+        }
+      }
     }
   }
 
@@ -662,31 +684,5 @@
 }
 
 
-.btn-wrapper{
-  margin-top: 20px;
-  font-size: 14px;
-  width: 140px;
-  border-radius: 4px;
-  border: 1px solid #4BC98F;
-  overflow: hidden;
-  height: 36px;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: stretch;
-  cursor: pointer;
-  .btn{
-    flex: 1;
-    user-select: none;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:first-child{
-      border-right: 1px solid #4BC98F;
-    }
-    &:last-child{
-      border-left: 1px solid #4BC98F;
-    }
-  }
-}
+
 

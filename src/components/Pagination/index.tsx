@@ -3,10 +3,11 @@ import './index.scss'
 export interface PageProps {
   onChange?:Function,
   total:number,
-  sizeOptions?:any[]
+  sizeOptions?:any[],
+  onSizeChange?:Function
 }
 
-const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOptions}) => {
+const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOptions,onSizeChange}) => {
   const [currentPage,setCurrentPage] = useState<number>(1)
   const [startPage,setStartPage] = useState<number>(1)
   const pageSizeOptions = sizeOptions ? sizeOptions : [10,20,30]
@@ -95,7 +96,7 @@ const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOpti
 
   const changePage = (currentPage) => {
     setCurrentPage(currentPage)
-    onChange && onChange(currentPage)
+    onChange && onChange(currentPage,currentSize)
     if (currentPage >= 7) {
       if (totalPage - currentPage < 5) {
         return
@@ -118,6 +119,7 @@ const Pagination: React.FunctionComponent<PageProps> = ({total,onChange,sizeOpti
 
   const changeSize = (size) => {
     setCurrentSize(size)
+    onSizeChange && onSizeChange(currentPage,size)
     // totalPage = Math.ceil(total/ size)
     // let pageList = createPage()
     // setPageList(pageList)
