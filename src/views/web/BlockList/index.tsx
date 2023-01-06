@@ -3,28 +3,33 @@ import Baseweb from "@/components/baseContainer/webwrap";
 import ServerApi from '@/api'
 import "./index.scss";
 import BlockList from "@/components/BlockList";
-import Pagination from "@/components/Pagination";
+import { Spin } from "antd";
 
 
 const BlockListPage: FC = (): ReactElement => {
   const [latestBlockList,setLatestBlockList] = useState<any[]>([])
+  const [loading,setLoading] = useState(false)
   const {
       getLastBlocksData
   } = ServerApi
 
   useEffect(() => {
     const initData = async () => {
-        const responseData = await getLastBlocksData(20)
+        setLoading(true)
+        const responseData = await getLastBlocksData(30)
         setLatestBlockList(responseData)
+        setLoading(false)
     }
     void initData()
   }, [getLastBlocksData])
 
   return (
-    <div className="latest-block section-box page">
-      <BlockList data={latestBlockList} />
-      <div className="flex-row-end-center"><Pagination total={latestBlockList.length} /></div>
-    </div>
+    <Spin spinning={loading}  tip="Loading...">
+      <div className="latest-block section-box page">
+        <BlockList data={latestBlockList} />
+      </div>
+    </Spin>
+
   );
 };
 

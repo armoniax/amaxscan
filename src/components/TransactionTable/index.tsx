@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { useHistory } from "react-router-dom";
 import "./index.scss";
+import NoData from "../NoData";
 
 export interface TableProps {
   data?: any[];
@@ -12,6 +13,7 @@ const TransactionTable: React.FunctionComponent<TableProps> = ({ data }) => {
 
   return (
     <div className="table-bar">
+
       <table className="transaction-table">
         <tbody>
           <tr className="table-header">
@@ -52,6 +54,7 @@ const TransactionTable: React.FunctionComponent<TableProps> = ({ data }) => {
             })}
         </tbody>
       </table>
+      {!data.length && <NoData />}
     </div>
   );
 };

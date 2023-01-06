@@ -9,6 +9,7 @@ import ServerApi from '@/api'
 import { handleTime } from "@/utils";
 import { Link } from "react-router-dom";
 import NoData from "@/components/NoData";
+import { Spin } from "antd";
 const {getActionsByAccount} = ServerApi
 // const { RangePicker } = DatePicker;
 // const { Option } = Select;
@@ -51,6 +52,7 @@ const {getActionsByAccount} = ServerApi
 const Transactions= (props) => {
   // const [actionList,setActionList] = useState(actionArr)
   const [trxList,setTrxList] = useState([])
+  const [loading,setLoading] = useState(false)
   const [position,setPosition] = useState(-1)
   const [currentPage,setCurrentPage] = useState(1)
 
@@ -79,9 +81,11 @@ const Transactions= (props) => {
 
   useEffect(()=>{
     const getActions = async ()=>{
+      setLoading(true)
       const res = await getActionsByAccount(props.account, position, 15)
       console.log('getActions-----', res.actions);
       setTrxList(res.actions.reverse())
+      setLoading(false)
     }
     getActions()
   },[props,position])
@@ -135,44 +139,47 @@ const Transactions= (props) => {
         </div>
         <div className="serach-filters-btn">搜索</div>
       </div> */}
-      <table className="transactions-table common-table">
-        <tbody>
-        <tr className="table-header">
-          <td>TX</td>
-          <td>日期</td>
-          <td>Action</td>
-          <td>数据</td>
-        </tr>
-        {
-          trxList?.map((item,index)=>{
-            return (
-              <tr key={index}>
-                <td width={100}><Link to={{pathname: `/transaction-detail/${item.action_trace?.trx_id}`}} className="s-green" title={item.action_trace?.trx_id}>{ellipsisTextInMiddle(item.action_trace?.trx_id)}</Link></td>
-                <td width={200}>{handleTime(item.block_time)}</td>
-                <td>
-                  <span className="type square">{ item?.action_trace?.act?.account } - { item?.action_trace?.act?.name }</span>
-                </td>
-                <td>
-                <div className="data-1">
-                  {'怎么展示怎么展示'}
-                    {/* <p>account: <span className="s-green">sz441siulzhq</span></p>
-                    <p>permission: <span className="s-red">46</span> </p> */}
-                  </div>
-                </td>
-              </tr>
-            )
-          })
-        }
-        </tbody>
-      </table>
-      {!trxList.length && <NoData />}
-      <div className="flex-row-end-center">
-          <div className="btn-wrapper">
-            <div className="btn" onClick={()=>{changePage('prev')}}>prev</div>
-            <div className="btn">{currentPage}</div>
-            <div className="btn" onClick={()=>{changePage('next')}}>next</div>
-          </div>
-      </div>
+      <Spin spinning={loading}  tip="Loading...">
+        <table className="transactions-table common-table">
+          <tbody>
+          <tr className="table-header">
+            <td>TX</td>
+            <td>日期</td>
+            <td>Action</td>
+            <td>数据</td>
+          </tr>
+          {
+            trxList?.map((item,index)=>{
+              return (
+                <tr key={index}>
+                  <td width={100}><Link to={{pathname: `/transaction-detail/${item.action_trace?.trx_id}`}} className="s-green" title={item.action_trace?.trx_id}>{ellipsisTextInMiddle(item.action_trace?.trx_id)}</Link></td>
+                  <td width={200}>{handleTime(item.block_time)}</td>
+                  <td>
+                    <span className="type square">{ item?.action_trace?.act?.account } - { item?.action_trace?.act?.name }</span>
+                  </td>
+                  <td>
+                  <div className="data-1">
+                      <span className="s-green">{ item?.action_trace?.act?.data?.from }</span>
+                      <span className="ml-2 mr-2">{item?.action_trace?.act?.data?.to && '→'} </span>
+                      <span className="s-green">{ item?.action_trace?.act?.data?.to }</span>
+                      <span className="ml-2">{ item?.action_trace?.act?.data?.quantity }</span>
+                    </div>
+                  </td>
+                </tr>
+              )
+            })
+          }
+          </tbody>
+        </table>
+        {!trxList.length && <NoData />}
+        <div className="flex-row-end-center">
+            <div className="btn-wrapper">
+              <div className="btn" onClick={()=>{changePage('prev')}}>prev</div>
+              <div className="btn">{currentPage}</div>
+              <div className="btn" onClick={()=>{changePage('next')}}>next</div>
+            </div>
+        </div>
+      </Spin>
     </div>
   );
 };

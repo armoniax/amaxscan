@@ -27,6 +27,16 @@ class ServerApi {
       return data
     }
 
+    getTotalSupply = async ()=>{
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/get_table_rows/amax.token/AMAX/stat/10`, {})
+      return data
+    }
+
+    getTotalPledge = async ()=>{
+      const data = await get(`${this.baseConfig.amaxScanApi}/v1/pg/get/pledgePrice`, {})
+      return data
+    }
+
     getNFTByScope = async (account:string,page:number)=>{
       const data = await get(`${this.baseConfig.amaxScanApi}/v1/pg/getNFTByScope/${account}/15/${page}`, {})
       return data

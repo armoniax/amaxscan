@@ -4,9 +4,11 @@ import "./index.scss";
 import ServerApi from "@/api";
 import TransactionTable from "@/components/TransactionTable";
 import socket from "@/api/socket";
+import { Spin } from "antd";
 
 const TransactionList: FC = (): ReactElement => {
   const [transactionList, setTransactionList] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
   const { getLastBlocksData } = ServerApi;
   const createTransactionsArray = (data: any) => {
     if (!data) {
@@ -28,8 +30,10 @@ const TransactionList: FC = (): ReactElement => {
 
   useEffect(() => {
     const initData = async () => {
+      setLoading(true)
       const res = await getLastBlocksData(20);
       setTransactionList(createTransactionsArray(res));
+      setLoading(false)
     };
     void initData();
     return () => {
@@ -39,7 +43,9 @@ const TransactionList: FC = (): ReactElement => {
   }, [getLastBlocksData]);
   return (
     <div className="transaction-list section-box">
-      <TransactionTable data={transactionList} />
+      <Spin spinning={loading}  tip="Loading...">
+        <TransactionTable data={transactionList} />
+      </Spin>
     </div>
   );
 };

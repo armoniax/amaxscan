@@ -2,7 +2,6 @@ import Tabs from "@/components/Tabs";
 import { memo, useEffect, useState } from "react";
 import block_icon from "@/assets/images/web/block_icon.png";
 import chain_icon from "@/assets/images/web/chain_icon.png";
-import search_icon from "@/assets/images/web/search_icon.png";
 import key_icon from "@/assets/images/web/key_icon.png";
 import ServerApi from "@/api";
 import { Link, useHistory } from "react-router-dom";
@@ -90,6 +89,7 @@ const ChainData = (props) => {
       setTokenList(res?.data)
     };
     getTokenList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[props])
   useEffect(() => {
     console.log("useEffect");
@@ -101,12 +101,11 @@ const ChainData = (props) => {
 
     const getNFT = async () => {
       const _data = []
-      const res = await getNFTByScope('testuser1',currentPage - 1)
+      const res = await getNFTByScope(props.account,currentPage - 1)
       for (let i = 0; i < res.data.length; i++) {
         const data = await axiosRequest.get(res.data[i].token_uri)
-        _data.push({balance_nsymbol_id: res.data[i].balance_nsymbol_id,max_supply_amount:res.data[i].max_supply_amount,...data})
+        data && _data.push({balance_nsymbol_id: res.data[i].balance_nsymbol_id,max_supply_amount:res.data[i].max_supply_amount,...data})
       }
-      console.log(res,'getNFT');
       setNFTData(_data)
     };
 
@@ -117,6 +116,7 @@ const ChainData = (props) => {
       label: `Tokens（${tokenList.length}）`,
       children: (
         <>
+        {tokenList.length ?
           <div className="chain-data-list">
             {tokenList.map((item, i) => {
               return (
@@ -134,6 +134,9 @@ const ChainData = (props) => {
               );
             })}
           </div>
+          :
+          <NoData />
+          }
           {
             tokenList.length > 12 && <div
             className="toggle-button"
@@ -152,8 +155,7 @@ const ChainData = (props) => {
       label: `Keys（${props.permissions?.length || 0}）`,
       children: (
         <div className="keys-wrapper">
-          {!props.permissions?.length && <NoData />}
-          <ul className="keys-tree">
+          {!props.permissions?.length ? <NoData /> : <ul className="keys-tree">
             <li>
               <div className="keys-tree-item">
                 <span className="title">{keysData.perm_name}</span>
@@ -175,7 +177,8 @@ const ChainData = (props) => {
               </div>
               {keysData.children && <KeyItem data={keysData.children} />}
             </li>
-          </ul>
+          </ul>}
+
         </div>
       ),
     },
@@ -183,10 +186,10 @@ const ChainData = (props) => {
       label: `NFTs（${NFTData?.length || 0}）`,
       children: (
         <div className="p-t-16">
-          <div className="nft-search flex-row-start-center">
+          {/* <div className="nft-search flex-row-start-center">
             <img src={search_icon} alt="" />
             <input type="text" placeholder="搜索NFT名字或者Asset ID" />
-          </div>
+          </div> */}
           <table className="nft-table common-table">
             <tbody>
               <tr className="table-header">
@@ -217,14 +220,14 @@ const ChainData = (props) => {
               }
             </tbody>
           </table>
-          {!NFTData.length && <NoData />}
-          <div className="flex-row-end-center">
+          {!NFTData.length ? <div className="flex-row-end-center">
               <div className="btn-wrapper">
                 <div className="btn" onClick={()=>{changePage('prev')}}>prev</div>
                 <div className="btn">{currentPage}</div>
                 <div className="btn" onClick={()=>{changePage('next')}}>next</div>
               </div>
           </div>
+          : <NoData /> }
         </div>
       ),
     },

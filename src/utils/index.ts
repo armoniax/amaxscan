@@ -174,7 +174,6 @@ export const handleTime = (timestamp?: any) => {
 };
 
 export const searchByInsert = async (keyword: string,history) => {
-  setTimeout(async() => {
     const res = await searchBy(keyword);
     if (res.block && !isNaN(+keyword)) {
       history.push(`/block-detail/${res.block?.block_num}`);
@@ -187,5 +186,4 @@ export const searchByInsert = async (keyword: string,history) => {
     } else {
       history.push("/404");
     }
-  }, 500);
 };

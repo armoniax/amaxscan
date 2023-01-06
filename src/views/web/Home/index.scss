@@ -24,6 +24,11 @@
       color: #909399;
     }
   }
+  .search-icon{
+    width: 18px;
+    margin-right: 12px;
+    cursor: pointer;
+  }
 }
 
 
@@ -208,18 +213,8 @@
           height: 10px;
           background: #4BC98F;
           border-radius: 7px;
+          width: 100%;
 
-          &-60 {
-            width: 60%;
-          }
-
-          &-40 {
-            width: 40%;
-          }
-
-          &-30 {
-            width: 30%;
-          }
         }
 
 

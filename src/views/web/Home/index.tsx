@@ -7,11 +7,14 @@ import LatestBlock from "./components/latest-block";
 import LatestTransaction from "./components/latest-transaction";
 import ProducerList from "./components/producer-list";
 // import APOSBlock from './components/apos-block'
-import MarketDynamic from "./components/market-dynamic";
+// import MarketDynamic from "./components/market-dynamic";
 import { useHistory } from "react-router-dom";
+import search_icon from "@/assets/images/web/search_icon.png";
 import ServerApi from "@/api";
 import socket from "@/api/socket";
 import { searchByInsert } from "@/utils";
+import { Spin } from "antd";
+
 const ungerKey = "AMAX1111111111111111111111111111111114T1Anm";
 const sortArray = (data: any) => {
   if (!data) {
@@ -63,6 +66,8 @@ const calculateEosFromVotes = (votes) => {
 const Home: FC = (): ReactElement => {
   const [latestBlockList, setLatestBlockList] = useState<any[]>([]);
   const [transactionList, setTransactionList] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [searchWord, setSearchWord] = useState('');
   const history = useHistory();
   const { t } = useTranslation();
   const { getLastBlocksData } = ServerApi;
@@ -75,9 +80,11 @@ const Home: FC = (): ReactElement => {
 
   useEffect(() => {
     const initData = async () => {
+      setLoading(true)
       const res = await getLastBlocksData(20);
       setLatestBlockList(sortArray(res));
       setTransactionList(createTransactionsArray(res));
+      setLoading(false)
     };
     void initData();
     return () => {
@@ -89,19 +96,29 @@ const Home: FC = (): ReactElement => {
   return (
     <div>
       <div className="m-search-bar section-box animate">
+        <img src={search_icon} alt="" className="search-icon" onClick={
+          ()=>{
+            searchByInsert(searchWord, history)
+          }
+        } />
         <input
           type="text"
           placeholder={t("home.searchPlace")}
           onInput={(e: any) => {
-            searchByInsert(e.target.value, history);
+            setSearchWord(e.target.value);
           }}
         />
       </div>
       <Overview />
-      <LatestBlock data={latestBlockList} />
-      <LatestTransaction data={transactionList} />
+
+      <Spin spinning={loading}  tip="Loading...">
+        <LatestBlock data={latestBlockList} />
+      </Spin>
+      <Spin spinning={loading}  tip="Loading...">
+        <LatestTransaction data={transactionList} />
+      </Spin>
       {/* <APOSBlock/> */}
-      <MarketDynamic />
+      {/* <MarketDynamic /> */}
       <ProducerList></ProducerList>
     </div>
   );

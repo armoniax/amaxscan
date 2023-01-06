@@ -15,6 +15,8 @@ const TokenDetail: FC<RouteComponentProps<{ coin: string,code:string }>> = (
   const [coinData,setCoinData] = useState<any>({})
   const [accountList,setAccountList] = useState([])
   const [totalCount,setTotalCount] = useState(0)
+  const [size,setSize] = useState(10)
+  const [page,setPage] = useState(1)
   const [loading,setLoading] = useState(false)
   const [detailLoading,setDetailLoading] = useState(false)
   const {
@@ -42,6 +44,7 @@ const TokenDetail: FC<RouteComponentProps<{ coin: string,code:string }>> = (
       getAccountList(1)
     }
     void initData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[code,coin])
 
   return (
@@ -106,7 +109,7 @@ const TokenDetail: FC<RouteComponentProps<{ coin: string,code:string }>> = (
             {accountList.map((item, i) => {
               return (
                 <tr className="text-align-between">
-                  <td>{i+1}</td>
+                  <td>{i+1+size*(page-1)}</td>
                   <td className="c-50BF8C">{item.code}</td>
                   <td className="number-font">{item.balance}</td>
                 </tr>
@@ -119,9 +122,13 @@ const TokenDetail: FC<RouteComponentProps<{ coin: string,code:string }>> = (
               sizeOptions={[10,20,30]}
               total={totalCount}
               onSizeChange={(page,size)=>{
+                setPage(page)
+                setSize(size)
                 getAccountList(1,size);
               }}
               onChange={(page,size) => {
+                setPage(page)
+                setSize(size)
                 getAccountList(page,size);
               }}
             />

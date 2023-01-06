@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { sortArray } from "@/utils";
 import ServerApi from "@/api";
 import socket from "@/api/socket";
+import { Spin } from "antd";
 const { getTableRows} = ServerApi;
 
 export interface ListProps {
@@ -20,6 +21,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
 }) => {
   const history = useHistory();
   const [list, setList] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     let votesToRemove
     const createTable = (table: any, totalVotes: number, bpJson: any) => {
@@ -100,6 +102,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
     };
 
     const getBlockData = () => {
+      setLoading(true)
       Promise.all([
         getTableRows("amax", "producers", 1000),
         getTableRows("amax", "global", 1),
@@ -123,6 +126,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
               createTable(data, totalProducerVoteWeight, bpJson);
             });
           }
+          setLoading(false)
         })
         .catch((err) => {
           console.log('promise 失败');
@@ -133,6 +137,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
   }, [length]);
   return (
     <div>
+      <Spin spinning={loading}  tip="Loading...">
       <table className="producer-list-table">
         <tbody>
           <tr className="producer-list-table-header">
@@ -144,6 +149,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
             <td style={{ textAlign: "center" }}>票数</td>
             <td>每日奖励</td>
           </tr>
+
           {list &&
             list.map((item, i) => {
               return (
@@ -183,6 +189,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
             })}
         </tbody>
       </table>
+      </Spin>
     </div>
   );
 };

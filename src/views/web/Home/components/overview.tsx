@@ -10,6 +10,8 @@ import header_logo from "@/assets/images/web/header_logo.png";
 import amax_banner from "@/assets/images/web/amax_banner.png";
 import ServerApi from "@/api";
 import "../index.scss";
+import { Spin } from "antd";
+const { getOverview,getTotalSupply,getTotalPledge,getTableRows } = ServerApi;
 
 interface overviewDataType {
   head_num:string,
@@ -23,16 +25,38 @@ interface overviewDataType {
 
 const OverView: FC = (): ReactElement => {
   const { t } = useTranslation();
+  const [loading,setLoading] = useState(false)
+  const [totalSupply,setTotalSupply] = useState('0')
+  const [totalPledge,setTotalPledge] = useState('0')
+  const [ramPrice,setRamPrice] = useState('0')
   const [overViewData,setOverViewData] = useState<overviewDataType | any>({})
-  const { getOverview } = ServerApi;
   useEffect(() => {
+    const countRamPrice = (res) => {
+      if (!res || !res.rows || !res.rows[0] || !res.rows[0].quote || !res.rows[0].base) {
+          return console.error('data error', res);
+      }
+      let data = res.rows[0];
+      let quoteBalance = Number(data.quote.balance.split(' ')[0]);
+      let baseBalance = Number(data.base.balance.split(' ')[0]);
+      setRamPrice(((quoteBalance / baseBalance) * 1024).toFixed(5))
+  };
     const initData = async () => {
+      setLoading(true)
       const res = await getOverview();
+      const supply = await getTotalSupply()
+      const pledge = await getTotalPledge()
+      const ramData = await getTableRows('amax', 'rammarket', 10)
+      countRamPrice(ramData)
+      setTotalSupply(`${supply?.rows[0]?.max_supply}`.split(' ')[0])
+      setTotalPledge(pledge?.data[0]?.sum)
+
       setOverViewData(res.data[0])
+      setLoading(false)
     };
     void initData();
-  }, [getOverview]);
+  }, []);
   return (
+    <Spin spinning={loading}  tip="Loading...">
     <div className="m-situation-blocks">
       <div className="bars-4">
         <div className="bar-item s-shadow animate">
@@ -143,10 +167,10 @@ const OverView: FC = (): ReactElement => {
           <div className="title c-909399">AMAX总供应量</div>
             <div className="flex-row-between-center">
               <div className="flex-auto c-909399 flex-row-start-center">
-                <div className="progress progress-60 "></div>
+                <div className="progress"></div>
               </div>
             <div>
-              <span className="number-font">347364328947237</span>
+              <span className="number-font">{totalSupply}</span>
               <span className="c-909399 unit">/AMAX</span>
             </div>
             </div>
@@ -155,10 +179,10 @@ const OverView: FC = (): ReactElement => {
             <div className="title c-909399">已质押</div>
             <div className="flex-row-between-center">
               <div className="flex-auto c-909399 flex-row-start-center">
-                <div className="progress progress-40"></div>
+                <div className="progress" style={{width:`${(+totalPledge/ +totalSupply * 100)}%`}} ></div>
               </div>
               <div>
-                <span className="number-font">347947237</span>
+                <span className="number-font">{totalPledge}</span>
                 <span className="c-909399 unit">/AMAX</span>
               </div>
             </div>
@@ -168,11 +192,12 @@ const OverView: FC = (): ReactElement => {
         <div className="bottom-text flex-row-between-center">
           <p className="c-909399">当前内存价格</p>
           <p>
-            <span className="number number-font">0.00335</span>/AMAX/KB
+            <span className="number number-font">{ramPrice}</span>/AMAX/KB
           </p>
         </div>
       </div>
     </div>
+    </Spin>
   );
 };
 
