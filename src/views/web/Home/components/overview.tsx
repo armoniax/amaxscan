@@ -134,15 +134,15 @@ const OverView: FC = (): ReactElement => {
           <div className="bar-item-content">
             <div className="content-wrapper flex-row-between-center">
               <p className="left">CPU上限</p>
-              <p className="right number-font">0.200s/0.200s</p>
+              <p className="right number-font">0s/0s</p>
             </div>
             <div className="content-wrapper flex-row-between-center">
               <p className="left">内存RAM</p>
-              <p className="right  number-font">3/28GB</p>
+              <p className="right  number-font">0/0GB</p>
             </div>
             <div className="content-wrapper flex-row-between-center">
               <p className="left">NET带宽上限</p>
-              <p className="right  number-font">1024 KB/1000 MB</p>
+              <p className="right  number-font">0 KB/0 MB</p>
             </div>
           </div>
         </div>
@@ -188,7 +188,9 @@ const OverView: FC = (): ReactElement => {
             </div>
           </div>
         </div>
-        <img className="banner" src={amax_banner} alt="" />
+        <a href="https://amax.network">
+          <img className="banner" src={amax_banner} alt="" />
+        </a>
         <div className="bottom-text flex-row-between-center">
           <p className="c-909399">当前内存价格</p>
           <p>

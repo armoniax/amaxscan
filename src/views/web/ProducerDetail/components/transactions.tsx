@@ -71,6 +71,8 @@ const Transactions= (props) => {
         }
         break;
       case 'next':
+        console.log(trxList[trxList.length - 1].account_action_seq -1,'trxList');
+
         setPosition(trxList[trxList.length - 1].account_action_seq -1)
         setCurrentPage(currentPage+1)
         break;

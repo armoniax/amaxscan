@@ -9,7 +9,6 @@ import ServerApi from "@/api";
 import socket from "@/api/socket";
 import { Spin } from "antd";
 const { getTableRows} = ServerApi;
-
 export interface ListProps {
   showPage?: boolean;
   length?: number;
@@ -135,6 +134,21 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
     };
     getBlockData();
   }, [length]);
+
+
+  useEffect(() => {
+    const initData = async () => {
+      console.log(487878788);
+      socket.on('get_tps_blocks', (res: any) => {
+        console.log('get_tps_blocks', res.length, res);
+      });
+    }
+    void initData();
+    return () => {
+      socket.close();
+      socket.disconnect();
+    };
+  }, []);
   return (
     <div>
       <Spin spinning={loading}  tip="Loading...">

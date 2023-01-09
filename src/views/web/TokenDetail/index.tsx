@@ -1,12 +1,12 @@
 import { FC, memo, ReactElement, useEffect, useState } from "react";
 import Baseweb from "@/components/baseContainer/webwrap";
-import node_icon from "@/assets/images/web/node_icon.png";
 import trend_icon from "@/assets/images/web/trend_icon.png";
 import "./index.scss";
-import { RouteComponentProps } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import ServerApi from "@/api";
 import Pagination from "@/components/Pagination";
 import { Spin } from "antd";
+import { getCoinImg } from "@/utils";
 const { getCoinDetail,getAccountListByToken } = ServerApi
 
 const TokenDetail: FC<RouteComponentProps<{ coin: string,code:string }>> = (
@@ -24,12 +24,10 @@ const TokenDetail: FC<RouteComponentProps<{ coin: string,code:string }>> = (
       params: { coin,code },
     },
   } = props;
-  console.log(coin,code,'coincoincoin');
 
   const getAccountList = async (pageIndex,pageSize=10)=>{
       setLoading(true)
       const list = await getAccountListByToken({code,coin,pageIndex,pageSize})
-      console.log(list?.data?.content,'datadatadata');
       setAccountList(list?.data?.content)
       setTotalCount(list?.data?.totalElements)
       setLoading(false)
@@ -41,9 +39,9 @@ const TokenDetail: FC<RouteComponentProps<{ coin: string,code:string }>> = (
       const res = await getCoinDetail(code,coin)
       setCoinData(res?.data[0]);
       setDetailLoading(false)
-      getAccountList(1)
     }
     void initData()
+    getAccountList(1)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[code,coin])
 
@@ -53,13 +51,13 @@ const TokenDetail: FC<RouteComponentProps<{ coin: string,code:string }>> = (
       <div className="section-box">
         <div className="flex-row-between-start">
           <div className="flex-row-center-stretch">
-            <img className="token-logo" src={node_icon} alt="" />
+            <img className="token-logo" src={getCoinImg(coin)} alt="" />
             <div className="flex-col-between-start">
               <div>
                 <p className="token-title">{coin}</p>
-                <p className="c-50BF8C">{code}</p>
+                <Link className="c-50BF8C" to={{ pathname: `/producer-detail/${code}`}}>{code}</Link>
               </div>
-              <div className="c-50BF8C">官网</div>
+              {coin === 'AMAX' && <a className="c-50BF8C" href="https://amax.network">官网</a>}
             </div>
           </div>
           <div className="token-number flex-row-start-center">
@@ -110,7 +108,9 @@ const TokenDetail: FC<RouteComponentProps<{ coin: string,code:string }>> = (
               return (
                 <tr className="text-align-between">
                   <td>{i+1+size*(page-1)}</td>
-                  <td className="c-50BF8C">{item.code}</td>
+                  <td className="c-50BF8C">
+                    <Link to={{ pathname: `/producer-detail/${item.code}`}}>{item.code}</Link>
+                  </td>
                   <td className="number-font">{item.balance}</td>
                 </tr>
               );

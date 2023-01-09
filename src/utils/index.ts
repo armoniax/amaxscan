@@ -187,3 +187,13 @@ export const searchByInsert = async (keyword: string,history) => {
       history.push("/404");
     }
 };
+
+
+export const getCoinImg = (imgName) =>{
+  const specialArr = ['APL','AMAX','CNYD']
+  if (specialArr.includes(imgName)) {
+    return `https://aplink-sh.oss-cn-shanghai.aliyuncs.com/explorer/images/${imgName.toLowerCase()}.png`
+  }else{
+    return `https://aplink-sh.oss-cn-shanghai.aliyuncs.com/explorer/images/${imgName}.svg`
+  }
+}
