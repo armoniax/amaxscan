@@ -28,6 +28,7 @@ const OverView: FC = (): ReactElement => {
   const { t } = useTranslation();
   const [loading,setLoading] = useState(false)
   const [curProducer, setCurProducer] = useState('');
+  const [ramGlobal, setRamGlobal] = useState<any>({});
   const [nextProducer, setNextProducer] = useState('');
   const [totalSupply,setTotalSupply] = useState('0')
   const [totalPledge,setTotalPledge] = useState('0')
@@ -48,8 +49,10 @@ const OverView: FC = (): ReactElement => {
       const res = await getOverview();
       const supply = await getTotalSupply()
       const pledge = await getTotalPledge()
-      const ramData = await getTableRows('amax', 'rammarket', 10)
-      countRamPrice(ramData)
+      const ramPriceData = await getTableRows('amax', 'rammarket', 10)
+      const ramGlobalData = await getTableRows('amax', 'global', 10)
+      setRamGlobal(ramGlobalData?.rows[0])
+      countRamPrice(ramPriceData)
       setTotalSupply(`${supply?.rows[0]?.max_supply}`.split(' ')[0])
       setTotalPledge(pledge?.data[0]?.sum)
 
@@ -78,9 +81,6 @@ const OverView: FC = (): ReactElement => {
       const _data = data.rows.slice(0,21)
       _data.forEach((item,index)=> {
         if (item.owner === curProducer) {
-          // console.log(_data.length,'_data.length');
-          // console.log(index + 1 ,'index + 1');
-
           if (index + 1 === _data.length) {
             nextProducer = _data[0].owner
           }else{
@@ -176,7 +176,7 @@ const OverView: FC = (): ReactElement => {
             </div>
             <div className="content-wrapper flex-row-between-center">
               <p className="left">内存RAM</p>
-              <p className="right  number-font">0/0GB</p>
+              <p className="right  number-font">{(ramGlobal?.total_ram_bytes_reserved / 1024 / 1024 / 1024).toFixed(2)} / {(ramGlobal?.max_ram_size / 1024 / 1024 / 1024)}GB</p>
             </div>
             <div className="content-wrapper flex-row-between-center">
               <p className="left">NET带宽上限</p>
