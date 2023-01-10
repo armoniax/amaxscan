@@ -25,7 +25,6 @@ const TransactionTable: React.FunctionComponent<TableProps> = ({ data }) => {
           </tr>
           {data &&
             data.map((item, i) => {
-            console.log(item);
               return (
                 <tr
                   key={i}

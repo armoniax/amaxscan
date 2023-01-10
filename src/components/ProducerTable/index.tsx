@@ -20,15 +20,15 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
 }) => {
   const history = useHistory();
   const [list, setList] = useState<any[]>([]);
+  const [curProducer, setCurProducer] = useState('');
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     let votesToRemove
     const createTable = (table: any, totalVotes: number, bpJson: any) => {
       const mainData = table.rows;
       const _data = joinOtherProducerInfo(countRate(sortArray(mainData), totalVotes), bpJson)
-
       if (length) {
-        setList(_data.slice(0,7))
+        setList(_data.slice(0,21))
       }else{
         setList(_data);
       }
@@ -119,7 +119,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
           if (length) {
 
             socket.on("producers", (data: any) => {
-              console.log(data,'producers');
+              // console.log(data,'producers');
               if (!data) return;
 
               createTable(data, totalProducerVoteWeight, bpJson);
@@ -138,9 +138,8 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
 
   useEffect(() => {
     const initData = async () => {
-      console.log(487878788);
       socket.on('get_tps_blocks', (res: any) => {
-        console.log('get_tps_blocks', res.length, res);
+        setCurProducer(res[0].producer)
       });
     }
     void initData();
@@ -182,7 +181,7 @@ const ProducerTable: React.FunctionComponent<ListProps> = ({
                   </td>
                   {/* <td style={{ textAlign: "center" }}>Newdex</td> */}
                   <td style={{ textAlign: "center" }}>
-                    <div className="tag">主节点</div>
+                    <div className={`tag${curProducer === item.owner ? ' s-blue':''}`}>{curProducer === item.owner ? '正在生产':'主节点'}</div>
                   </td>
                   <td
                     style={{ textAlign: "center" }}

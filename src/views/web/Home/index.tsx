@@ -48,7 +48,7 @@ const createTransactionsArray = (data: any) => {
       });
     }
   });
-  console.log(transactions, "transactions");
+  // console.log(transactions, "transactions");
 
   return transactions.slice(0, 5);
 };

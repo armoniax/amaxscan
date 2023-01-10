@@ -7,6 +7,6 @@ const socketOptions = {
   reconnectionAttempts: 1,
   transports: ['websocket', 'polling']
 }
-const socket = io('https://amaxscan.io', socketOptions);
+const socket = io(process.env.REACT_APP_AMAX_SCAN, socketOptions);
 
 export default socket

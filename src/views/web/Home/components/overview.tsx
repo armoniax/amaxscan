@@ -11,6 +11,7 @@ import amax_banner from "@/assets/images/web/amax_banner.png";
 import ServerApi from "@/api";
 import "../index.scss";
 import { Spin } from "antd";
+import socket from "@/api/socket";
 const { getOverview,getTotalSupply,getTotalPledge,getTableRows } = ServerApi;
 
 interface overviewDataType {
@@ -26,6 +27,8 @@ interface overviewDataType {
 const OverView: FC = (): ReactElement => {
   const { t } = useTranslation();
   const [loading,setLoading] = useState(false)
+  const [curProducer, setCurProducer] = useState('');
+  const [nextProducer, setNextProducer] = useState('');
   const [totalSupply,setTotalSupply] = useState('0')
   const [totalPledge,setTotalPledge] = useState('0')
   const [ramPrice,setRamPrice] = useState('0')
@@ -55,6 +58,41 @@ const OverView: FC = (): ReactElement => {
     };
     void initData();
   }, []);
+
+  useEffect(() => {
+    const initData = async () => {
+      socket.on('get_tps_blocks', (res: any) => {
+        setCurProducer(res[0].producer)
+      });
+    }
+    void initData();
+    return () => {
+      socket.close();
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(()=>{
+    socket.on("producers", (data: any) => {
+      let nextProducer = ''
+      const _data = data.rows.slice(0,21)
+      _data.forEach((item,index)=> {
+        if (item.owner === curProducer) {
+          // console.log(_data.length,'_data.length');
+          // console.log(index + 1 ,'index + 1');
+
+          if (index + 1 === _data.length) {
+            nextProducer = _data[0].owner
+          }else{
+            nextProducer = _data[index + 1].owner
+          }
+
+        }
+      })
+      setNextProducer(nextProducer)
+
+    })
+  },[curProducer])
   return (
     <Spin spinning={loading}  tip="Loading...">
     <div className="m-situation-blocks">
@@ -101,14 +139,14 @@ const OverView: FC = (): ReactElement => {
           <div className="bar-item-content flex-row-between-center">
             <div className="point left">
               <p className="point-title">当前生产点</p>
-              <p>Armonia1</p>
+              <p>{curProducer || '空'}</p>
             </div>
             <div>
               <img src={forward} alt=""></img>
             </div>
             <div className="point right">
               <p className="point-title t-right">下一个生产点</p>
-              <p className="t-right">Armonia2</p>
+              <p className="t-right">{nextProducer || '空'}</p>
             </div>
           </div>
         </div>
