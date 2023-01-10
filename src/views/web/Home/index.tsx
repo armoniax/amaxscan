@@ -72,6 +72,8 @@ const Home: FC = (): ReactElement => {
   const { t } = useTranslation();
   const { getLastBlocksData } = ServerApi;
   useEffect(() => {
+    console.log('修改了 ----');
+
     socket.on("get_last_blocks", (res: any) => {
       setLatestBlockList(sortArray(res));
       setTransactionList(createTransactionsArray(res));
