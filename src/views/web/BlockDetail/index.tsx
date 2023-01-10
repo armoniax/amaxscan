@@ -133,7 +133,7 @@ const BlockDetail: FC<RouteComponentProps<{ block_num: string }>> = (props): Rea
         <div className="section-box half">
           <div className="header row flex-row-start-center">
             <div className="title">概要：</div>
-            <div className="ct main-color">不可逆的(未渲染)</div>
+            <div className="ct main-color">{+block_num < +sessionStorage.getItem('irreversible_num') ? '不可逆的' : '可逆的'}</div>
           </div>
           <div className="row flex-row-start-center">
             <div className="title">区块高度:</div>

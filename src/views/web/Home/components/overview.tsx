@@ -57,6 +57,7 @@ const OverView: FC = (): ReactElement => {
       setTotalPledge(pledge?.data[0]?.sum)
 
       setOverViewData(res.data[0])
+      sessionStorage.setItem('irreversible_num',res?.data[0]?.irreversible_num)
       setLoading(false)
     };
     void initData();
@@ -172,7 +173,7 @@ const OverView: FC = (): ReactElement => {
           <div className="bar-item-content">
             <div className="content-wrapper flex-row-between-center">
               <p className="left">CPU上限</p>
-              <p className="right number-font">0s/0s</p>
+              <p className="right number-font">{ramGlobal?.max_block_cpu_usage * ramGlobal?.target_block_cpu_usage_pct/10000}MB/ {ramGlobal?.max_block_cpu_usage}MB</p>
             </div>
             <div className="content-wrapper flex-row-between-center">
               <p className="left">内存RAM</p>
